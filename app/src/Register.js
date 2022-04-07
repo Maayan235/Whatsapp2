@@ -11,11 +11,16 @@ class Register extends React.Component {
   
   
   register() {
-    let user = {
+      for(user in users){
+          if(newUser.userName === user.userName){
+              
+          }
+      }
+    users.push( {
       user: newUser.userName,
       pass: newUser.password,
       nick: newUser.nickName
-    }
+    })
 
   }
   
