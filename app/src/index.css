@@ -1,13 +1,46 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+.rectangle {
+  width: 80px;
+  height: 34px;
+  background: rgb(196, 196, 87);
+}
+.inputBoxName {
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  margin-right: 5px;
+  background: rgb(0, 158, 97);
+}
+.title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.redState {
+  color: red;
+  display: inline-block;
+  width: 180px;
+  height: 20px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.greenState {
+  color: green;
+  display: inline-block;
+  width: 180px;
+  height: 20px;
 }
+
+.formDiv {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.regButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+
