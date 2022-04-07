@@ -3,6 +3,7 @@ import ReactDOM, { unstable_renderSubtreeIntoContainer } from "react-dom";
 import "./styles.css";
 import {newUser} from "./NameForm"
 import NameForm from "./NameForm"
+
  
 
 
@@ -13,7 +14,7 @@ class Register extends React.Component {
   register() {
       for(user in users){
           if(newUser.userName === user.userName){
-              
+
           }
       }
     users.push( {
