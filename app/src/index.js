@@ -1,6 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { createRoot } from "react-dom/client";
-import React from "react";
-import ReactDOM from "react-dom";
 import "./styles.css";
 import Register from "./Register";
 import {Login} from  "./Login.js";

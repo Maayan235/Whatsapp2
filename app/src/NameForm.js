@@ -1,12 +1,13 @@
 
 import React from "react";
 import ReactDOM, { unstable_renderSubtreeIntoContainer } from "react-dom";
-import guideMessage from "./guideMessage";
+import GuideMessage from "./GuideMessage";
 import "./styles.css";
 
 
 var newUser = {userName:'', password:'', nickName:''}
 export{newUser};
+var passFlag = false;
 
 
 
@@ -26,9 +27,8 @@ function userValidation(user) {
 }
 
 function passwordValidation(pass) {
-  
+  passFlag = false;
   let x = pass.length;
-  let inputState = "";
   
   if (x == 0) return "";
   
@@ -40,6 +40,7 @@ function passwordValidation(pass) {
   if (!/^[A-Za-z0-9]*$/.test(pass))
     return "pls use only numbers and english letters";
     
+    passFlag = true;
     newUser.password = pass;
     return "strong!";
 }
@@ -79,9 +80,7 @@ class NameForm extends React.Component {
         <div className="formDiv">
           <span className="inputBoxName"> {this.props.inputBoxName}</span>
           <input type="text" value={this.state.value} onChange={this.handleChange}/>
-            <span className="redState" > {this.inputState} </span>
-            
-            <guideMessage inputStatee = {this.inputState}/>
+          <GuideMessage inputStatee = {this.inputState} flag1={passFlag}/>
         </div>
       </form>
     );

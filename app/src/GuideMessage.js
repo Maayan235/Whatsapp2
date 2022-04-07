@@ -3,17 +3,18 @@ import ReactDOM, { unstable_renderSubtreeIntoContainer } from "react-dom";
 import "./styles.css";
 
 
-class guideMessage extends React.Component{
+class GuideMessage extends React.Component{
   
   constructor(props) {
     super(props);
-    this.flag = true
-  }  
+    //this.flag1 = this.props.inputStatee != "strong!";
+    
+}  
     render(){
     return(
-      <span className="redState" value={this.props.inputStatee}> {this.props.inputStatee} </span>
+      <span  className={this.props.flag1 ? 'greenState' : 'redState'} value={this.props.inputStatee}> {this.props.inputStatee} </span>
     );
   }
 };
 
-export default guideMessage;
+export default GuideMessage;
