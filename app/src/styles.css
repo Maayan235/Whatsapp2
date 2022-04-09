@@ -42,5 +42,10 @@
   justify-content: center;
   margin-top: 30px;
 }
+.landButtons{
+  display: flex;
+  justify-content: center;
+
+}
 
 

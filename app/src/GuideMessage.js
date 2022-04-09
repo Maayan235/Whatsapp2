@@ -12,7 +12,7 @@ class GuideMessage extends React.Component{
 }  
     render(){
     return(
-      <span  className={this.props.flag1 ? 'greenState' : 'redState'} value={this.props.inputStatee}> {this.props.inputStatee} </span>
+      <span  className={this.props.flag1 ? 'greenState' : 'redState'} value={this.props.guideM}> {this.props.guideM} </span>
     );
   }
 };
