@@ -16,9 +16,10 @@ function App() {
 
       <Routes>
         <Route path='/' element={<LandingPage/>}></Route>
-        <Route path='/Register' element={<Register />}></Route>
+        <Route path='/Login/Register' element={<Register />}></Route>
         <Route path='/Login' element={<Login />}></Route>
         <Route path='/Database' element={<Database users = {users}/>}></Route>
+
       </Routes>
 
     </BrowserRouter>

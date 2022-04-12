@@ -2,15 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createRoot } from "react-dom/client";
 import "./styles.css";
-import Register from './Register';
+
 import LandingPage from './LandingPage'; 
 import App from './App';
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
-
+var userDetails = { userName: '', password: '', nickName: '' }
+export { userDetails };
 var users = [];
-
 export {users}
 
 

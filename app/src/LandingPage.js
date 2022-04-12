@@ -8,9 +8,9 @@ export default function LandingPage() {
 
     return (
         <>
-            <h1 className="title"> The best chat</h1>
+            <h1 className="title"> Landing Page..</h1>
 
-             <Link className = "landButtons" to='/Register' ><button>register</button> </Link><br />
+             <Link className = "landButtons" to='/Login/Register' ><button>  register </button> </Link><br />
             <Link className = "landButtons" to='/Login'><button>  Login  </button> </Link>
                 
         </>

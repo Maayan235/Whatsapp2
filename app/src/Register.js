@@ -4,12 +4,11 @@ import "./styles.css";
 
 import NameForm from "./NameForm"
 import { users } from "./index"
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Database from "./Database";
 import { useState } from "react";
+import { userDetails } from "./index";
 
-var newUser = { userName: '', password: '', nickName: '' }
-export { newUser };
 
 export default function Register() {
     
@@ -18,13 +17,13 @@ export default function Register() {
 
     const handleSubmit = () => {
         // Find user login info
-        const userData = users.find((user) => user.userName === newUser.userName);
+        const userData = users.find((user) => user.userName === userDetails.userName);
 
         // Compare user info
         if (!userData) {
             setIsSubmitted(true);
             setErrorMessage("sucsses");
-            users.push({ userName: newUser.userName, password: newUser.password, nickName: newUser.nickName });
+            users.push({ userName: userDetails.userName, password: userDetails.password, nickName: userDetails.nickName });
         }
         else {
             // Username not found
@@ -36,7 +35,7 @@ export default function Register() {
         <>
             <h1 className="title"> register page </h1>
             <div>
-                <NameForm formType={"newUser: "} inputBoxName={"Username: "} />
+                <NameForm formType={"userDetails: "} inputBoxName={"Username: "} />
             </div>
             <div>
                 <NameForm formType={"newPassword: "} inputBoxName={"Password: "} />
@@ -56,6 +55,7 @@ export default function Register() {
             <div>
                 {errorMessage}
             </div>
+            <Link className = "landButtons" to='/Login'><button>  Login  </button> </Link>
         </>
     );
 }
