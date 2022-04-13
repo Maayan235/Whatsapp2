@@ -26,17 +26,17 @@ export default function Login() {
         }
     };
     return(
-        <>
-            <h1 className="title"> Login page </h1>
-            <div>
+        <div className="position-absolute top-50 start-50 translate-middle border border-4 w-50 h-50 rounded ">
+            <h1 className="title m-3"> Login </h1>
+            <div className="p-3">
                 <NameForm formType={"userDetails: "} inputBoxName={"Username: "} />
             </div>
-            <div>
+            <div className="p-3">
                 <NameForm formType={"newPassword: "} inputBoxName={"Password: "} />
             </div>
             
             <div className="regButton">
-                <button onClick={handleSubmit}>
+                <button onClick={handleSubmit} className="btn btn-secondary btn-lg">
                     Login
                 </button>
             </div>
@@ -44,6 +44,6 @@ export default function Login() {
             <div>
                 {errorMessage}
             </div>
-        </>
+        </div>
     );
 }
