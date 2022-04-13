@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React from "react"
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom'
@@ -7,10 +6,17 @@ import Login from './Login';
 import LandingPage from './LandingPage';
 import Database from './Database';
 import { users } from './index';
+import AllContacts from './Contacts/AllContacts';
+import Chat from './ChatWindow/Chat';
 
-function App() {
+function App() { 
   return (
-
+      // <div className="container-fluid h-100">
+      //   <div className="row">
+      //       <AllContacts />
+      //       <Chat />
+      //   </div>
+      // </div>
 
     <BrowserRouter>
 
