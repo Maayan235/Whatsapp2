@@ -32,7 +32,7 @@ export default function Register() {
     };
 
     return (
-        <>
+        <div>
             <h1 className="title"> register page </h1>
             <div>
                 <NameForm formType={"userDetails: "} inputBoxName={"Username: "} />
@@ -56,7 +56,7 @@ export default function Register() {
                 {errorMessage}
             </div>
             <Link className = "landButtons" to='/Login'><button>  Login  </button> </Link>
-        </>
+        </div>
     );
 }
 
