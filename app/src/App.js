@@ -57,11 +57,11 @@ class App extends Component {
         <div className="auth-wrapper">
           <div className="auth-inner">
           <Switch>
-          <Route path="/Register" element={<Register/>}/>
-          <Route exact path='/' element={<Login/>}>
+          <Route path="/Register" component={Register}/>
+          <Route exact path='/' component={Login}>
             <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
           </Route>
-          <Route path="/Login"  element={<Login/>}/>
+          <Route path="/Login" component={Login}/>
             <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
         </Switch>
           </div>
