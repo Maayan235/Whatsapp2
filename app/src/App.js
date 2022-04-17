@@ -28,12 +28,11 @@ class App extends Component {
     // JSX code for chat window
     const renderChat = (
       <div className="container-fluid h-100">
-      <div className="row">
-          <AllContacts />
-          <Chat />
+        <div className="row">
+            <AllContacts />
+            <Chat />
+        </div>
       </div>
-    </div>
-
   );
 
     // JSX code for login form
