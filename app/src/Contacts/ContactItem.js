@@ -1,5 +1,5 @@
 
-function ContactItem({name, numOfMessages, pic}){
+function ContactItem({name, password, numOfMessages, pic}){
     return(
         <li className="list-group-item d-flex justify-content-between align-items-center">
             <div className="ms-2 me-auto">
