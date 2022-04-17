@@ -43,9 +43,6 @@ export default function Login({ isSubmitted, onSubmit }) {
                 // Invalid password
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
-                console.log(isSubmitted);
-                console.log("logged in:" );
-                console.log(uname.value);
                 onSubmit(true);
               }
         }
