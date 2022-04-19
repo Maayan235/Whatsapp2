@@ -6,6 +6,7 @@ import Chat from './ChatWindow/Chat';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
+import Database from './Database';
 
 
 class App extends Component { 
@@ -44,7 +45,7 @@ class App extends Component {
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
-                  <Link className="nav-link" to={"/Login"}>Login</Link>
+                  <Link className="nav-link" to={"/"}>Login</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to={"/Register"}>Register</Link>
@@ -56,12 +57,14 @@ class App extends Component {
         <div className="auth-wrapper">
           <div className="auth-inner">
           <Switch>
+          <Route path="/Database" component={Database}/>
           <Route path="/Register" component={Register}/>
           <Route exact path='/' component={Login}>
             <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
           </Route>
           <Route path="/Login" component={Login}/>
             <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
+
         </Switch>
           </div>
         </div>

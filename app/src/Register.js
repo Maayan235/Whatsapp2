@@ -5,7 +5,7 @@ import "./styles.css";
 import NameForm from "./NameForm"
 import { users } from "./index"
 import { Link } from 'react-router-dom'
-import Database from "./Database";
+import {Database} from "./Database";
 import { useState } from "react";
 import { userDetails } from "./index";
 
@@ -17,7 +17,7 @@ export default function Register() {
 
     const handleSubmit = () => {
         // Find user login info
-        const userData = users.find((user) => user.userName === userDetails.userName);
+        const userData = users.find((user) => user.name === userDetails.userName);
 
         // Compare user info
         if (!userData) {

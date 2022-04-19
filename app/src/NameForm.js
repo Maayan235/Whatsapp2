@@ -4,23 +4,26 @@ import ReactDOM, { unstable_renderSubtreeIntoContainer } from "react-dom";
 import GuideMessage from "./GuideMessage";
 import "./styles.css";
 import { userDetails } from "./index";
+import img from './eye.jpg'
 
-
-var flag = false;
+let flag = false;
+var flagList = {"userNameFlag": false, "passwordFlag": false, "nickNameFlag" : false};
+export {flagList};
 
 function userValidation(user) {
-  flag = false
+
+  flag = flagList.userNameFlag = false
   if (user.length < 5)
     return "too short!"
   if (!/^[A-Za-z0-9]*$/.test(user))
-    return "pls use numbers and english letters only";
-  flag = true;
+    return "pls use numbers \n and english letters only";
+  flag = flagList.userNameFlag = true;
   userDetails.userName = user;
   return "good!";
 }
 
 function passwordValidation(pass) {
-  flag = false;
+  flag = flagList.passwordFlag = false;
   let x = pass.length;
 
   if (x == 0) return "";
@@ -33,16 +36,17 @@ function passwordValidation(pass) {
   if (!/^[A-Za-z0-9]*$/.test(pass))
     return "pls use only numbers and english letters";
 
-  flag = true;
+  
+  flag = flagList.passwordFlag = true;
   userDetails.password = pass;
   return "strong!";
 }
 
 function nickNameValidation(nick) {
-  flag = false
+  flag = flagList.nickNameFlag = false
   if (nick.length < 3)
     return "too short!"
-  flag = true;
+  flag = flagList.nickNameFlag = true;
   userDetails.nickName = nick;
   return "good!";
 }
@@ -93,24 +97,39 @@ class NameForm extends React.Component {
 
 
   render() {
-    let input,see;
+    let input, see;
     if (this.props.formType === "newPassword: " | this.props.formType === "password: ") {
-      input = <input type={this.showPassword ? "text" : "password"} value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
-      see = <span onMouseOver={this.mouseOverPass} onMouseOut={this.mouseOutPass}>  see</span>
+      input = <input className="form-control" type={this.showPassword ? "text" : "password"} value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
+      see = <img src={img} onMouseOver={this.mouseOverPass} onMouseOut={this.mouseOutPass} height='20' width='27' />
     }
-    else{
-      input = <input type="text" value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
+    else {
+      input = <input className="form-control" type="text" value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
       see = <span>   </span>
-    } 
+    }
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="formDiv">
-          <span className="inputBoxName"> {this.props.inputBoxName}</span>
-          <>{input}</><>{see}</>
-          <GuideMessage guideM={this.guideMessage} flag1={flag} />
+      <>
+
+
+        <label className="registerLabel">{this.props.inputBoxName}</label>
+
+        <div className="container">
+          <div class="row">
+            <div class="col-10" >
+              <>{input}</>
+            </div>
+            <div class="col-1">
+              <>{see}</>
+            </div>
+            <div class="col-5">
+              <GuideMessage guideM={this.guideMessage} flag1={flag} />
+            </div>
+
+          </div>
+
+
 
         </div>
-      </form>
+      </>
     );
   }
 }

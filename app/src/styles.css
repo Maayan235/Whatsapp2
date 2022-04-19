@@ -31,17 +31,36 @@
   width: 180px;
   height: 20px;
 }
+.registerLabel {
+  margin-left: 14px;
+  ;
+  }
 
-.formDiv {
-  margin-bottom: 10px;
+
+
+#formDiv {
+ 
   display: flex;
-  justify-content: center;
+  justify-content:right;
+  
+  font-size: small;
 }
 
+#guideMessage {
+  font-size:x-small;
+  display: inline-block;
+  width:70px;
+  height: 20px;
+}
+
+.buttonWidth{
+  margin-top: 5px;
+  width: 80px;
+}
 .regButton {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .landButtons{
   display: flex;
