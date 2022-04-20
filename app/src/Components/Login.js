@@ -13,7 +13,7 @@ import App from "../App";
 import Register from "./Register.js";
 
 
-export default function Login({ isSubmitted, onSubmit }) {
+export default function Login({ isSubmitted, onSubmit, setUserDetails }) {
     const [errorMessage, setErrorMessage] = useState({});
     // const [submitted, setIsSubmitted] = useState(false);
 
@@ -44,6 +44,7 @@ export default function Login({ isSubmitted, onSubmit }) {
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 onSubmit(true);
+                setUserDetails(userData);
               }
         }
         else {
@@ -61,7 +62,7 @@ export default function Login({ isSubmitted, onSubmit }) {
         <input type="email" className="form-control" placeholder="Enter username" name="uname" required/>
         {renderErrorMessage("uname")}
     </div>
-    <p></p>
+    <p></p> 
     <div className="form-group">
         <label>Password</label>
         <input type="password" className="form-control" placeholder="Enter password" name="pass" required/>

@@ -16,11 +16,16 @@ class App extends Component {
       isSubmitted : false
     };
     this.setIsSubmitted = this.setIsSubmitted.bind(this);
+    this.setUserDetails = this.setUserDetails.bind(this);
+    this.loggedInUser=null;
   }
 
-  setIsSubmitted() {
+  setUserDetails(user){
+    this.loggedInUser = user;
+  }
+  setIsSubmitted(bool) {
     this.setState({
-      isSubmitted : true
+      isSubmitted : bool
     }
     );
   }
@@ -30,8 +35,8 @@ class App extends Component {
     const renderChat = (
       <div className="container-fluid h-100">
         <div className="row">
-            <AllContacts />
-            <Chat />
+            <AllContacts user= {this.loggedInUser}/>
+            <Chat setIsSubmitted={this.setIsSubmitted}/>
         </div>
       </div>
   );
@@ -60,7 +65,7 @@ class App extends Component {
           <Route path="/Database" component={Database}/>
           <Route path="/Register" component={Register}/>
           <Route exact path='/' component={Login}>
-            <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
+            <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} setUserDetails = {this.setUserDetails}/>
           </Route>
           <Route path="/Login" component={Login}/>
             <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>

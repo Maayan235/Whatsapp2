@@ -47,7 +47,9 @@ class Chat extends React.Component {
             });
         }
     };
-
+    logout() {
+        this.props.setIsSubmitted(false);
+    }
 
     render() {
         return (
@@ -55,7 +57,7 @@ class Chat extends React.Component {
                 <ChosenContact name="Avital" pic={img} />
                 <div className="align-items-end ">
                     <div>
-                    <ReptileListItems/>        
+                    <ReptileListItems/> 
                         <div className="bg-light border p-2 bd-highlight">bla</div>
                         <div className="bg-light border p-2 bd-highlight ">bla bla</div>
                         <div className="bg-light border p-2 bd-highlight">bla</div>
@@ -74,7 +76,8 @@ class Chat extends React.Component {
                                 onChange={this.handleVideoChange}
                                 accept=".mov,.mp4"
                             />{<button onClick={this.handleVideoChoose}>send</button>}
-                        </div>
+                            <div><button onClick={this.logout}>logout</button></div>
+                            </div>
                         
                                
                         

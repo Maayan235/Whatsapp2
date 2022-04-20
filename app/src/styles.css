@@ -7,6 +7,11 @@
   height: 34px;
   background: rgb(196, 196, 87);
 }
+.picButton{
+  background: transparent;
+    border: none !important;
+    font-size:0;
+}
 .inputBoxName {
   display: inline-block;
   width: 100px;
@@ -17,6 +22,7 @@
 .title {
   text-align: center;
   margin-bottom: 40px;
+  shape-rendering:unset ;
 }
 .redState {
   color: red;
