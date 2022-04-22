@@ -2,18 +2,18 @@ import './App.css';
 import React, { Component } from "react";
 import AllContacts from './Contacts/AllContacts';
 import Chat from './ChatWindow/Chat';
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
 import Register from "./Components/Register";
 import Database from './Database';
 
 
-class App extends Component { 
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isSubmitted : false
+      isSubmitted: false,
+      user: "jkjhkh"
     };
     this.setIsSubmitted = this.setIsSubmitted.bind(this);
   }
@@ -28,13 +28,14 @@ class App extends Component {
   render() {
     // JSX code for chat window
     const renderChat = (
-      <div className="container-fluid h-100">
-        <div className="row">
-            <AllContacts user= {this.loggedInUser}/>
-            <Chat setIsSubmitted={this.setIsSubmitted}/>
+      <Router>
+        <div className="container-fluid h-100">
+          <div className="row">
+            <Chat user={this.state.user} />
+          </div>
         </div>
-      </div>
-  );
+      </Router>
+    );
 
     // JSX code for login form
     const renderLogin = (
@@ -56,31 +57,32 @@ class App extends Component {
         </nav>
         <div className="auth-wrapper">
           <div className="auth-inner">
-          <Switch>
-          <Route path="/Database" component={Database}/>
-          <Route path="/Register" component={Register}/>
-          <Route exact path='/' component={Login}>
-            <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} setUserDetails = {this.setUserDetails}/>
-          </Route>
-          <Route path="/Login" component={Login}/>
-            <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted}/>
+            <Switch>
+              <Route path="/Database" component={Database} />
+              <Route path="/Register" component={Register} />
+              <Route exact path='/' component={Login}>
+                <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} setUser={this.setUser} />
+              </Route>
+              <Route path="/Login" component={Login} />
+              <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} />
 
-        </Switch>
+            </Switch>
           </div>
         </div>
       </div>
-  );
-  
-  return (
-    <Router>
-      {this.state.isSubmitted ? renderChat : renderLogin}
-    </Router>
-  );
+    );
+
+    return (
+      <Router>
+        {this.state.isSubmitted ? renderChat : renderLogin}
+      </Router>
+    );
   }
 }
 
 export default App;
 
+//       {this.state.isSubmitted ? renderChat1 : renderLogin}
 // <div className="container-fluid h-100">
 //   <div className="row">
 //       <AllContacts />
