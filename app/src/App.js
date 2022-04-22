@@ -19,7 +19,10 @@ class App extends Component {
     this.setUser = this.setUser.bind(this);
   }
 
-  setIsSubmitted() {
+  setUserDetails(user){
+    this.loggedInUser = user;
+  }
+  setIsSubmitted(bool) {
     this.setState({
       isSubmitted: true
     });
