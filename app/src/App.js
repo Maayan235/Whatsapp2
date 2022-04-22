@@ -16,19 +16,13 @@ class App extends Component {
       user: "jkjhkh"
     };
     this.setIsSubmitted = this.setIsSubmitted.bind(this);
-    this.setUser = this.setUser.bind(this);
   }
 
   setIsSubmitted() {
     this.setState({
-      isSubmitted: true
-    });
-  }
-
-  setUser = (username) => {
-    this.setState({
-      user: username
-    });
+      isSubmitted : true
+    }
+    );
   }
 
   render() {

@@ -66,7 +66,9 @@ class Chat extends React.Component {
             });
         }
     };
-
+    logout() {
+        this.props.setIsSubmitted(false);
+    }
 
     render() {
     // JSX code for chat window
