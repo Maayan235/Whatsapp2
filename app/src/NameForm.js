@@ -7,8 +7,8 @@ import { userDetails } from "./index";
 import img from './eye.jpg'
 
 let flag = false;
-var flagList = {"userNameFlag": false, "passwordFlag": false, "nickNameFlag" : false};
-export {flagList};
+var flagList = { "userNameFlag": false, "passwordFlag": false, "nickNameFlag": false };
+export { flagList };
 
 function userValidation(user) {
 
@@ -36,12 +36,19 @@ function passwordValidation(pass) {
   if (!/^[A-Za-z0-9]*$/.test(pass))
     return "pls use only numbers and english letters";
 
-  
+
   flag = flagList.passwordFlag = true;
   userDetails.password = pass;
   return "strong!";
 }
-
+function passwordConfirmation(confirmation) {
+  flag = flagList.nickNameFlag = false
+  if(confirmation!== userDetails.password){
+    return "Incompatible passwords"
+  }
+  flag = flagList.nickNameFlag = true
+  return "good!";
+}
 function nickNameValidation(nick) {
   flag = flagList.nickNameFlag = false
   if (nick.length < 3)
@@ -76,7 +83,7 @@ class NameForm extends React.Component {
   }
 
   inputType() {
-    if (this.props.formType === "newPassword: " | this.props.formType === "password: ") {
+    if (this.props.formType === "newPassword: " | this.props.formType === "passwordConfirmation: ") {
       return (<input type="password" value={this.state.value} onChange={this.handleChange}></input>
       );
     }
@@ -85,20 +92,21 @@ class NameForm extends React.Component {
   }
   handleChange(event) {
     this.setState({ value: event.target.value });
-    if (this.props.formType === "newPassword: ") {
+    if (this.props.formType === "New password: ") {
       this.guideMessage = passwordValidation(event.target.value);
-    } else
-      if (this.props.formType === "userDetails: ") {
-        this.guideMessage = userValidation(event.target.value);
-      } else {
-        this.guideMessage = nickNameValidation(event.target.value)
-      }
+    } else if (this.props.formType === "Username: ") {
+      this.guideMessage = userValidation(event.target.value);
+    } else if (this.props.formType === "Display name: ") {
+      this.guideMessage = nickNameValidation(event.target.value)
+    } else if (this.props.formType === "Password confirmation: ") {
+      this.guideMessage = passwordConfirmation(event.target.value)
+    }
   }
 
 
   render() {
     let input, see;
-    if (this.props.formType === "newPassword: " | this.props.formType === "password: ") {
+    if (this.props.formType === "New password: " | this.props.formType === "Password confirmation: ") {
       input = <input className="form-control" type={this.showPassword ? "text" : "password"} value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
       see = <img src={img} onMouseOver={this.mouseOverPass} onMouseOut={this.mouseOutPass} height='20' width='27' />
     }
@@ -110,17 +118,17 @@ class NameForm extends React.Component {
       <>
 
 
-        <label className="registerLabel">{this.props.inputBoxName}</label>
+        <label className="registerLabel">{this.props.formType}</label>
 
         <div className="container">
           <div class="row">
-            <div class="col-10" >
+            <div class="col-7" >
               <>{input}</>
             </div>
             <div class="col-1">
               <>{see}</>
             </div>
-            <div class="col-5">
+            <div class="col-4">
               <GuideMessage guideM={this.guideMessage} flag1={flag} />
             </div>
 

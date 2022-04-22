@@ -55,12 +55,13 @@ export default function Register() {
             <h1 className="title"> register page </h1>
             
 
-                <NameForm formType={"userDetails: "} inputBoxName={"Username: "} />
+                <NameForm formType={"Username: "} inputBoxName={"Username: "} />
             
-                <NameForm formType={"newPassword: "} inputBoxName={"Password: "} />
+                <NameForm formType={"New password: "} inputBoxName={"Password: "} />
            
-            
-                <NameForm formType={"Display Name: "} inputBoxName={"Nickname: "} />
+                <NameForm formType={"Password confirmation: "} inputBoxName={"Password: "} />
+
+                <NameForm formType={"Display Name: "} inputBoxName={"DisplayName: "} />
             
             <div className="regButton">
                 <button className="btn btn-primary btn-block" onClick={handleSubmit}>

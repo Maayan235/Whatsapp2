@@ -7,12 +7,20 @@ import VideoInput from "./VideoInput";
 import ContactsData from "../Contacts/ContactsData";
 import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
+import { userDetails } from "..";
+import AudioRecording from "../Components/audioRecording";
+import NameForm from "../NameForm";
+
+
+
+
 
 function ReptileListItems() {
     const reptiles = ["alligator", <input type="file" />, "lizard"];
 
     return reptiles.map((reptile) => <div>{reptile}</div>);
 }
+
 
 class Chat extends React.Component {
     constructor(props) {
@@ -70,6 +78,7 @@ class Chat extends React.Component {
         this.props.setIsSubmitted(false);
     }
 
+
     render() {
     // JSX code for chat window
     const renderChatWithContact = (
@@ -105,39 +114,80 @@ class Chat extends React.Component {
         </div>
     );
 
-    const renderChatOfYarin = (
-        <div className="col-9 vh-100">
-        <ChosenContact name="Avital" pic={img} />
-        <div className="align-items-end ">
-            <div>
-                <ReptileListItems />
-                <div className="bg-light border p-2 bd-highlight">bla</div>
-                <div className="bg-light border p-2 bd-highlight ">bla bla</div>
-                <div className="bg-light border p-2 bd-highlight">bla</div>
-                <DisplayImage url={this.state.image} />
-                <VideoInput url={this.state.VideoSrc} />
-                <div>Image</div>
-                <input type="file" name="myImage" onChange={this.onImageChange} />
-                {<button onClick={this.handleVideoChoose}>send</button>}
+    // const renderChatOfYarin = (
+    //     <div className="col-9 vh-100">
+    //     <ChosenContact name="Avital" pic={img} />
+    //     <div className="align-items-end ">
+    //         <div>
+    //             <ReptileListItems />
+    //             <div className="bg-light border p-2 bd-highlight">bla</div>
+    //             <div className="bg-light border p-2 bd-highlight ">bla bla</div>
+    //             <div className="bg-light border p-2 bd-highlight">bla</div>
+    //             <DisplayImage url={this.state.image} />
+    //             <VideoInput url={this.state.VideoSrc} />
+    //             <div>Image</div>
+    //             <input type="file" name="myImage" onChange={this.onImageChange} />
+    //             {<button onClick={this.handleVideoChoose}>send</button>}
 
-                <div>Video</div>
-                <div className="VideoInput">
-                    <input
-                        ref={this.state.inputRef}
-                        className="VideoInput_input"
-                        type="file"
-                        onChange={this.handleVideoChange}
-                        accept=".mov,.mp4"
-                    />{<button onClick={this.handleVideoChoose}>send</button>}
-                </div>
-            </div>
-            <div className="position-absolute bottom-0 end-0 w-75">
-                <input type="text" className="w-75"></input>
-                <button type="button" className="btn btn-primary">send</button>
-            </div>
-        </div>
-    </div>
-    );
+    //             <div>Video</div>
+    //             <div className="VideoInput">
+    //                 <input
+    //                     ref={this.state.inputRef}
+    //                     className="VideoInput_input"
+    //                     type="file"
+    //                     onChange={this.handleVideoChange}
+    //                     accept=".mov,.mp4"
+    //                 />{<button onClick={this.handleVideoChoose}>send</button>}
+    //     return (
+    //         <div className="col-9 vh-100">
+    //             <ChosenContact name="Avital" pic={img} />
+    //             <div className="align-items-end ">
+    //                 <div>
+    //                 <ReptileListItems/> 
+                    
+    //                     <div className="bg-light border p-2 bd-highlight">bla</div>
+    //                     <div className="bg-light border p-2 bd-highlight ">bla bla</div>
+    //                     <div className="bg-light border p-2 bd-highlight">bla</div>
+    //                     <DisplayImage url={this.state.image} />
+    //                     <VideoInput url={this.state.VideoSrc} />
+    //                     <div>Image</div>
+    //                     <input type="file" name="myImage" onChange={this.onImageChange} />
+    //                     {<button onClick={this.handleVideoChoose}>send</button>}
+
+    //                     <div>Video</div>
+    //                     <div className="VideoInput">
+    //                         <input
+    //                             ref={this.state.inputRef}
+    //                             className="VideoInput_input"
+    //                             type="file"
+    //                             onChange={this.handleVideoChange}
+    //                             accept=".mov,.mp4"
+    //                         />{<button onClick={this.handleVideoChoose}>send</button>}
+    //                         <div><button onClick={this.logout}>logout</button></div>
+    //                         </div>
+                           
+
+
+                           
+                        
+                               
+                        
+
+
+    //                 </div>
+    //                 <div className="position-absolute bottom-0 end-0 w-75">
+    //                     <input type="text" className="w-75"></input>
+    //                     <button type="button" className="btn btn-primary">send</button>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         <div className="position-absolute bottom-0 end-0 w-75">
+    //             <input type="text" className="w-75"></input>
+    //             <button type="button" className="btn btn-primary">send</button>
+    //         </div>
+    //     </div>
+    // </div>
+    // );
 
 
         return (
