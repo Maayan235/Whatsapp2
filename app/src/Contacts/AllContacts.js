@@ -55,7 +55,7 @@ import UnChosenContacts from "../Contacts/UnChosenContacts";
 // }
 
 
-function AllContacts({ username, setChatMember }) {
+function AllContacts({ username, setChatMember, logout }) {
     console.log(username)
     const [contactsList, setContactsList] = useState(ContactsData);
     const userData = ContactsData.find((user) => user.name === username);
@@ -91,7 +91,8 @@ function AllContacts({ username, setChatMember }) {
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></>)
         return (
             <div className="col-3 bg-light border vh-100">
-                {profilePic}<span>{userData.name}</span>
+                {profilePic}<span>{userData.name }</span>
+                <button onClick={ logout}>logout</button>
                 <Search doSearch={doSearch} />
                 <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} />
             </div>

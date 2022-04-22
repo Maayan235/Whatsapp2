@@ -19,9 +19,9 @@ class App extends Component {
     this.setUser = this.setUser.bind(this);
   }
 
-  setIsSubmitted() {
+  setIsSubmitted = (bool) => {
     this.setState({
-      isSubmitted: true
+      isSubmitted: bool
     });
   }
 
@@ -37,7 +37,7 @@ class App extends Component {
       <Router>
         <div className="container-fluid h-100">
           <div className="row">
-            <Chat user={this.state.user} />
+            <Chat user={this.state.user} setIsSubmitted={this.setIsSubmitted}  />
           </div>
         </div>
       </Router>

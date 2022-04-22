@@ -30,8 +30,8 @@ class Chat extends React.Component {
             inputRef: null,
             VideoSrc: null,
             conectedUser: this.props.user,
-            isChosedChat: false,
             chosenChatMember: ContactsData[0],
+            isChosedChat: false,
             chosenChatMemberNumber: -1,
         };
         this.setChat = this.setChat.bind(this);
@@ -39,6 +39,7 @@ class Chat extends React.Component {
         this.onImageChange = this.onImageChange.bind(this);
         this.handleVideoChoose = this.handleVideoChoose.bind(this);
         this.chatChanged = React.createRef();
+        this.logout = this.logout.bind(this);
     }
 
     setChat = (chatMember) => {
@@ -58,6 +59,7 @@ class Chat extends React.Component {
             VideoSrc: url
         })
     };
+
 
     handleVideoChoose = (event) => {
 
@@ -100,7 +102,9 @@ class Chat extends React.Component {
                         onChange={this.handleVideoChange}
                         accept=".mov,.mp4"
                     />{<button onClick={this.handleVideoChoose}>send</button>}
-                </div>
+                    <div><button onClick={this.logout}>logout</button></div>
+
+                    </div>
             </div>
         </div>
     );
@@ -192,8 +196,9 @@ class Chat extends React.Component {
 
         return (
             <Router>
-            <AllContacts username={this.state.conectedUser} setChatMember={this.setChat} />
+            <AllContacts username={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout}/>
             {this.state.isChosedChat ? renderChatWithContact : renderHello}
+            
         </Router>
 
 

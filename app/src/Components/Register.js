@@ -12,6 +12,7 @@ import ContactsData from "../Contacts/ContactsData";
 import img3 from "../Contacts/img3.jpg"
 import RandomImage from "../ChatWindow/RandomImage";
 import unknownImg from "./unknown.png"
+import useAudioRecording from "./audioRecording";
 
 
 
@@ -54,7 +55,7 @@ export default function Register() {
         <div>
             <h1 className="title"> register page </h1>
             
-
+                <useAudioRecording/>
                 <NameForm formType={"Username: "} inputBoxName={"Username: "} />
             
                 <NameForm formType={"New password: "} inputBoxName={"Password: "} />
