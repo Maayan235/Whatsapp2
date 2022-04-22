@@ -16,16 +16,11 @@ class App extends Component {
       isSubmitted : false
     };
     this.setIsSubmitted = this.setIsSubmitted.bind(this);
-    this.setUserDetails = this.setUserDetails.bind(this);
-    this.loggedInUser=null;
   }
 
-  setUserDetails(user){
-    this.loggedInUser = user;
-  }
-  setIsSubmitted(bool) {
+  setIsSubmitted() {
     this.setState({
-      isSubmitted : bool
+      isSubmitted : true
     }
     );
   }
