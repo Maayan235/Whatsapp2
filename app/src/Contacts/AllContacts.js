@@ -7,6 +7,11 @@ import ContactsListResults from './ContactsListResult';
 import "../styles.css";
 import unknownImg from "../Components/unknown.png"
 import plusIconImg from "./plusIcon.jpg"
+import AddContact from '../AddContact/AddContact';
+import MyContacts from './MyContacts';
+import UnChosenContacts from "../Contacts/UnChosenContacts";
+
+
 
 function AllContacts(loggedInUser) {
     
@@ -49,8 +54,5 @@ function AllContacts(loggedInUser) {
         </div>
     );
 }
-
-
-
 
 export default AllContacts

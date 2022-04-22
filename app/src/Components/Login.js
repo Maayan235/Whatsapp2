@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import Database from '../Database';
 import AllContacts from '../Contacts/AllContacts';
 import ContactsData from "../Contacts/ContactsData";
+import loggedUserName from "../Contacts/ContactsData";
 import Chat from '../ChatWindow/Chat';
 import App from "../App";
 import Register from "./Register.js";
