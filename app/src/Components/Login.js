@@ -14,7 +14,7 @@ import App from "../App";
 import Register from "./Register.js";
 
 
-export default function Login({ isSubmitted, onSubmit, setUserDetails }) {
+export default function Login({ isSubmitted, onSubmit, setUser }) {
     const [errorMessage, setErrorMessage] = useState({});
     // const [submitted, setIsSubmitted] = useState(false);
 
@@ -45,7 +45,7 @@ export default function Login({ isSubmitted, onSubmit, setUserDetails }) {
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 onSubmit(true);
-                setUserDetails(userData);
+                setUser(userData.name);
               }
         }
         else {
