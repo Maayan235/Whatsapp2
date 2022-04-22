@@ -10,18 +10,18 @@ import { userDetails } from "../index.js";
 import { flagList } from "../NameForm.js";
 import ContactsData from "../Contacts/ContactsData";
 import img3 from "../Contacts/img3.jpg"
+import RandomImage from "../ChatWindow/RandomImage";
+import unknownImg from "./unknown.png"
+
+
 
 
 export default function Register() {
-    
+
     const [errorMessage, setErrorMessage] = useState("");
     // const [isSubmitted, setIsSubmitted] = useState(false);
 
-    // const loginLink = () => {
-    //     if(errorMessage!= "sucsses!"){ return (<></>) 
-    //     }
-    //     return( <Link className="nav-link" to={"/"}> Already have a user? Login Now!</Link> )
-    // }
+    
     
     const handleSubmit = () => {
         console.log(flagList)
@@ -36,7 +36,7 @@ export default function Register() {
         if (!userData) {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
-            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: img3, messages:[]});
+            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
 
         }
         else {
@@ -45,6 +45,8 @@ export default function Register() {
 
          
     };
+    
+    const loginLink = errorMessage === "sucsses!"? <Link className="nav-link" to={"/"}> Login Now!</Link> : <></>
 
     return (
 
@@ -52,6 +54,7 @@ export default function Register() {
         <div>
             <h1 className="title"> register page </h1>
             
+
                 <NameForm formType={"userDetails: "} inputBoxName={"Username: "} />
             
                 <NameForm formType={"newPassword: "} inputBoxName={"Password: "} />
@@ -68,10 +71,9 @@ export default function Register() {
             </div>
 
             <div>
-               {errorMessage}
+               <span>{errorMessage}{loginLink}</span> 
             </div>
             <div className="regButton">
-            <Link className="nav-link" to={"/"}>Already have a user? Login Now!</Link>
             </div>
         </div>
     );
