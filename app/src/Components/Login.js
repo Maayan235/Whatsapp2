@@ -8,12 +8,13 @@ import { Link } from 'react-router-dom'
 import Database from '../Database';
 import AllContacts from '../Contacts/AllContacts';
 import ContactsData from "../Contacts/ContactsData";
+import loggedUserName from "../Contacts/ContactsData";
 import Chat from '../ChatWindow/Chat';
 import App from "../App";
 import Register from "./Register.js";
 
 
-export default function Login({ isSubmitted, onSubmit }) {
+export default function Login({ isSubmitted, onSubmit, setUser }) {
     const [errorMessage, setErrorMessage] = useState({});
     // const [submitted, setIsSubmitted] = useState(false);
 
@@ -44,6 +45,7 @@ export default function Login({ isSubmitted, onSubmit }) {
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 onSubmit(true);
+                setUser(userData.name);
               }
         }
         else {

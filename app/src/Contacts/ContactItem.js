@@ -9,7 +9,7 @@ function ContactItem({name, password, numOfMessages, pic}){
             <div className="ms-2 me-auto">
             <div className="fw-bold"> <img src={pic} className="rounded-circle m-2" width="50" height="50"></img><span>{name}</span></div>
             </div>
-            <span className="badge bg-primary rounded-pill">{numOfMessages}</span>
+            {numOfMessages !== "0" ? <span className="badge bg-primary rounded-pill">{numOfMessages}</span> : <div></div>}
         </li>
     );
 }

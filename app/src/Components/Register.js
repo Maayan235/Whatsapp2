@@ -36,7 +36,7 @@ export default function Register() {
         if (!userData) {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
-            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: img3 });
+            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: img3, messages:[]});
 
         }
         else {
@@ -68,7 +68,7 @@ export default function Register() {
             </div>
 
             <div>
-               {errorMessage} {loginLink}
+               {errorMessage}
             </div>
             <div className="regButton">
             <Link className="nav-link" to={"/"}>Already have a user? Login Now!</Link>
