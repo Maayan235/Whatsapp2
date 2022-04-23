@@ -11,8 +11,9 @@ import { flagList } from "../NameForm.js";
 import ContactsData from "../Contacts/ContactsData";
 import Yarin from "../Contacts/Yarin.jpg"
 import RandomImage from "../ChatWindow/RandomImage";
+import img3 from "../Contacts/img3.jpg"
+import UnChosenContacts from "../Contacts/UnChosenContacts";
 import unknownImg from "./unknown.png"
-import useAudioRecording from "./audioRecording";
 
 
 
@@ -38,7 +39,7 @@ export default function Register() {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
             ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
-
+            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
         }
         else {
             setErrorMessage("username already exist");

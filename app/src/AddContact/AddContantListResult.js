@@ -1,17 +1,18 @@
 import ContactItem from "../Contacts/ContactItem";
 import AddContactItem from "./AddContactItem";
 
-function AllContactsListResults({relContacts, addContact, removeAdd}){
+function AllContactsListResults({username, relContacts, addContact, removeAdd}){
 
     const changeContacts = (key) => addContact(key);
 
     const togglePopup = () => removeAdd();
 
     const contactsList = relContacts.map((contact, key)=>{
-        return <AddContactItem item={contact} addContact={changeContacts} removeAdd={togglePopup} key={key}></AddContactItem>
+        if (contact.name !== username) {
+            return <AddContactItem item={contact} addContact={changeContacts} removeAdd={togglePopup} key={key}></AddContactItem>
+        }
     });     
     
-
     return(
         <div>
             <ol className="list-group">
