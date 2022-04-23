@@ -13,8 +13,6 @@ import NameForm from "../NameForm";
 
 
 
-
-
 function ReptileListItems() {
     const reptiles = ["alligator", <input type="file" />, "lizard"];
 

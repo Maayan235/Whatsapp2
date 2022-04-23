@@ -85,7 +85,10 @@
   box-sizing: border-box;
 }
 body {
-  background: #ECE5DD !important;
+  background-image: url(ddd.jpg)  !important;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -141,4 +144,20 @@ body, html, .App, #root, .auth-wrapper {
 }
 .forgot-password a {
   color: #167bff;
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+#chat{
+  background-color: #b4a4ac98;
+}
+
+#addButton{
+  /* font-size: large; */
+  /* font-size: 30px; */
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 200%;
 }
