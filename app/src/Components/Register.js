@@ -10,9 +10,8 @@ import { userDetails } from "../index.js";
 import { flagList } from "../NameForm.js";
 import ContactsData from "../Contacts/ContactsData";
 import img3 from "../Contacts/img3.jpg"
-import RandomImage from "../ChatWindow/RandomImage";
+
 import unknownImg from "./unknown.png"
-import useAudioRecording from "./audioRecording";
 
 
 
