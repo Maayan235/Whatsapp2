@@ -6,7 +6,8 @@ import Messages from './Messages';
 import Message from './Message';
 import ChatInput from './ChatInput.js';
 import ContactsData from '../Contacts/ContactsData'
-require('../ChatApp.css');
+import '../ChatApp.css'
+// require('../ChatApp.css');
 
 
 

@@ -1,4 +1,4 @@
-import './App.css';
+// import './App.css';
 import React, { Component } from "react";
 import AllContacts from './Contacts/AllContacts';
 import Chat from './ChatWindow/Chat';
@@ -46,7 +46,7 @@ class App extends Component {
     // JSX code for login form
     const renderLogin = (
       <div className="App">
-        <nav className="navbar navbar-expand-lg navbar-light fixed-top">
+        <nav className="navbar navbar-expand-lg navbar-light">
           <div className="container">
             <Link className="navbar-brand" to={"/"}>OurWebProject</Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
