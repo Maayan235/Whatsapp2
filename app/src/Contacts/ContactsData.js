@@ -1,12 +1,12 @@
-import img1 from'./img1.jpg'
-import img2 from'./img2.jpg'
-import img3 from'./img3.jpg'
+import Avital from'./Avital.jpg'
+import Maayan from'./Maayan.jpg'
+import Yarin from'./Yarin.jpg'
 
 let currentTime = '04:04:04'
 
 
 const ContactsData = [{
-    name: "Avital", password: "123456", numOfMessages: "2", pic: img1, messages: [{
+    name: "Avital", password: "123456", numOfMessages: "2", pic: Avital, messages: [{
         message: 'Hi!',
         username: '',
         fromMe: false, time: currentTime
@@ -17,7 +17,7 @@ const ContactsData = [{
     }]
 },
 {
-    name: "Maayan", password: "123456", numOfMessages: "2", pic: img2, messages: [{
+    name: "Maayan", password: "123456", numOfMessages: "2", pic: Maayan, messages: [{
         message: 'Hello Buba',
         username: '',
         fromMe: false, time: currentTime
@@ -28,7 +28,7 @@ const ContactsData = [{
     }]
 },
 {
-    name: "Yarin", password: "123456", numOfMessages: "2", pic: img3, messages: [{
+    name: "Yarin", password: "123456", numOfMessages: "2", pic: Yarin, messages: [{
         message: 'Heyyyy',
         username: '',
         fromMe: false, time: currentTime

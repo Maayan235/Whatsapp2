@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ChosenContact from "./ChosenContact";
-import img from './img1.jpg'
 import DisplayImage from "./DisplayImage";
 import VideoInput from "./VideoInput";
 import ContactsData from "../Contacts/ContactsData";
@@ -81,7 +80,7 @@ class Chat extends React.Component {
     render() {
     // JSX code for chat window
     const renderChatWithContact = (
-        <div className="col-9 vh-100">
+        <div className="col-9 vh-100 p-0">
             <ChosenContact name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
             <div className="align-items-end ">
                 <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMemberNumber} ref={this.chatChanged}/>
