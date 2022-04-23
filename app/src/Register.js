@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom'
 import {Database} from "./Database";
 import { useState } from "react";
 import { userDetails } from "./index";
-
+//import RecorderControl
+//import RecordingsList from "./components/recordings-list";
+import useRecorder from "./hooks/useRecorder";
 
 export default function Register() {
     

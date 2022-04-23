@@ -10,18 +10,6 @@ username: '',
 fromMe: false, time: currentTime } ,{message: 'I missed you',
 username: '',
 fromMe: false, time: currentTime}]},
-<<<<<<< HEAD
-                        {name: "Maayan", password:"123456", numOfMessages: "2", pic: img2,  messages: [{message: 'Hello Buba',
-                        username: '',
-                        fromMe: false, time: currentTime } ,{message: 'How you Doin?',
-                        username: '',
-                        fromMe: false, time: currentTime}]},
-                        {name: "Yarin", password:"123456", numOfMessages: "2", pic: img3,  messages: [{message: 'Heyyyy',
-                        username: '',
-                        fromMe: false, time: currentTime } ,{message: 'Iv been tryin to call youuu',
-                        username: '',
-                        fromMe: false, time: currentTime}]}];
-=======
     {
         name: "Maayan", password: "123456", numOfMessages: "2", pic: img2, messages: [{
             message: 'Hello Buba',
@@ -44,6 +32,5 @@ fromMe: false, time: currentTime}]},
             fromMe: false, time: currentTime
         }]
     }];
->>>>>>> 9cd9b95c117dd77944ebbf9e60a5e16da1bf746d
 
 export default ContactsData
