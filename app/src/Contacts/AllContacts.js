@@ -108,7 +108,7 @@ function AllContacts({ username, setChatMember, logout }) {
                 <button onClick={ logout}>logout</button>
                 <Search doSearch={doSearch} />
                 <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} />
-                <AddContact addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp"/>
+                <AddContact username={username} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp"/>
             </div>
         );
     }
