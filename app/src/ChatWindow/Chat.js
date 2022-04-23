@@ -11,7 +11,7 @@ import { userDetails } from "..";
 import AudioRecording from "../Components/audioRecording";
 import NameForm from "../NameForm";
 
-
+import Audio from "./Audioo";
 
 
 
@@ -21,6 +21,8 @@ function ReptileListItems() {
     return reptiles.map((reptile) => <div>{reptile}</div>);
 }
 
+    // const { recorderState, ...handlers } = useRecorder();
+    // const { audio } = recorderState;
 
 class Chat extends React.Component {
     constructor(props) {
@@ -40,6 +42,9 @@ class Chat extends React.Component {
         this.handleVideoChoose = this.handleVideoChoose.bind(this);
         this.chatChanged = React.createRef();
         this.logout = this.logout.bind(this);
+        this.recordState = null;
+        this.handlers=null;
+        this.audio= null;
     }
 
     setChat = (chatMember) => {
@@ -113,6 +118,7 @@ class Chat extends React.Component {
     const renderHello = (
         <div className="col-9 vh-100">
             <h3>React Chat App</h3>
+            <Audio/>
             <h3>Hi {this.state.conectedUser}! You have new messages!
             </h3>
         </div>
