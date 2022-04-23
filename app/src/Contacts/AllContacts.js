@@ -99,9 +99,9 @@ function AllContacts({ username, setChatMember, logout }) {
 
         const changeChat = (key) => setChatMember(key);
 
-        const profilePic = unknownImg === userImage ? (<><button className="picButton" onClick={uploadFiles} ><img src={plusIconImg} className="rounded-circle m-2" width="50" height="50"></img></button>
-            <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></>) : (<><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50"></img></button>
-            <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></>)
+        const profilePic = unknownImg === userImage ? (<div><button className="picButton" onClick={uploadFiles} ><img src={plusIconImg} className="rounded-circle m-2" width="50" height="50"></img></button>
+            <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>) : (<div><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50"></img></button>
+            <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>)
         return (
             <div className="col-3 bg-light border border-5 vh-100 position-relative">
                 {profilePic}<span>{userData.name }</span>
