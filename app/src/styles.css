@@ -85,14 +85,10 @@
   box-sizing: border-box;
 }
 body {
-<<<<<<< HEAD
-  background: #ECE5DD !important;
-=======
   background-image: url(ddd.jpg)  !important;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
->>>>>>> 9cd9b95c117dd77944ebbf9e60a5e16da1bf746d
   min-height: 100vh;
   display: flex;
   font-weight: 400;

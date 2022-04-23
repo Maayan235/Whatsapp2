@@ -5,38 +5,15 @@ import AddContactsListResults from './AddContantListResult';
 import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
-<<<<<<< HEAD
-function AddContact({addContact, ContactsToAdd}) {
-  const [isOpen, setIsOpen] = useState(false);
- 
-=======
 
 function AddContact({addContact, ContactsToAdd}) {
   const [isOpen, setIsOpen] = useState(false);
 
->>>>>>> 9cd9b95c117dd77944ebbf9e60a5e16da1bf746d
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
   const changeContacts = (key) => addContact(key);
-<<<<<<< HEAD
- 
-  return (<div>
-    <button type="button" onClick={togglePopup} className="btn btn-outline-primary position-absolute bottom-0 end-0 m-4">+</button>
-    {isOpen && <CloseButton
-      content={
-        <div>
-          <AllContactsToAdd addContact={changeContacts} ContactsToAdd={ContactsToAdd}/>
-        </div>
-      }
-      handleClose={togglePopup}
-    />}
-  </div>);
-}
- 
-export default AddContact;
-=======
 
   const mystyle = {
     position: "fixed",
@@ -68,4 +45,3 @@ export default AddContact;
 export default AddContact;
 
 
->>>>>>> 9cd9b95c117dd77944ebbf9e60a5e16da1bf746d
