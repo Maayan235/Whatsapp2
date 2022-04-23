@@ -1,8 +1,7 @@
 import ContactItem from './ContactItem';
 import ContactsData from './ContactsData';
-import img1 from './img1.jpg'
 import Search from './SearchContact';
-import { useState } from 'react';
+import {useState} from 'react';
 import ContactsListResults from './ContactsListResult';
 import "../styles.css";
 import unknownImg from "../Components/unknown.png"
@@ -10,6 +9,7 @@ import plusIconImg from "./plusIcon.jpg"
 import AddContact from '../AddContact/AddContact';
 import MyContacts from './MyContacts';
 import UnChosenContacts from "../Contacts/UnChosenContacts";
+import ContactsDataStartPoint from "./ContactsDataStartPoint"
 
 
 
@@ -56,10 +56,23 @@ import UnChosenContacts from "../Contacts/UnChosenContacts";
 
 
 function AllContacts({ username, setChatMember, logout }) {
-    console.log(username)
-    const [contactsList, setContactsList] = useState(ContactsData);
+    const [contactsList, setContactsList] = useState(ContactsDataStartPoint);
     const userData = ContactsData.find((user) => user.name === username);
-    console.log(userData.pic)
+
+    // const [contactsList, setContactsList] = useState(MyContacts);
+    const [contactsListToAdd, setContactsListToAdd] = useState(UnChosenContacts);
+    const [showContactsList, setShowContactsList] = useState(ContactsDataStartPoint);
+
+    const doSearch = function(query){
+        setContactsList(showContactsList.filter((contact) => contact.name.includes(query)))
+    }
+    
+    const addContact = function(item){
+        ContactsData.push(item);
+        setContactsList(state => [...state, item]);
+        setShowContactsList(state => [...state, item]);
+        setContactsListToAdd(contactsListToAdd.filter(list => list !== item));
+    }
 
     const [userImage, setUserImage] = useState(userData.pic);
     //    
@@ -80,9 +93,9 @@ function AllContacts({ username, setChatMember, logout }) {
         }
     }
 
-        const doSearch = function (query) {
-            setContactsList(ContactsData.filter((contact) => contact.name.includes(query)));
-        }
+        // const doSearch = function (query) {
+        //     setContactsList(ContactsData.filter((contact) => contact.name.includes(query)));
+        // }
 
         const changeChat = (key) => setChatMember(key);
 
@@ -90,11 +103,12 @@ function AllContacts({ username, setChatMember, logout }) {
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></>) : (<><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50"></img></button>
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></>)
         return (
-            <div className="col-3 bg-light border vh-100">
+            <div className="col-3 bg-light border border-5 vh-100 position-relative">
                 {profilePic}<span>{userData.name }</span>
                 <button onClick={ logout}>logout</button>
                 <Search doSearch={doSearch} />
                 <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} />
+                <AddContact addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp"/>
             </div>
         );
     }
@@ -102,4 +116,3 @@ function AllContacts({ username, setChatMember, logout }) {
     export default AllContacts
 
 
-   

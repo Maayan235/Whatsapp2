@@ -13,8 +13,6 @@ import NameForm from "../NameForm";
 
 import Audio from "./Audioo";
 
-
-
 function ReptileListItems() {
     const reptiles = ["alligator", <input type="file" />, "lizard"];
 
@@ -84,7 +82,6 @@ class Chat extends React.Component {
     logout() {
         this.props.setIsSubmitted(false);
     }
-
 
     render() {
     // JSX code for chat window

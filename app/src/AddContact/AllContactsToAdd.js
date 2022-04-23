@@ -5,26 +5,30 @@ import ContactsListResults from "../Contacts/ContactsListResult";
 import {useState} from 'react';
 
 
-function AllContactsToAdd({addContact, ContactsToAdd}){
+function AllContactsToAdd({addContact, ContactsToAdd, removeAdd}){
 
     const [contactsList, setContactsList] = useState(ContactsToAdd);
+    const [showContactsList, setShowContactsList] = useState(ContactsToAdd);
+
 
     const changeContacts = (key) => {
         addContact(key);
         setContactsList(contactsList.filter(list => list !== key));
-        // console.log(MyContacts);
-        // UnChosenContacts.filter(list => list !== key)
+        setShowContactsList(showContactsList.filter(list => list !== key));
     };
 
+    const togglePopup = () => removeAdd();
+
+
     const doSearch = function(query){
-        setContactsList(contactsList.filter((contact) => contact.name.includes(query)));
+        setContactsList(showContactsList.filter((contact) => contact.name.includes(query)));
     }
     
 
     return(
         <div className="bg-light border">
             <Search doSearch={doSearch} />
-            <AddContactsListResults relContacts={contactsList} addContact={changeContacts}/>
+            <AddContactsListResults relContacts={contactsList} removeAdd={togglePopup} addContact={changeContacts}/>
         </div>
     );
 }
