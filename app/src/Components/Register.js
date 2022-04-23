@@ -10,7 +10,7 @@ import { userDetails } from "../index.js";
 import { flagList } from "../NameForm.js";
 import ContactsData from "../Contacts/ContactsData";
 import img3 from "../Contacts/img3.jpg"
-
+import UnChosenContacts from "../Contacts/UnChosenContacts";
 import unknownImg from "./unknown.png"
 
 
@@ -37,7 +37,7 @@ export default function Register() {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
             ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
-
+            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
         }
         else {
             setErrorMessage("username already exist");
