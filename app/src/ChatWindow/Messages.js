@@ -13,14 +13,15 @@ class Messages extends React.Component {
   render() {
     // Loop through all the messages in the state and create a Message component
     const messages = this.props.messages.map((message, i) => {
-        return (
-          <Message
-            key={i}
-            username={message.username}
-            message={message.message}
-            fromMe={message.fromMe} 
-            time={message.time} />
-        );
+      return (
+        <Message
+          key={i}
+          username={message.context.username}
+          message={message.context.message}
+          fromMe={message.context.fromMe} 
+          time={message.context.time}
+          type={message.type} />
+      );
       });
 
     return (
@@ -32,7 +33,7 @@ class Messages extends React.Component {
 }
 
 Messages.defaultProps = {
-  messages: []
+  messages: [{type:'', context:''}]
 };
 
 export default Messages;

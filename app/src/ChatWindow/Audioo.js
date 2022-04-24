@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 //import "./styles.css";
 
-export default function Audio() {
+export default function Audio({setAudio, src}) {
   const [stream, setStream] = useState({
     access: false,
     recorder: null,
@@ -71,6 +71,13 @@ export default function Audio() {
       });
   }
 
+  function stopAndSend(recording){
+    // stream.recorder.stop();
+    if (recording.available) {
+      setAudio(recording.url);
+    }
+  }
+
   return (
     <div className="App">
       {stream.access ? (
@@ -82,7 +89,10 @@ export default function Audio() {
             Start Recording
           </button>
           <button onClick={() => stream.recorder.stop()}>Stop Recording</button>
-          {recording.available && <audio controls src={recording.url} />}
+          {
+            stopAndSend(recording)
+             // recording.available && <audio controls src={recording.url} 
+          }
         </div>
       ) : (
         <button onClick={getAccess}>Get Mic Access</button>
