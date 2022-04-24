@@ -2,6 +2,13 @@
   font-family: sans-serif;
   text-align: center;
 }
+.overflow{
+  white-space: nowrap; 
+  width: 100px; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 5px;
+}
 .rectangle {
   width: 80px;
   height: 34px;

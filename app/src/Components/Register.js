@@ -25,7 +25,7 @@ export default function Register() {
     
     
     const handleSubmit = () => {
-        console.log(flagList)
+        // console.log(flagList)
         if(!(flagList.nickNameFlag && flagList.passwordFlag && flagList.userNameFlag)){
             setErrorMessage("Note error comments please")
             return;

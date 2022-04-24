@@ -45,18 +45,23 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message,
-      time: this.state.time
+      time: this.state.time,
+    
+      
     }
-    messageObject.fromMe = true;
+    this.props.renderAllContacts();
+        messageObject.fromMe = true;
     this.addMessage('Text', messageObject);
   }
 
   sendImageHandler() {
+
     const messageObject = {
       username: this.props.username,
       message: this.state.imageSrc,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Image', messageObject);
   }

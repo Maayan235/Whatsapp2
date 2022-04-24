@@ -27,7 +27,7 @@ export default function Audio({setAudio, src}) {
             mimeType: "audio/webm"
           });
         } catch (err) {
-          console.log(err);
+          // console.log(err);
         }
 
         const track = mediaRecorder.stream.getTracks()[0];
@@ -42,12 +42,12 @@ export default function Audio({setAudio, src}) {
         };
 
         mediaRecorder.ondataavailable = function (e) {
-          console.log("data available");
+          // console.log("data available");
           chunks.current.push(e.data);
         };
 
         mediaRecorder.onstop = async function () {
-          console.log("stopped");
+          // console.log("stopped");
 
           const url = URL.createObjectURL(chunks.current[0]);
           chunks.current = [];
@@ -66,7 +66,7 @@ export default function Audio({setAudio, src}) {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setStream({ ...stream, error });
       });
   }
