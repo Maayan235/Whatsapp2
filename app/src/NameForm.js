@@ -44,7 +44,7 @@ function passwordValidation(pass) {
 function passwordConfirmation(confirmation) {
   flag = flagList.nickNameFlag = false
   if(confirmation!== userDetails.password){
-    return "Incompatible passwords"
+    return <div>Password <br></br>doesn't match</div>
   }
   flag = flagList.nickNameFlag = true
   return "good!";
@@ -108,7 +108,7 @@ class NameForm extends React.Component {
     let input, see;
     if (this.props.formType === "New password: " | this.props.formType === "Password confirmation: ") {
       input = <input className="form-control" type={this.showPassword ? "text" : "password"} value={this.state.value} onChange={this.handleChange} id="myPassword"></input>
-      see = <img src={img} onMouseOver={this.mouseOverPass} onMouseOut={this.mouseOutPass} height='20' width='27' />
+      see = <img src={img} onMouseOver={this.mouseOverPass} onMouseOut={this.mouseOutPass} height='20' width='27'/>
     }
     else {
       input = <input className="form-control" type="text" value={this.state.value} onChange={this.handleChange} id="myPassword"></input>

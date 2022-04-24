@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ChosenContact from "./ChosenContact";
-import img from './img1.jpg'
 import DisplayImage from "./DisplayImage";
 import VideoInput from "./VideoInput";
 import ContactsData from "../Contacts/ContactsData";

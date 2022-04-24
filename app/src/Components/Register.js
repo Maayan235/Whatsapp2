@@ -9,7 +9,8 @@ import { useState } from "react";
 import { userDetails } from "../index.js";
 import { flagList } from "../NameForm.js";
 import ContactsData from "../Contacts/ContactsData";
-import img3 from "../Contacts/img3.jpg"
+import Yarin from "../Contacts/Yarin.jpg"
+import RandomImage from "../ChatWindow/RandomImage";
 import UnChosenContacts from "../Contacts/UnChosenContacts";
 import unknownImg from "./unknown.png"
 

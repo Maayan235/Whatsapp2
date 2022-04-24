@@ -1,6 +1,9 @@
-import img1 from'./img1.jpg'
-import img2 from'./img2.jpg'
-import img3 from'./img3.jpg'
+import Avital from'./Avital.jpg'
+import Maayan from'./Maayan.jpg'
+import Yarin from'./Yarin.jpg'
+import Shoval from './shoval.jpg'
+import Asaf from './Asaf.jpg'
+import Itamar from './itamar.jpg'
 
 let currentTime = '04:04:04'
 
