@@ -73,6 +73,7 @@ class ChatApp extends React.Component {
       message: this.state.videoSrc,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Video', messageObject);
   }
@@ -84,6 +85,7 @@ class ChatApp extends React.Component {
       message: src,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Audio', messageObject);
   }
