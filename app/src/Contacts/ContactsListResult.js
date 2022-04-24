@@ -15,6 +15,7 @@ function ContactsListResults({relContacts, username, setChatMember}){
                 </div>
             );
         }
+      
     });     
 
     return(

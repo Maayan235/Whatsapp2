@@ -37,8 +37,8 @@ export default function Register() {
         if (!userData) {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
-            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
-            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
+            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg });
+            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg });
         }
         else {
             setErrorMessage("username already exist");
