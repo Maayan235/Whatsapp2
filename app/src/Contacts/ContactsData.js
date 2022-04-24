@@ -9,7 +9,7 @@ let currentTime = '04:04:04'
 
 
 const ContactsData = [{
-    name: "Avital", password: "123456", numOfMessages: "2", pic: img1, messages: [{type: 'Text', context:{
+    name: "Avital", password: "123456", numOfMessages: "2", pic: Avital, messages: [{type: 'Text', context:{
         message: 'Hi!',
         username: '',
         fromMe: false, time: currentTime
@@ -20,7 +20,7 @@ const ContactsData = [{
     }}]
 },
 {
-    name: "Maayan", password: "123456", numOfMessages: "2", pic: img2, messages: [ {type: 'Text', context: {
+    name: "Maayan", password: "123456", numOfMessages: "2", pic: Maayan, messages: [ {type: 'Text', context: {
         message: 'Hello Buba',
         username: '',
         fromMe: false, time: currentTime
@@ -31,7 +31,7 @@ const ContactsData = [{
     }}]
 },
 {
-    name: "Yarin", password: "123456", numOfMessages: "2", pic: img3, messages: [{type: 'Text', context:{
+    name: "Yarin", password: "123456", numOfMessages: "2", pic: Yarin, messages: [{type: 'Text', context:{
         message: 'Heyyyy',
         username: '',
         fromMe: false, time: currentTime
