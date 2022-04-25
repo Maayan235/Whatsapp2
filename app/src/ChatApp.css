@@ -12,14 +12,14 @@ html {
   overflow-x: hidden;
   flex-grow: 1;
   padding: 20px;
-  height: 500px;
+  height: 75vh;
 }
 
 .contacts {
   overflow-y: auto;
   overflow-x: hidden;
   flex-grow: 1;
-  height: 450px;
+  height: 65vh;
 }
 
 h3 {
@@ -31,16 +31,15 @@ h3 {
 }
 
 .chat-input {
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
-  padding: 0 40px;
   flex-shrink: 0;
 }
 
 .chat-input input[type="text"] {
   width: 100%;
-  margin-left: -20px;
-  margin-right: -20px;
+
+  line-height: 30px;
 }
 
 .message.from-me .username {
@@ -56,6 +55,7 @@ h3 {
 .message.from-me .message-body {
   background-color: #DCF8C6;
   color: black;
+
 }
 
 .message {
@@ -64,7 +64,7 @@ h3 {
 .message-body {
   max-width: 80%;
   display: inline-block;
-  padding: 20px;
+  padding: 10px;
   background-color: #eee;
   border: 1px;
   border-radius: 5px;
@@ -75,7 +75,7 @@ h3 {
   font-size: 0.9rem;
   color: #999;
   margin-top: 5px;
-  padding-left: 50px;
+  /* padding-left: 50px; */
 }
 
 .username {
@@ -84,3 +84,7 @@ h3 {
   color: #999;
   margin-bottom: 5px;
 }
+
+/* #writeMaessage, #addImage{
+  display:inline-block;
+} */

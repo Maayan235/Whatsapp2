@@ -62,7 +62,7 @@ class App extends Component {
           </div>
         </nav>
         <div className="auth-wrapper">
-          <div className="auth-inner">
+          <div className="auth-inner ">
             <Switch>
               <Route path="/Database" component={Database} />
               <Route path="/Register" component={Register} />

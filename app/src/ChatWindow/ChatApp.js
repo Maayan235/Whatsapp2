@@ -140,40 +140,44 @@ executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
 
   render() {
     return (
-      <div className="container">
-      <div ref={this.scroll}>
-        <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
+      <div className="list-inline">
+        <div ref={this.scroll}>
+          <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
-        <div className="position-absolute bottom-0 end-0 w-75">
-          <ChatInput type="text" className="w-75" onSend={this.sendTextHandler} />
-          <div className="align-items-end ">
-          <button onClick={this.handleImageClick}>
-          <img src={camera} height='20' width='20'/>
-          </button>
-            <input 
-            ref={this.imageRef}
-            type="file"
-             name="myImage"
+        <div className="position-absolute bottom-0 end-0 col-9">
+          <span className='list-inline-item col-9 align-middle border rounded'>
+            <ChatInput type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
+          </span>
+          <span className='list-inline-item mb-1'>
+            <button onClick={this.handleImageClick} className="btn btn-outline-dark">
+              <img src={camera} height='20' width='20' />
+            </button>
+            <input
+              ref={this.imageRef}
+              type="file"
+              name="myImage"
               onChange={this.onImageChange}
-               style={{display:'none'}}
-                />
-                <button onClick={this.handleVideoClick}>
-                <img src={video} height='20' width='20'/>
-                </button>
-            <div className="VideoInput">
-              <input
-                ref={this.videoRef}
-                className="VideoInput_input"
-                type="file"
-                onChange={this.handleVideoChange}
-                accept=".mov,.mp4"
-                style={{display:'none'}}
-              />
-              {<button onClick={this.sendAudioHandler}>
-              <img src={microphone} height='20' width='20'/>
-              </button>}
-            </div>
-          </div>
+              style={{ display: 'none' }}
+            />
+          </span>
+          <span className="VideoInput list-inline-item">
+            <button onClick={this.handleVideoClick} className="btn btn-outline-dark">
+              <img src={video} height='20' width='20' />
+            </button>
+            <input
+              ref={this.videoRef}
+              className="VideoInput_input"
+              type="file"
+              onChange={this.handleVideoChange}
+              accept=".mov,.mp4"
+              style={{ display: 'none' }}
+            />
+          </span>
+          <span className='list-inline-item'>
+            {<button onClick={this.sendAudioHandler} className="btn btn-outline-dark">
+              <img src={microphone} height='20' width='20' />
+            </button>}
+          </span>
         </div>
       </div>
     );
