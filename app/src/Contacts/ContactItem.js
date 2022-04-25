@@ -3,7 +3,7 @@ import "../styles.css"
 import ContactsData from './ContactsData';
 import UnChosenContacts from './UnChosenContacts';
 function ContactItem({ name, password, numOfMessages, nickName, pic, messages }) {
-    const userData = ContactsData.find((user) => user.name === name);
+    let userData = ContactsData.find((user) => user.name === name);
     let isAddedUsser = false;
     if (!userData) {
         userData = UnChosenContacts.find((user) => user.name === name);
