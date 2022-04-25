@@ -2,6 +2,7 @@ import ContactItem from "./ContactItem";
 
 function ContactsListResults({relContacts, username, setChatMember,}){
 
+
     const handleClick = (key) => {setChatMember(key)
         relContacts[key].numOfMessages = "0";
     };
@@ -19,9 +20,11 @@ function ContactsListResults({relContacts, username, setChatMember,}){
     });     
 
     return(
+        <div className="contacts">
             <ol className="list-group" role="tablist">
                 {contactsList}
             </ol>
+        </div>
     );
 }
 

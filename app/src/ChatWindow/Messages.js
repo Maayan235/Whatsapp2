@@ -2,6 +2,7 @@ import React from 'react';
 
 import Message from './Message';
 
+
 class Messages extends React.Component {
 
   componentDidUpdate() {
@@ -9,7 +10,7 @@ class Messages extends React.Component {
     const objDiv = document.getElementById('messageList');
     objDiv.scrollTop = objDiv.scrollHeight;
   }
-
+  
   render() {
     // Loop through all the messages in the state and create a Message component
     const messages = this.props.messages.map((message, i) => {

@@ -6,7 +6,6 @@ import Messages from './Messages';
 import Message from './Message';
 import ChatInput from './ChatInput.js';
 import ContactsData from '../Contacts/ContactsData'
-import '../ChatApp.css'
 // require('../ChatApp.css');
 import DisplayImage from './DisplayImage';
 import VideoInput from './VideoInput';
@@ -15,9 +14,10 @@ import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
+require('../ChatApp.css');
+
 
 class ChatApp extends React.Component {
-  // socket = {};
 
   constructor(props) {
     super(props);
@@ -42,8 +42,10 @@ class ChatApp extends React.Component {
     this.setStreamAccess = this.setStreamAccess.bind(this);
     this.handleImageClick = this.handleImageClick.bind(this);
     this.handleVideoClick = this.handleVideoClick.bind(this);
-    this.imageRef = React.createRef(null);;
-    this.videoRef = React.createRef(null);;
+    this.imageRef = React.createRef(null);
+    this.videoRef = React.createRef(null);
+    this.scroll = React.createRef();
+    this.executeScroll = this.executeScroll.bind(this);
   }
   
   setStreamAccess = (bool) => {
@@ -133,10 +135,15 @@ handleImageClick = event => {
 handleVideoClick = event => {
   this.videoRef.current.click();
 }
+
+executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
+
   render() {
     return (
       <div className="container">
+      <div ref={this.scroll}>
         <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
+        </div>
         <div className="position-absolute bottom-0 end-0 w-75">
           <ChatInput type="text" className="w-75" onSend={this.sendTextHandler} />
           <div className="align-items-end ">
@@ -171,6 +178,7 @@ handleVideoClick = event => {
       </div>
     );
   }
+
 
 }
 
