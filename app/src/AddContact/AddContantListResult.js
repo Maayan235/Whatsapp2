@@ -6,7 +6,7 @@ function AllContactsListResults({username, relContacts, addContact, removeAdd}){
     const changeContacts = (key) => addContact(key);
 
     const togglePopup = () => removeAdd();
-
+    
     const contactsList = relContacts.map((contact, key)=>{
         if (contact.name !== username) {
             return <AddContactItem item={contact} addContact={changeContacts} removeAdd={togglePopup} key={key}></AddContactItem>

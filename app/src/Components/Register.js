@@ -25,7 +25,7 @@ export default function Register() {
     
     
     const handleSubmit = () => {
-        console.log(flagList)
+        // console.log(flagList)
         if(!(flagList.nickNameFlag && flagList.passwordFlag && flagList.userNameFlag)){
             setErrorMessage("Note error comments please")
             return;
@@ -37,8 +37,8 @@ export default function Register() {
         if (!userData) {
             // setIsSubmitted(true);
             setErrorMessage("sucsses!");
-            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
-            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0", pic: unknownImg });
+            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg });
+            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg });
         }
         else {
             setErrorMessage("username already exist");

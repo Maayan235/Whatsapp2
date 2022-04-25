@@ -1,6 +1,6 @@
 import ContactItem from "./ContactItem";
 
-function ContactsListResults({relContacts, username, setChatMember}){
+function ContactsListResults({relContacts, username, setChatMember,}){
 
     const handleClick = (key) => {setChatMember(key)
         relContacts[key].numOfMessages = "0";
@@ -11,10 +11,11 @@ function ContactsListResults({relContacts, username, setChatMember}){
         if (contact.name !== username) {
             return (
                 <div key={key} onClick={() => handleClick(key)}>
-                <ContactItem {...contact} key={key} ></ContactItem>
+                <ContactItem {...contact} key={key}></ContactItem>
                 </div>
             );
         }
+      
     });     
 
     return(

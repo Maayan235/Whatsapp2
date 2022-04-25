@@ -55,9 +55,12 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message,
-      time: this.state.time
+      time: this.state.time,
+    
+      
     }
-    messageObject.fromMe = true;
+    this.props.renderAllContacts();
+        messageObject.fromMe = true;
     this.addMessage('Text', messageObject);
   }
 
@@ -67,6 +70,7 @@ class ChatApp extends React.Component {
       message: src,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Image', messageObject);
   }
@@ -78,6 +82,7 @@ class ChatApp extends React.Component {
       message: src,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Video', messageObject);
   }
@@ -89,6 +94,7 @@ class ChatApp extends React.Component {
       message: this.state.audioSrc,
       time: this.state.time
     }
+    this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Audio', messageObject);
   }

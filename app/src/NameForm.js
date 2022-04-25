@@ -122,7 +122,7 @@ class NameForm extends React.Component {
 
         <div className="container">
           <div class="row">
-            <div class="col-7" >
+            <div class="col-10" >
               <>{input}</>
             </div>
             <div class="col-1">

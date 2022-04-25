@@ -54,7 +54,7 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
             mimeType: "audio/webm"
           });
         } catch (err) {
-          console.log(err);
+          // console.log(err);
         }
 
         const track = mediaRecorder.stream.getTracks()[0];
@@ -69,12 +69,12 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
         };
 
         mediaRecorder.ondataavailable = function (e) {
-          console.log("data available");
+          // console.log("data available");
           chunks.current.push(e.data);
         };
 
         mediaRecorder.onstop = async function () {
-          console.log("stopped");
+          // console.log("stopped");
 
           const url = URL.createObjectURL(chunks.current[0]);
           chunks.current = [];
@@ -93,7 +93,7 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         setStream({ ...stream, error });
       });
   }

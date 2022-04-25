@@ -17,10 +17,12 @@ class Chat extends React.Component {
             chosenChatMember: ContactsData[0],
             isChosedChat: false,
             chosenChatMemberNumber: -1,
+            render: false
         };
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();
         this.logout = this.logout.bind(this);
+        this.renderAllContacts= this.renderAllContacts.bind(this);
     }
 
     setChat = (chatMember) => {
@@ -33,6 +35,12 @@ class Chat extends React.Component {
         this.state.chosenChatMember.numOfMessages = "0";
     }
 
+    renderAllContacts(){
+        this.setState({
+            render:true
+        }); 
+    }
+
     logout() {
         this.props.setIsSubmitted(false);
     }
@@ -42,9 +50,9 @@ class Chat extends React.Component {
         // JSX code for chat window
         const renderChatWithContact = (
             <div className="col-9 vh-100">
-                <ChosenContact name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
+                <ChosenContact name={this.state.chosenChatMember.name} nickName={this.state.chosenChatMember.nickName} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMemberNumber} ref={this.chatChanged} />
+                    <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMemberNumber} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
                 </div>
             </div>
         );

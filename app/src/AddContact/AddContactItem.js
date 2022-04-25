@@ -4,7 +4,7 @@ import { useState } from 'react';
 function AddContactItem({item, addContact, removeAdd}) {
 
     function handleClick(e) {
-        console.log(item.name);
+       
         addContact(item);
         removeAdd();
       }
