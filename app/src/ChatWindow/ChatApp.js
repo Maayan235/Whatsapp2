@@ -11,6 +11,9 @@ import '../ChatApp.css'
 import DisplayImage from './DisplayImage';
 import VideoInput from './VideoInput';
 import Audio from "./Audioo";
+import camera from "./camera.png"
+import video from "./videp.png"
+import microphone from "./microphone.png"
 
 
 class ChatApp extends React.Component {
@@ -24,9 +27,11 @@ class ChatApp extends React.Component {
       messages: ContactsData[this.props.chosenChatMember].messages,
       time: currentTime,
       imageSrc: null,
-      inputRef: null,
+      imageRef: null,
+      videoRef: null,
       videoSrc: null,
-      audioSrc: null
+      audioSrc: null,
+      streamAccess: false
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
@@ -34,13 +39,18 @@ class ChatApp extends React.Component {
     this.sendAudioHandler = this.sendAudioHandler.bind(this);
     this.handleVideoChange = this.handleVideoChange.bind(this);
     this.onImageChange = this.onImageChange.bind(this);
-    this.setAudio = this.setAudio.bind(this);
-  }
-
-  setAudio = (src) => {
-    this.sendAudioHandler(src);
+    this.setStreamAccess = this.setStreamAccess.bind(this);
+    this.handleImageClick = this.handleImageClick.bind(this);
+    this.handleVideoClick = this.handleVideoClick.bind(this);
+    this.imageRef = React.createRef(null);;
+    this.videoRef = React.createRef(null);;
   }
   
+  setStreamAccess = (bool) => {
+    this.setState = {
+      streamAccess: bool
+    }
+  }
   sendTextHandler(message) {
     const messageObject = {
       username: this.props.username,
@@ -51,10 +61,10 @@ class ChatApp extends React.Component {
     this.addMessage('Text', messageObject);
   }
 
-  sendImageHandler() {
+  sendImageHandler(src) {
     const messageObject = {
       username: this.props.username,
-      message: this.state.imageSrc,
+      message: src,
       time: this.state.time
     }
     messageObject.fromMe = true;
@@ -62,10 +72,10 @@ class ChatApp extends React.Component {
   }
 
   
-  sendVideoHandler() {
+  sendVideoHandler(src) {
     const messageObject = {
       username: this.props.username,
-      message: this.state.videoSrc,
+      message: src,
       time: this.state.time
     }
     messageObject.fromMe = true;
@@ -73,10 +83,10 @@ class ChatApp extends React.Component {
   }
 
     
-  sendAudioHandler= (src) => {
+  sendAudioHandler= () => {
     const messageObject = {
       username: this.props.username,
-      message: src,
+      message: this.state.audioSrc,
       time: this.state.time
     }
     messageObject.fromMe = true;
@@ -93,9 +103,11 @@ class ChatApp extends React.Component {
   onImageChange = event => {
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
+      let url = URL.createObjectURL(img);
       this.setState({
-        imageSrc: URL.createObjectURL(img)
+        imageSrc:url
       });
+      this.sendImageHandler(url);
     }
   }
 
@@ -105,8 +117,16 @@ class ChatApp extends React.Component {
     this.setState({
         videoSrc: url
     })
+    this.sendVideoHandler(url);
 };
 
+handleImageClick = event => {
+  this.imageRef.current.click();
+}
+
+handleVideoClick = event => {
+  this.videoRef.current.click();
+}
   render() {
     return (
       <div className="container">
@@ -114,19 +134,31 @@ class ChatApp extends React.Component {
         <div className="position-absolute bottom-0 end-0 w-75">
           <ChatInput type="text" className="w-75" onSend={this.sendTextHandler} />
           <div className="align-items-end ">
-            <div>Image</div>
-            <input type="file" name="myImage" onChange={this.onImageChange} />
-            {<button onClick={this.sendImageHandler}>send</button>}
-            <div>Video</div>
+          <button onClick={this.handleImageClick}>
+          <img src={camera} height='20' width='20'/>
+          </button>
+            <input 
+            ref={this.imageRef}
+            type="file"
+             name="myImage"
+              onChange={this.onImageChange}
+               style={{display:'none'}}
+                />
+                <button onClick={this.handleVideoClick}>
+                <img src={video} height='20' width='20'/>
+                </button>
             <div className="VideoInput">
               <input
-                ref={this.state.inputRef}
+                ref={this.videoRef}
                 className="VideoInput_input"
                 type="file"
                 onChange={this.handleVideoChange}
                 accept=".mov,.mp4"
+                style={{display:'none'}}
               />
-              {<button onClick={this.sendVideoHandler}>send</button>}
+              {<button onClick={this.sendAudioHandler}>
+              <img src={microphone} height='20' width='20'/>
+              </button>}
             </div>
           </div>
         </div>

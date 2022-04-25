@@ -1,6 +1,7 @@
 import React from 'react';
 import DisplayImage from './DisplayImage';
 import VideoInput from './VideoInput';
+import Audio from './Audioo';
 
 class Message extends React.Component {
   
@@ -55,17 +56,7 @@ class Message extends React.Component {
     }
     if (this.props.type === 'Audio') {
       return (
-        <div className={`message ${fromMe}`}>
-          <div className='username'>
-            {this.props.username}
-          </div>
-          <div className='message-body'>
-            <audio controls src={this.props.message} />
-            <div className='message-time'>
-              {this.props.time}
-            </div>
-          </div>
-        </div>
+            <Audio username={this.props.username} time={this.props.time} fromMe={fromMe}/>
       );
     }
 

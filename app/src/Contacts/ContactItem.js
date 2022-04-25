@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function ContactItem({name, password, numOfMessages, pic}){
+function ContactItem({name, password, numOfMessages, pic, messeges}){
 
 
     return(

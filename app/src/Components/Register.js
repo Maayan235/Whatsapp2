@@ -47,7 +47,7 @@ export default function Register() {
          
     };
     
-    const loginLink = errorMessage === "sucsses!"? <Link className="nav-link" to={"/"}> Login Now!</Link> : <></>
+    const loginLink = errorMessage === "sucsses!"? <Link className="nav-link" to={"/"}> Login Now!</Link> : <div></div>
 
     return (
 
@@ -55,7 +55,6 @@ export default function Register() {
         <div>
             <h1 className="title"> register page </h1>
             
-                <useAudioRecording/>
                 <NameForm formType={"Username: "} inputBoxName={"Username: "} />
             
                 <NameForm formType={"New password: "} inputBoxName={"Password: "} />

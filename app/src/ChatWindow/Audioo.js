@@ -1,7 +1,32 @@
 import React, { useState, useRef } from "react";
+import soundWaves from "./soundWaves.gif"
 //import "./styles.css";
 
-export default function Audio({setAudio, src}) {
+const mystyle = {
+  position: "fixed",
+  left: "50%",
+  top: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "500px",
+  background: "#FFF",
+  "z-index": "200",
+  "box-shadow": "#000 0 2px 18px"
+};
+const myGivStyle = {
+  padding: "30px",
+  width: "50%",
+  transform: "translate(50%, 0%)",
+};
+
+const myButtonStyle = {
+  position: "fixed",
+  top: "60%",
+  left: "35%",
+  transform: "translate(0%, 300%)",
+};
+
+export default function Audio({username, time, fromMe, streamAccess, setStreamAccess}) {
+  let soundWavesGif = require("./soundWaves.gif");
   const [stream, setStream] = useState({
     access: false,
     recorder: null,
@@ -13,6 +38,8 @@ export default function Audio({setAudio, src}) {
     available: false,
     url: ""
   });
+
+  const [isRecording, setIsRecording] = useState(true);
 
   const chunks = useRef([]);
 
@@ -70,33 +97,50 @@ export default function Audio({setAudio, src}) {
         setStream({ ...stream, error });
       });
   }
-
-  function stopAndSend(recording){
-    // stream.recorder.stop();
-    if (recording.available) {
-      setAudio(recording.url);
-    }
-  }
-
+  
   return (
-    <div className="App">
+    <div>
       {stream.access ? (
-        <div className="audio-container">
-          <button
-            className={recording.active ? "active" : null}
-            onClick={() => !recording.active && stream.recorder.start()}
-          >
-            Start Recording
-          </button>
-          <button onClick={() => stream.recorder.stop()}>Stop Recording</button>
-          {
-            stopAndSend(recording)
-             // recording.available && <audio controls src={recording.url} 
-          }
+        <div>
+        {recording.available? <div></div>: (<div style={mystyle}>
+          {!recording.active?
+            (
+              <div>
+                { stream.recorder.start() && !recording.active}
+              </div>
+            ) :
+            (
+              <div>
+            <h3>Recording now...</h3>
+            <img style={myGivStyle} src={soundWavesGif} alt="wait until the record stops"/>
+              <button style={myButtonStyle} onClick={function(event){stream.recorder.stop(); setIsRecording(false);}}>Stop Recording</button>
+              </div>
+            )}
+        </div>)}
+          <div className={`message ${fromMe}`}>
+            <div className='username'>
+              {username}
+            </div>
+            <div className='message-body'>
+              <div className="App">
+                <div className="audio-container">
+                  {recording.available && <audio controls src={recording.url} />}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='message-time'>
+            {time}
+          </div>
         </div>
+
       ) : (
-        <button onClick={getAccess}>Get Mic Access</button>
+        <div style={mystyle}>
+        <h3>For recording, please give access for your microphone</h3>
+        <button style={myButtonStyle} onClick={getAccess}>Get Microphone Access</button>
+        </div>
       )}
+
     </div>
   );
 }
