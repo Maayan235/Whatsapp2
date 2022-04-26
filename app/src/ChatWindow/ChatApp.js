@@ -107,7 +107,7 @@ class ChatApp extends React.Component {
   sendAudioHandler = () => {
     const messageObject = {
       username: this.props.username,
-      message: this.state.audioSrc,
+      message: this.state.audioUrl,
       time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
@@ -156,7 +156,7 @@ class ChatApp extends React.Component {
     this.setState({
       isRecording: true
     });
-    console.log(this.state.isRecording);
+   // console.log(this.state.isRecording);
   }
 
   executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
@@ -164,8 +164,6 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
-      <Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl}/>
-      {this.state.audioUrl? <audio src={this.state.audioUrl}>!</audio> : <div></div>}
         <div ref={this.scroll}>
           <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
@@ -205,7 +203,8 @@ class ChatApp extends React.Component {
           </span>
           <div>
           { this.state.isRecording ?
-            <Audio username={this.props.username} time={this.props.time} fromMe={true} />
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl}/>
+      {this.sendAudioHandler}</div>
             : 
             null
           }
