@@ -31,9 +31,13 @@ class ChatApp extends React.Component {
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
+<<<<<<< HEAD
       audioUrl : {url: null},
       streamAccess: false,
       
+=======
+      isRecording: false
+>>>>>>> b755ad430fbfc2ced62b5cb621899fd8a88a422a
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
@@ -49,12 +53,16 @@ class ChatApp extends React.Component {
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
     this.getCurrentTime = this.getCurrentTime.bind(this);
+<<<<<<< HEAD
     
+=======
+    this.handleAudioClick = this.handleAudioClick.bind(this);
+>>>>>>> b755ad430fbfc2ced62b5cb621899fd8a88a422a
   }
 
-  getCurrentTime(){
+  getCurrentTime() {
     var today = new Date(),
-    currentTime = today.getHours() + ':' + today.getMinutes();
+      currentTime = today.getHours() + ':' + today.getMinutes();
     return currentTime;
   }
 
@@ -151,6 +159,13 @@ class ChatApp extends React.Component {
     this.videoRef.current.click();
   }
 
+  handleAudioClick = event => {
+    this.setState({
+      isRecording: true
+    });
+    console.log(this.state.isRecording);
+  }
+
   executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
 
   render() {
@@ -191,10 +206,17 @@ class ChatApp extends React.Component {
             />
           </span>
           <span className='list-inline-item'>
-            {<button onClick={this.sendAudioHandler} className="btn btn-outline-dark">
+            <button onClick={this.handleAudioClick} className="btn btn-outline-dark">
               <img src={microphone} height='20' width='20' />
-            </button>}
+            </button>
           </span>
+          <div>
+          { this.state.isRecording ?
+            <Audio username={this.props.username} time={this.props.time} fromMe={true} />
+            : 
+            null
+          }
+          </div>
         </div>
       </div>
     );
