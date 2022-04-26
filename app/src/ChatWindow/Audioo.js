@@ -134,6 +134,7 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
     getAccess();
     if (stream.access) {
       micAccessUpdate();
+      
     }
   }
 
@@ -167,7 +168,7 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
                   <h3>Recording now...</h3>
                   <img style={myGivStyle} src={soundWavesGif} alt="wait until the record stops" />
                   <button style={mySendButtonStyle} onClick={function (event) { stream.recorder.stop(); setIsRecording(false); }}>Send</button>
-                  <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
+                  <button style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancle</button>
                 </div>
                 :
                 <div></div>
@@ -189,7 +190,7 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
               <div style={mystyle} >
                 <h3>For recording, please give access for your microphone</h3>
                 <button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>
-                <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
+                <button style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancle</button>
               </div>
             ) : (<div></div>)
           }
