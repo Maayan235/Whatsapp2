@@ -158,7 +158,6 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
   
   return (
     <div>
-      {(micAccess) ? (
         <div>
         { stream.access ? 
         (<div>
@@ -190,20 +189,6 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
         </div>
         ) : getAccess() }
         </div>
-      ) : (
-        <div>
-          {
-            isBoxOpen ? (
-              <div style={mystyle} >
-                <h3>For recording, please give access for your microphone</h3>
-               {recording.gotAccessAlready?<button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>:<button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access!!!</button>} 
-                <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
-              </div>
-            ) : (<div></div>)
-          }
-        </div>
-      )}
-
     </div>
   );
 }

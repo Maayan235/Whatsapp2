@@ -1,7 +1,6 @@
 import React from 'react';
 import DisplayImage from './DisplayImage';
 import VideoInput from './VideoInput';
-import Audio from './Audioo';
 
 class Message extends React.Component {
   
@@ -56,7 +55,6 @@ class Message extends React.Component {
     }
     if (this.props.type === 'Audio') {
       return (
-        // <Audio username={this.props.username} time={this.props.time} fromMe={fromMe}/>
         <div>
             <div className={`message ${fromMe}`}>
               <div className='username'>
@@ -74,6 +72,7 @@ class Message extends React.Component {
 
   }
 }
+
 
 Message.defaultProps = {
   type: 'Text',
