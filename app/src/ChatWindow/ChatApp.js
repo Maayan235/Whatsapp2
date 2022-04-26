@@ -104,10 +104,10 @@ class ChatApp extends React.Component {
   }
 
 
-  sendAudioHandler = () => {
+  sendAudioHandler = (url) => {
     const messageObject = {
       username: this.props.username,
-      message: this.state.audioUrl,
+      message: url,
       time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
@@ -164,6 +164,8 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
+      {this.state.audioUrl.url !=null? <audio controls src={this.state.audioUrl.url}></audio> : <div></div>}
+      
         <div ref={this.scroll}>
           <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
@@ -203,7 +205,7 @@ class ChatApp extends React.Component {
           </span>
           <div>
           { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl}/>
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} sendAudioHandler={this.sendAudioHandler}/>
       {this.sendAudioHandler}</div>
             : 
             null
