@@ -105,14 +105,16 @@ class ChatApp extends React.Component {
 
 
   sendAudioHandler = (url) => {
-    const messageObject = {
-      username: this.props.username,
-      message: url,
-      time: this.getCurrentTime()
+    if (url) {
+      const messageObject = {
+        username: this.props.username,
+        message: url,
+        time: this.getCurrentTime()
+      }
+      this.props.renderAllContacts();
+      messageObject.fromMe = true;
+      this.addMessage('Audio', messageObject);
     }
-    this.props.renderAllContacts();
-    messageObject.fromMe = true;
-    this.addMessage('Audio', messageObject);
     this.setState({
       isRecording:false
     })    
