@@ -70,8 +70,6 @@ class NameForm extends React.Component {
       return "pls use only numbers and english letters";
   
     this.flag = flagList.password = true;
-    console.log(this.flag)
-    console.log(flagList.password)
     userDetails.password = pass;
     return "strong!";
   }
@@ -119,7 +117,6 @@ class NameForm extends React.Component {
     } else if (this.props.formType === "Username: ") {
       this.guideMessage = this.userValidation(event.target.value);
       this.flag = flagList.userName;
-      console.log(this.guideMessage);
     } else if (this.props.formType === "Display Name: ") {
       this.guideMessage = this.nickNameValidation(event.target.value)
       this.flag= flagList.nickName;

@@ -21,7 +21,6 @@ function ContactItem({ name, password, numOfMessages, nickName, pic, messages })
     let lastMessage1 = null;
     lastMessage1 = <div> 555</div>
 
-    console.log(userData.messages)
 
 
     if (userData.messages.length !== 0) {
