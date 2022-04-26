@@ -42,7 +42,7 @@ const mySendButtonStyle = {
 };
 
 
-export default function Audio({username, time, fromMe, streamAccess, setStreamAccess}) {
+export default function Audio({username, time, fromMe, audioUrl}) {
   let soundWavesGif = require("./soundWaves.gif");
   const micAccess = useMic();
   const micAccessUpdate = useMicUpdate();
@@ -100,9 +100,13 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
 
         mediaRecorder.onstop = async function () {
           // console.log("stopped");
-
+          console.log("yyyyyyyyyyyyyyyyyyes")
+         
           const url = URL.createObjectURL(chunks.current[0]);
+          console.log(audioUrl);
           chunks.current = [];
+          audioUrl.url = url;
+          
 
         setRecording({
             active: false,
@@ -161,21 +165,32 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
           </div>
           )}
           {isBoxOpen ?
-          <div>
-            <div className={`message ${fromMe}`}>
-              <div className='username'>
-                {username}
-              </div>
-              <div className='message-body'>
-                  <div className="audio-container">
-                    {recording.available && <audio controls src={recording.url} />}
-                  </div>
-                <div className='message-time'>
-                {time}
-                </div>
-              </div>
-            </div>
-          </div>
+
+
+
+
+{
+          // <div>
+          //   <div className={`message ${fromMe}`}>
+          //     <div className='username'>
+          //       {username}
+          //     </div>
+          //     <div className='message-body'>
+          //         <div className="audio-container">
+          //           {recording.available && <audio controls src={recording.url} />}
+          //         </div>
+          //       <div className='message-time'>
+
+
+
+
+
+          //       {time}
+          //       </div>
+          //     </div>
+          //   </div>
+          // </div>
+        }
           :
           <div></div>
           }

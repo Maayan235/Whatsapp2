@@ -31,7 +31,9 @@ class ChatApp extends React.Component {
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
-      streamAccess: false
+      audioUrl : {url: null},
+      streamAccess: false,
+      
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
@@ -47,6 +49,7 @@ class ChatApp extends React.Component {
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
     this.getCurrentTime = this.getCurrentTime.bind(this);
+    
   }
 
   getCurrentTime(){
@@ -72,6 +75,11 @@ class ChatApp extends React.Component {
   }
 
   sendImageHandler(src) {
+    if(this.state.audioUrl.url != null){
+      console.log(this.state.audioUrl);
+    }else{
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    }
     const messageObject = {
       username: this.props.username,
       message: src,
@@ -104,6 +112,7 @@ class ChatApp extends React.Component {
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Audio', messageObject);
+    
   }
 
   addMessage(messageType, message) {
@@ -114,6 +123,7 @@ class ChatApp extends React.Component {
   }
 
   onImageChange = event => {
+    
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
@@ -146,6 +156,8 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
+      <Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl}/>
+      {this.state.audioUrl? <audio src={this.state.audioUrl}>!</audio> : <div></div>}
         <div ref={this.scroll}>
           <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
