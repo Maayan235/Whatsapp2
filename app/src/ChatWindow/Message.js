@@ -56,8 +56,20 @@ class Message extends React.Component {
     }
     if (this.props.type === 'Audio') {
       return (
-            <Audio username={this.props.username} time={this.props.time} fromMe={fromMe}/>
-      );
+        // <Audio username={this.props.username} time={this.props.time} fromMe={fromMe}/>
+        <div>
+            <div className={`message ${fromMe}`}>
+              <div className='username'>
+                {this.props.username}
+              </div>
+              <div className='message-body'>
+                  <div className="audio-container">
+                    { <audio controls src={this.props.message} />}
+                  </div>
+                <div className='message-time'>
+                {this.props.time}
+                </div></div> </div></div>
+        );
     }
 
   }

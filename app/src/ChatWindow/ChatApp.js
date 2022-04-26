@@ -14,6 +14,7 @@ import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
+
 require('../ChatApp.css');
 
 
@@ -21,17 +22,19 @@ class ChatApp extends React.Component {
 
   constructor(props) {
     super(props);
-    var today = new Date(),
-      currentTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+
     this.state = {
       messages: ContactsData[this.props.chosenChatMember].messages,
-      time: currentTime,
+      time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
-      streamAccess: false
+      audioUrl : {url: null},
+      streamAccess: false,
+      
+      isRecording: false
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
@@ -46,8 +49,16 @@ class ChatApp extends React.Component {
     this.videoRef = React.createRef(null);
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
+    this.getCurrentTime = this.getCurrentTime.bind(this);
+    this.handleAudioClick = this.handleAudioClick.bind(this);
   }
-  
+
+  getCurrentTime() {
+    var today = new Date(),
+      currentTime = today.getHours() + ':' + today.getMinutes();
+    return currentTime;
+  }
+
   setStreamAccess = (bool) => {
     this.setState = {
       streamAccess: bool
@@ -57,63 +68,72 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message,
-      time: this.state.time,
-    
-      
+      time: this.getCurrentTime(),
     }
     this.props.renderAllContacts();
-        messageObject.fromMe = true;
+    messageObject.fromMe = true;
     this.addMessage('Text', messageObject);
   }
 
   sendImageHandler(src) {
+    if(this.state.audioUrl.url != null){
+      console.log(this.state.audioUrl);
+    }else{
+      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    }
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Image', messageObject);
   }
 
-  
+
   sendVideoHandler(src) {
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Video', messageObject);
   }
 
-    
-  sendAudioHandler= () => {
-    const messageObject = {
-      username: this.props.username,
-      message: this.state.audioSrc,
-      time: this.state.time
+
+  sendAudioHandler = (url) => {
+    if (url) {
+      const messageObject = {
+        username: this.props.username,
+        message: url,
+        time: this.getCurrentTime()
+      }
+      this.props.renderAllContacts();
+      messageObject.fromMe = true;
+      this.addMessage('Audio', messageObject);
     }
-    this.props.renderAllContacts();
-    messageObject.fromMe = true;
-    this.addMessage('Audio', messageObject);
+    this.setState({
+      isRecording:false
+    })    
   }
 
-  addMessage(messageType, message) {
+  addMessage = (messageType, message) => {
     // Append the message to the component state
     const messages = ContactsData[this.props.chosenChatMember].messages;
-    messages.push({type: messageType, context: message});
+    messages.push({ type: messageType, context: message });
     this.setState({ messages });
   }
 
   onImageChange = event => {
+    
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
       this.setState({
-        imageSrc:url
+        imageSrc: url
       });
       this.sendImageHandler(url);
     }
@@ -123,24 +143,33 @@ class ChatApp extends React.Component {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     this.setState({
-        videoSrc: url
+      videoSrc: url
     })
     this.sendVideoHandler(url);
-};
+  };
 
-handleImageClick = event => {
-  this.imageRef.current.click();
-}
+  handleImageClick = event => {
+    this.imageRef.current.click();
+  }
 
-handleVideoClick = event => {
-  this.videoRef.current.click();
-}
+  handleVideoClick = event => {
+    this.videoRef.current.click();
+  }
 
-executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
+  handleAudioClick = event => {
+    this.setState({
+      isRecording: true
+    });
+   // console.log(this.state.isRecording);
+  }
+
+  executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
 
   render() {
     return (
       <div className="list-inline">
+      {this.state.audioUrl.url !=null? <audio controls src={this.state.audioUrl.url}></audio> : <div></div>}
+      
         <div ref={this.scroll}>
           <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
@@ -174,10 +203,19 @@ executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
             />
           </span>
           <span className='list-inline-item'>
-            {<button onClick={this.sendAudioHandler} className="btn btn-outline-dark">
+            <button onClick={this.handleAudioClick} className="btn btn-outline-dark">
               <img src={microphone} height='20' width='20' />
-            </button>}
+            </button>
           </span>
+          <div>
+          { this.state.isRecording ?
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler}/>
+    
+      </div>
+            : 
+            null
+          }
+          </div>
         </div>
       </div>
     );
