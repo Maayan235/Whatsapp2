@@ -5,7 +5,7 @@ import Shoval from './shoval.jpg'
 import Asaf from './Asaf.jpg'
 import Itamar from './itamar.jpg'
 
-let currentTime = '04:04:04'
+let currentTime = '04:04'
 
 
 const ContactsData = [{

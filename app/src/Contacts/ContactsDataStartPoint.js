@@ -2,7 +2,7 @@ import Avital from'./Avital.jpg'
 import Maayan from'./Maayan.jpg'
 import Yarin from'./Yarin.jpg'
 
-let currentTime = '04:04:04'
+let currentTime = '04:04'
 
 
 const ContactsData = [{name: "Avital", password:"123456", numOfMessages: "2", pic: Avital,nickName:"Avital", messages: [{message: 'Hi!',
