@@ -14,6 +14,7 @@ import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
+
 require('../ChatApp.css');
 
 
@@ -21,11 +22,10 @@ class ChatApp extends React.Component {
 
   constructor(props) {
     super(props);
-    var today = new Date(),
-      currentTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+
     this.state = {
       messages: ContactsData[this.props.chosenChatMember].messages,
-      time: currentTime,
+      time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
       videoRef: null,
@@ -46,8 +46,15 @@ class ChatApp extends React.Component {
     this.videoRef = React.createRef(null);
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
+    this.getCurrentTime = this.getCurrentTime.bind(this);
   }
-  
+
+  getCurrentTime(){
+    var today = new Date(),
+    currentTime = today.getHours() + ':' + today.getMinutes();
+    return currentTime;
+  }
+
   setStreamAccess = (bool) => {
     this.setState = {
       streamAccess: bool
@@ -57,12 +64,10 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message,
-      time: this.state.time,
-    
-      
+      time: this.getCurrentTime(),
     }
     this.props.renderAllContacts();
-        messageObject.fromMe = true;
+    messageObject.fromMe = true;
     this.addMessage('Text', messageObject);
   }
 
@@ -70,31 +75,31 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Image', messageObject);
   }
 
-  
+
   sendVideoHandler(src) {
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Video', messageObject);
   }
 
-    
-  sendAudioHandler= () => {
+
+  sendAudioHandler = () => {
     const messageObject = {
       username: this.props.username,
       message: this.state.audioSrc,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
@@ -104,7 +109,7 @@ class ChatApp extends React.Component {
   addMessage(messageType, message) {
     // Append the message to the component state
     const messages = ContactsData[this.props.chosenChatMember].messages;
-    messages.push({type: messageType, context: message});
+    messages.push({ type: messageType, context: message });
     this.setState({ messages });
   }
 
@@ -113,7 +118,7 @@ class ChatApp extends React.Component {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
       this.setState({
-        imageSrc:url
+        imageSrc: url
       });
       this.sendImageHandler(url);
     }
@@ -123,20 +128,20 @@ class ChatApp extends React.Component {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     this.setState({
-        videoSrc: url
+      videoSrc: url
     })
     this.sendVideoHandler(url);
-};
+  };
 
-handleImageClick = event => {
-  this.imageRef.current.click();
-}
+  handleImageClick = event => {
+    this.imageRef.current.click();
+  }
 
-handleVideoClick = event => {
-  this.videoRef.current.click();
-}
+  handleVideoClick = event => {
+    this.videoRef.current.click();
+  }
 
-executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
+  executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
 
   render() {
     return (

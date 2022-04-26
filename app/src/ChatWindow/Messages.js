@@ -2,7 +2,6 @@ import React from 'react';
 
 import Message from './Message';
 
-
 class Messages extends React.Component {
 
   componentDidUpdate() {
@@ -21,7 +20,8 @@ class Messages extends React.Component {
           message={message.context.message}
           fromMe={message.context.fromMe} 
           time={message.context.time}
-          type={message.type} />
+          type={message.type}
+          />
       );
       });
 

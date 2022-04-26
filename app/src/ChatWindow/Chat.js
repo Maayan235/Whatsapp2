@@ -8,6 +8,7 @@ import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
 import { userDetails } from "..";
 import NameForm from "../NameForm";
+import {MicProvider} from './MicContext';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -67,10 +68,12 @@ class Chat extends React.Component {
         );
 
         return (
+            <MicProvider>
             <Router>
                 <AllContacts username={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} />
                 {this.state.isChosedChat ? renderChatWithContact : renderHello }
             </Router>
+            </MicProvider>
         );
     }
 }
