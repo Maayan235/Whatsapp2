@@ -136,16 +136,12 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
     getAccess();
     if (stream.access) {
       micAccessUpdate();
-<<<<<<< HEAD
       setRecording({
           gotAccessAlready: true
         })
         setRecording({
           gotAccessAlready: false
         })
-=======
-      
->>>>>>> f3c5e845e38976ebbc7ed426e421b19a039cbe71
     }
   }
 
@@ -200,13 +196,8 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
             isBoxOpen ? (
               <div style={mystyle} >
                 <h3>For recording, please give access for your microphone</h3>
-<<<<<<< HEAD
                {recording.gotAccessAlready?<button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>:<button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access!!!</button>} 
                 <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
-=======
-                <button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>
-                <button style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancle</button>
->>>>>>> f3c5e845e38976ebbc7ed426e421b19a039cbe71
               </div>
             ) : (<div></div>)
           }
