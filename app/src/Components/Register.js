@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Database from "../Database";
 import { useState } from "react";
 import { userDetails } from "../index.js";
-import { flagList } from "../NameForm.js";
+
 import ContactsData from "../Contacts/ContactsData";
 import Yarin from "../Contacts/Yarin.jpg"
 import RandomImage from "../ChatWindow/RandomImage";
@@ -15,8 +15,8 @@ import UnChosenContacts from "../Contacts/UnChosenContacts";
 import unknownImg from "./unknown.png"
 
 
-
-
+var flagList = { "userName": false, "password": false, "cnfPassword":false, "nickName": false };
+export{flagList}
 export default function Register() {
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -26,7 +26,7 @@ export default function Register() {
     
     const handleSubmit = () => {
         // console.log(flagList)
-        if(!(flagList.nickNameFlag && flagList.passwordFlag && flagList.userNameFlag)){
+        if(!(flagList.nickName && flagList.password && flagList.userName && flagList.cnfPassword)){
             setErrorMessage("Note error comments please")
             return;
         }
@@ -55,13 +55,13 @@ export default function Register() {
         <div>
             <h1 className="title"> register page </h1>
             
-                <NameForm formType={"Username: "} inputBoxName={"Username: "} />
+                <NameForm formType={"Username: "}  />
             
-                <NameForm formType={"New password: "} inputBoxName={"Password: "} />
+                <NameForm formType={"New password: "}  />
            
-                <NameForm formType={"Password confirmation: "} inputBoxName={"Password: "} />
+                <NameForm formType={"Password confirmation: "}  />
 
-                <NameForm formType={"Display Name: "} inputBoxName={"DisplayName: "} />
+                <NameForm formType={"Display Name: "}  />
             
             <div className="regButton">
                 <button className="btn btn-primary btn-block" onClick={handleSubmit}>

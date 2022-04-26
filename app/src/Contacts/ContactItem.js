@@ -30,11 +30,14 @@ function ContactItem({ name, password, numOfMessages, nickName, pic, messages })
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
         else if (userData.messages[userData.messages.length - 1].type == "Image") {
-            lastMessage1 = <div><div className='overflow'>image...</div>
+            lastMessage1 = <div><div className='overflow'>Image...</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
         else if (userData.messages[userData.messages.length - 1].type == "Video") {
-            lastMessage1 = <div><div className='overflow'>video...</div>
+            lastMessage1 = <div><div className='overflow'>Video...</div>
+                <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
+        }else{
+            lastMessage1 = <div><div className='overflow'>Audio...</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
     }
