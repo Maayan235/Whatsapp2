@@ -5,57 +5,20 @@ import GuideMessage from "./GuideMessage";
 import "./styles.css";
 import { userDetails } from "./index";
 import img from './eye.jpg'
-
-let flag = false;
-var flagList = { "userNameFlag": false, "passwordFlag": false, "nickNameFlag": false };
-export { flagList };
-
-function userValidation(user) {
-
-  flag = flagList.userNameFlag = false
-  if (user.length < 5)
-    return "too short!"
-  if (!/^[A-Za-z0-9]*$/.test(user))
-    return "pls use numbers \n and english letters only";
-  flag = flagList.userNameFlag = true;
-  userDetails.userName = user;
-  return "good!";
-}
-
-function passwordValidation(pass) {
-  flag = flagList.passwordFlag = false;
-  let x = pass.length;
-
-  if (x == 0) return "";
-
-  if (x < 8) return "too short";
-
-  if ((pass.match(/\d+/g) == null) | !/[A-Z]/.test(pass))
-    return "pls add numbers and capital letters";
-
-  if (!/^[A-Za-z0-9]*$/.test(pass))
-    return "pls use only numbers and english letters";
+import ContactsData from "./Contacts/ContactsData";
+import {flagList} from "./Components/Register"
 
 
-  flag = flagList.passwordFlag = true;
-  userDetails.password = pass;
-  return "strong!";
-}
-function passwordConfirmation(confirmation) {
-  flag = flagList.nickNameFlag = false
-  if(confirmation!== userDetails.password){
-    return <div>Password <br></br>doesn't match</div>
+function setFlag(formType){
+  if (formType === "New password: ") {
+    return flagList.password;
+  } else if (formType === "Username: ") {
+    return flagList.userName;
+  } else if (formType === "Display Name: ") {
+    return flagList.nickName;
+  } else if (formType === "Password confirmation: ") {
+    return flagList.cnfPassword;
   }
-  flag = flagList.nickNameFlag = true
-  return "good!";
-}
-function nickNameValidation(nick) {
-  flag = flagList.nickNameFlag = false
-  if (nick.length < 3)
-    return "too short!"
-  flag = flagList.nickNameFlag = true;
-  userDetails.nickName = nick;
-  return "good!";
 }
 
 class NameForm extends React.Component {
@@ -68,9 +31,67 @@ class NameForm extends React.Component {
     this.inputType = this.inputType.bind(this);
     this.mouseOverPass = this.mouseOverPass.bind(this);
     this.mouseOutPass = this.mouseOutPass.bind(this);
+    this.passwordConfirmation=this.passwordConfirmation.bind(this);
+    this.userValidation=this.userValidation.bind(this);
+    this.passwordValidation=this.passwordValidation.bind(this);
+    this.nickNameValidation=this.nickNameValidation.bind(this);
+    this.flag = setFlag(this.props.formType);
     this.showPassword = false;
 
   }
+
+   userValidation(user) {
+
+    this.flag = flagList.userName = false;
+   
+    if (user.length < 5)
+      return "too short!"
+    if (!/^[A-Za-z0-9]*$/.test(user))
+      return "pls use numbers \n and english letters only";
+    if( ContactsData.find((userInput) => userInput.name === user)!=null)
+      return "Username already exist!"
+    this.flag = flagList.userName = true;
+    userDetails.userName = user;
+    return "good!";
+  }
+  
+   passwordValidation(pass) {
+    this.flag = flagList.password = false;
+    let x = pass.length;
+  
+    if (x == 0) return "";
+  
+    if (x < 8) return "too short";
+  
+    if ((pass.match(/\d+/g) == null) | !/[A-Z]/.test(pass))
+      return "pls add numbers and capital letters";
+  
+    if (!/^[A-Za-z0-9]*$/.test(pass))
+      return "pls use only numbers and english letters";
+  
+    this.flag = flagList.password = true;
+    console.log(this.flag)
+    console.log(flagList.password)
+    userDetails.password = pass;
+    return "strong!";
+  }
+   passwordConfirmation(confirmation) {
+    this.flag = flagList.cnfPassword = false;
+    if(confirmation!== userDetails.password){
+      return <div>Password <br></br>doesn't match</div>
+    }
+    this.flag = flagList.cnfPassword = true
+    return "good!";
+  }
+   nickNameValidation(nick) {
+    this.flag = flagList.nickName = false;
+    if (nick.length < 3)
+      return "too short!"
+    this.flag = flagList.nickName = true;
+    userDetails.nickName = nick;
+    return "good!";
+  }
+  
 
   mouseOverPass(event) {
     this.setState({ value: this.state.value })
@@ -93,13 +114,18 @@ class NameForm extends React.Component {
   handleChange(event) {
     this.setState({ value: event.target.value });
     if (this.props.formType === "New password: ") {
-      this.guideMessage = passwordValidation(event.target.value);
+      this.guideMessage = this.passwordValidation(event.target.value);
+      this.flag = flagList.password;
     } else if (this.props.formType === "Username: ") {
-      this.guideMessage = userValidation(event.target.value);
-    } else if (this.props.formType === "Display name: ") {
-      this.guideMessage = nickNameValidation(event.target.value)
+      this.guideMessage = this.userValidation(event.target.value);
+      this.flag = flagList.userName;
+      console.log(this.guideMessage);
+    } else if (this.props.formType === "Display Name: ") {
+      this.guideMessage = this.nickNameValidation(event.target.value)
+      this.flag= flagList.nickName;
     } else if (this.props.formType === "Password confirmation: ") {
-      this.guideMessage = passwordConfirmation(event.target.value)
+      this.guideMessage = this.passwordConfirmation(event.target.value)
+      this.flag = flagList.cnfPassword;
     }
   }
 
@@ -129,7 +155,7 @@ class NameForm extends React.Component {
               <>{see}</>
             </div>
             <div class="col-4">
-              <GuideMessage guideM={this.guideMessage} flag1={flag} />
+              <GuideMessage guideM={this.guideMessage} flag1={this.flag} />
             </div>
 
           </div>
