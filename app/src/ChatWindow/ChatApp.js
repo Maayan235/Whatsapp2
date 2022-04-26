@@ -166,7 +166,7 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
-      {this.state.audioUrl.url !=null? <audio controls src={this.state.audioUrl.url}></audio> : <div></div>}
+      
       
         <div ref={this.scroll}>
           <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
