@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import MyContacts from "../Contacts/MyContacts";
-import { useMic, useMicUpdate } from "./MicContext";
+// import { useMic, useMicUpdate } from "./MicContext";
 import soundWaves from "./soundWaves.gif";
 //import "./styles.css";
 
@@ -44,8 +44,8 @@ const mySendButtonStyle = {
 
 export default function Audio({username, time, fromMe, audioUrl, send}) {
   let soundWavesGif = require("./soundWaves.gif");
-  const micAccess = useMic();
-  const micAccessUpdate = useMicUpdate();
+  // const micAccess = useMic();
+  // const micAccessUpdate = useMicUpdate();
   const [stream, setStream] = useState({
     access: false,
     recorder: null,
@@ -126,32 +126,10 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
         setStream({ ...stream, error });
       });
 
-      // console.log(micAccess);
-
   }
 
-  function getMicAccess() {
-    getAccess();
-    if (stream.access) {
-      micAccessUpdate();
-      
-    }
-  }
-
-  // function sendAudioHandler() {
-  //   const messageObject = {
-  //     username: this.props.username,
-  //     message: audioUrl,
-  //     time: this.getCurrentTime()
-  //   }
-  //   // this.props.renderAllContacts();
-  //   messageObject.fromMe = true;
-  //   send('Audio', messageObject);
-  // }
-  
   return (
     <div>
-      {(micAccess) ? (
         <div>
         { stream.access ? 
         (<div>
@@ -183,20 +161,6 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
         </div>
         ) : getAccess() }
         </div>
-      ) : (
-        <div>
-          {
-            isBoxOpen ? (
-              <div style={mystyle} >
-                <h3>For recording, please give access for your microphone</h3>
-                <button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>
-                <button style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancle</button>
-              </div>
-            ) : (<div></div>)
-          }
-        </div>
-      )}
-
     </div>
   );
 }
