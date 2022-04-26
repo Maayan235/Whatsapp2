@@ -31,13 +31,10 @@ class ChatApp extends React.Component {
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
-<<<<<<< HEAD
       audioUrl : {url: null},
       streamAccess: false,
       
-=======
       isRecording: false
->>>>>>> b755ad430fbfc2ced62b5cb621899fd8a88a422a
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
@@ -53,11 +50,7 @@ class ChatApp extends React.Component {
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
     this.getCurrentTime = this.getCurrentTime.bind(this);
-<<<<<<< HEAD
-    
-=======
     this.handleAudioClick = this.handleAudioClick.bind(this);
->>>>>>> b755ad430fbfc2ced62b5cb621899fd8a88a422a
   }
 
   getCurrentTime() {
