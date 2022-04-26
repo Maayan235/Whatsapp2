@@ -165,34 +165,9 @@ export default function Audio({username, time, fromMe, audioUrl}) {
           </div>
           )}
           {isBoxOpen ?
-
-
-
-
-{
-          // <div>
-          //   <div className={`message ${fromMe}`}>
-          //     <div className='username'>
-          //       {username}
-          //     </div>
-          //     <div className='message-body'>
-          //         <div className="audio-container">
-          //           {recording.available && <audio controls src={recording.url} />}
-          //         </div>
-          //       <div className='message-time'>
-
-
-
-
-
-          //       {time}
-          //       </div>
-          //     </div>
-          //   </div>
-          // </div>
-        }
+            null
           :
-          <div></div>
+          null
           }
         </div>
         ) : getAccess() }
