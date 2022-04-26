@@ -100,10 +100,8 @@ export default function Audio({username, time, fromMe, audioUrl,sendAudioHandler
 
         mediaRecorder.onstop = async function () {
           // console.log("stopped");
-          console.log("yyyyyyyyyyyyyyyyyyes")
           
           const url = URL.createObjectURL(chunks.current[0]);
-          console.log(audioUrl);
           chunks.current = [];
           audioUrl.url = url;
           sendAudioHandler(url)
@@ -127,7 +125,6 @@ export default function Audio({username, time, fromMe, audioUrl,sendAudioHandler
         setStream({ ...stream, error });
       });
 
-      console.log(micAccess);
 
   }
 
