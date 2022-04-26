@@ -14,6 +14,7 @@ import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
+
 require('../ChatApp.css');
 
 
@@ -21,11 +22,10 @@ class ChatApp extends React.Component {
 
   constructor(props) {
     super(props);
-    var today = new Date(),
-      currentTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+
     this.state = {
       messages: ContactsData[this.props.chosenChatMember].messages,
-      time: currentTime,
+      time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
       videoRef: null,
@@ -46,8 +46,15 @@ class ChatApp extends React.Component {
     this.videoRef = React.createRef(null);
     this.scroll = React.createRef();
     this.executeScroll = this.executeScroll.bind(this);
+    this.getCurrentTime = this.getCurrentTime.bind(this);
   }
-  
+
+  getCurrentTime(){
+    var today = new Date(),
+    currentTime = today.getHours() + ':' + today.getMinutes();
+    return currentTime;
+  }
+
   setStreamAccess = (bool) => {
     this.setState = {
       streamAccess: bool
@@ -57,12 +64,10 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message,
-      time: this.state.time,
-    
-      
+      time: this.getCurrentTime(),
     }
     this.props.renderAllContacts();
-        messageObject.fromMe = true;
+    messageObject.fromMe = true;
     this.addMessage('Text', messageObject);
   }
 
@@ -70,31 +75,31 @@ class ChatApp extends React.Component {
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Image', messageObject);
   }
 
-  
+
   sendVideoHandler(src) {
     const messageObject = {
       username: this.props.username,
       message: src,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Video', messageObject);
   }
 
-    
-  sendAudioHandler= () => {
+
+  sendAudioHandler = () => {
     const messageObject = {
       username: this.props.username,
       message: this.state.audioSrc,
-      time: this.state.time
+      time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
@@ -104,7 +109,7 @@ class ChatApp extends React.Component {
   addMessage(messageType, message) {
     // Append the message to the component state
     const messages = ContactsData[this.props.chosenChatMember].messages;
-    messages.push({type: messageType, context: message});
+    messages.push({ type: messageType, context: message });
     this.setState({ messages });
   }
 
@@ -113,7 +118,7 @@ class ChatApp extends React.Component {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
       this.setState({
-        imageSrc:url
+        imageSrc: url
       });
       this.sendImageHandler(url);
     }
@@ -123,57 +128,61 @@ class ChatApp extends React.Component {
     const file = event.target.files[0];
     const url = URL.createObjectURL(file);
     this.setState({
-        videoSrc: url
+      videoSrc: url
     })
     this.sendVideoHandler(url);
-};
+  };
 
-handleImageClick = event => {
-  this.imageRef.current.click();
-}
+  handleImageClick = event => {
+    this.imageRef.current.click();
+  }
 
-handleVideoClick = event => {
-  this.videoRef.current.click();
-}
+  handleVideoClick = event => {
+    this.videoRef.current.click();
+  }
 
-executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop)   ;
+  executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
 
   render() {
     return (
-      <div className="container">
-      <div ref={this.scroll}>
-        <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
+      <div className="list-inline">
+        <div ref={this.scroll}>
+          <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
         </div>
-        <div className="position-absolute bottom-0 end-0 w-75">
-          <ChatInput type="text" className="w-75" onSend={this.sendTextHandler} />
-          <div className="align-items-end ">
-          <button onClick={this.handleImageClick}>
-          <img src={camera} height='20' width='20'/>
-          </button>
-            <input 
-            ref={this.imageRef}
-            type="file"
-             name="myImage"
+        <div className="position-absolute bottom-0 end-0 col-9">
+          <span className='list-inline-item col-9 align-middle border rounded'>
+            <ChatInput type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
+          </span>
+          <span className='list-inline-item mb-1'>
+            <button onClick={this.handleImageClick} className="btn btn-outline-dark">
+              <img src={camera} height='20' width='20' />
+            </button>
+            <input
+              ref={this.imageRef}
+              type="file"
+              name="myImage"
               onChange={this.onImageChange}
-               style={{display:'none'}}
-                />
-                <button onClick={this.handleVideoClick}>
-                <img src={video} height='20' width='20'/>
-                </button>
-            <div className="VideoInput">
-              <input
-                ref={this.videoRef}
-                className="VideoInput_input"
-                type="file"
-                onChange={this.handleVideoChange}
-                accept=".mov,.mp4"
-                style={{display:'none'}}
-              />
-              {<button onClick={this.sendAudioHandler}>
-              <img src={microphone} height='20' width='20'/>
-              </button>}
-            </div>
-          </div>
+              style={{ display: 'none' }}
+            />
+          </span>
+          <span className="VideoInput list-inline-item">
+            <button onClick={this.handleVideoClick} className="btn btn-outline-dark">
+              <img src={video} height='20' width='20' />
+            </button>
+            <input
+              ref={this.videoRef}
+              className="VideoInput_input"
+              type="file"
+              onChange={this.handleVideoChange}
+              accept=".mov,.mp4"
+              style={{ display: 'none' }}
+            />
+          </span>
+          <span className='list-inline-item'>
+            {<button onClick={this.sendAudioHandler} className="btn btn-outline-dark">
+              <img src={microphone} height='20' width='20' />
+            </button>}
+          </span>
         </div>
       </div>
     );

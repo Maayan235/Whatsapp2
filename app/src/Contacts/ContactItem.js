@@ -44,16 +44,18 @@ function ContactItem({ name, password, numOfMessages, nickName, pic, messages })
     return (
         <li className="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
             <div>
-                <div className="fw-bold"> <img src={pic} className="rounded-circle m-2" width="50" height="50"></img>
+                <div className='w-100 mb-1'>
+                    <img src={pic} className="rounded-circle m-2" width="50" height="50"></img>
+                    <span className='ms-3'>{nickName}</span>
+                </div>
+                <div className="fw-bold text-secondary">
                     {userData.messages.length !== 0 ?
-                        <div>
-                            {lastMessage1} </div> : <div></div>
+                        <div>{lastMessage1} </div> : <span className='float-right'></span>
                     }
                 </div>
             </div>
 
 
-            <span>{nickName}</span>
             {numOfMessages !== "0" ? <span className="badge bg-dark rounded-pill">{numOfMessages}</span> : <div></div>}
 
 

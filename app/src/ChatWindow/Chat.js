@@ -8,6 +8,7 @@ import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
 import { userDetails } from "..";
 import NameForm from "../NameForm";
+import {MicProvider} from './MicContext';
 
 class Chat extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ class Chat extends React.Component {
 
         // JSX code for chat window
         const renderChatWithContact = (
-            <div className="col-9 vh-100">
+            <div className="col-9 vh-100 p-0">
                 <ChosenContact name={this.state.chosenChatMember.name} nickName={this.state.chosenChatMember.nickName} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
                     <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMemberNumber} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
@@ -59,7 +60,7 @@ class Chat extends React.Component {
 
         // JSX code for chat window
         const renderHello = (
-            <div className="col-9 vh-100">
+            <div className="col-9 vh-100 p-0">
                 <h3>React Chat App</h3>
                 <h3>Hi {this.state.conectedUser}! You have new messages!
                 </h3>
@@ -67,10 +68,12 @@ class Chat extends React.Component {
         );
 
         return (
+            <MicProvider>
             <Router>
                 <AllContacts username={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} />
                 {this.state.isChosedChat ? renderChatWithContact : renderHello }
             </Router>
+            </MicProvider>
         );
     }
 }

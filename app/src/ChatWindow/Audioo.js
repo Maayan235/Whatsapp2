@@ -1,5 +1,7 @@
-import React, { useState, useRef } from "react";
-import soundWaves from "./soundWaves.gif"
+import React, { useState, useRef, useContext } from "react";
+import MyContacts from "../Contacts/MyContacts";
+import { useMic, useMicUpdate } from "./MicContext";
+import soundWaves from "./soundWaves.gif";
 //import "./styles.css";
 
 const mystyle = {
@@ -22,11 +24,28 @@ const myButtonStyle = {
   position: "fixed",
   top: "60%",
   left: "35%",
-  transform: "translate(0%, 300%)",
+  transform: "translate(20%, 300%)",
 };
+
+const myCancleButtonStyle = {
+  position: "fixed",
+  top: "60%",
+  left: "35%",
+  transform: "translate(350%, 300%)",
+};
+
+const mySendButtonStyle = {
+  position: "fixed",
+  top: "60%",
+  left: "35%",
+  transform: "translate(70%, 300%)",
+};
+
 
 export default function Audio({username, time, fromMe, streamAccess, setStreamAccess}) {
   let soundWavesGif = require("./soundWaves.gif");
+  const micAccess = useMic();
+  const micAccessUpdate = useMicUpdate();
   const [stream, setStream] = useState({
     access: false,
     recorder: null,
@@ -41,7 +60,13 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
 
   const [isRecording, setIsRecording] = useState(true);
 
+  const [isBoxOpen, setisBoxOpen] = useState(true);
+
   const chunks = useRef([]);
+
+  function getRecorder() {
+
+  }
 
   function getAccess() {
     navigator.mediaDevices
@@ -79,7 +104,7 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
           const url = URL.createObjectURL(chunks.current[0]);
           chunks.current = [];
 
-          setRecording({
+        setRecording({
             active: false,
             available: true,
             url
@@ -90,57 +115,89 @@ export default function Audio({username, time, fromMe, streamAccess, setStreamAc
           ...stream,
           access: true,
           recorder: mediaRecorder
-        });
+        }
+        );
       })
       .catch((error) => {
         // console.log(error);
         setStream({ ...stream, error });
       });
+
+      console.log(micAccess);
+
+  }
+
+  function getMicAccess() {
+    getAccess();
+    if (stream.access) {
+      micAccessUpdate();
+    }
   }
   
   return (
     <div>
-      {stream.access ? (
+      {(micAccess) ? (
         <div>
-        {recording.available? <div></div>: (<div style={mystyle}>
-          {!recording.active?
-            (
-              <div>
-                { stream.recorder.start() && !recording.active}
+        { stream.access ? 
+        (<div>
+          {recording.available ? <div></div> : 
+          (<div style={mystyle}>
+            {!recording.active ?
+              (
+                <div>
+                  {stream.recorder.start() && !recording.active}
+                </div>
+              ) :
+              (isBoxOpen ?
+                <div>
+                  <h3>Recording now...</h3>
+                  <img style={myGivStyle} src={soundWavesGif} alt="wait until the record stops" />
+                  <button style={mySendButtonStyle} onClick={function (event) { stream.recorder.stop(); setIsRecording(false); }}>Send</button>
+                  <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
+                </div>
+                :
+                <div></div>
+              )}
+          </div>
+          )}
+          {isBoxOpen ?
+          <div>
+            <div className={`message ${fromMe}`}>
+              <div className='username'>
+                {username}
               </div>
-            ) :
-            (
-              <div>
-            <h3>Recording now...</h3>
-            <img style={myGivStyle} src={soundWavesGif} alt="wait until the record stops"/>
-              <button style={myButtonStyle} onClick={function(event){stream.recorder.stop(); setIsRecording(false);}}>Stop Recording</button>
-              </div>
-            )}
-        </div>)}
-          <div className={`message ${fromMe}`}>
-            <div className='username'>
-              {username}
-            </div>
-            <div className='message-body'>
-              <div className="App">
-                <div className="audio-container">
-                  {recording.available && <audio controls src={recording.url} />}
+              <div className='message-body'>
+                  <div className="audio-container">
+                    {recording.available && <audio controls src={recording.url} />}
+                  </div>
+                <div className='message-time'>
+                {time}
                 </div>
               </div>
             </div>
           </div>
-          <div className='message-time'>
-            {time}
-          </div>
+          :
+          <div></div>
+          }
         </div>
-
+        ) : getAccess() }
+        </div>
       ) : (
-        <div style={mystyle}>
-        <h3>For recording, please give access for your microphone</h3>
-        <button style={myButtonStyle} onClick={getAccess}>Get Microphone Access</button>
+        <div>
+          {
+            isBoxOpen ? (
+              <div style={mystyle} >
+                <h3>For recording, please give access for your microphone</h3>
+                <button style={myButtonStyle} onClick={() => getMicAccess()}>Get Mic Access</button>
+                <button style={myCancleButtonStyle} onClick={() => setisBoxOpen(false)}>Cancle</button>
+              </div>
+            ) : (<div></div>)
+          }
         </div>
       )}
 
     </div>
   );
 }
+
+

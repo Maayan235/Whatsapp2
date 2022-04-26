@@ -53,7 +53,7 @@ export default function Register() {
 
         
         <div>
-            <h1 className="title"> register page </h1>
+            <h3 className="title"> Register </h3>
             
                 <NameForm formType={"Username: "}  />
             

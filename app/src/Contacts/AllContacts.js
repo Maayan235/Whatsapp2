@@ -106,8 +106,10 @@ function AllContacts({ username, setChatMember, logout}) {
 
     return (
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
-        {profilePic}<span>{userData.nickName}</span>
-            <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-3" onClick={logout}>logout</button>
+            <div className='d-flex align-items-center p-3'>
+                <span>{profilePic}</span><span id='userName'>{userData.nickName}</span>
+            </div>
+            <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
             <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} />
             <AddContact username={username} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" />
