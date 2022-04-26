@@ -104,19 +104,21 @@ class ChatApp extends React.Component {
   }
 
 
-  sendAudioHandler = () => {
+  sendAudioHandler = (url) => {
     const messageObject = {
       username: this.props.username,
-      message: this.state.audioUrl,
+      message: url,
       time: this.getCurrentTime()
     }
     this.props.renderAllContacts();
     messageObject.fromMe = true;
     this.addMessage('Audio', messageObject);
-    
+    this.setState({
+      isRecording:false
+    })    
   }
 
-  addMessage(messageType, message) {
+  addMessage = (messageType, message) => {
     // Append the message to the component state
     const messages = ContactsData[this.props.chosenChatMember].messages;
     messages.push({ type: messageType, context: message });
@@ -203,8 +205,9 @@ class ChatApp extends React.Component {
           </span>
           <div>
           { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl}/>
-      {this.sendAudioHandler}</div>
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler}/>
+    
+      </div>
             : 
             null
           }

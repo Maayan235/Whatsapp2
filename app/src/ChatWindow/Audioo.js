@@ -42,7 +42,7 @@ const mySendButtonStyle = {
 };
 
 
-export default function Audio({username, time, fromMe, audioUrl}) {
+export default function Audio({username, time, fromMe, audioUrl, send}) {
   let soundWavesGif = require("./soundWaves.gif");
   const micAccess = useMic();
   const micAccessUpdate = useMicUpdate();
@@ -100,12 +100,13 @@ export default function Audio({username, time, fromMe, audioUrl}) {
 
         mediaRecorder.onstop = async function () {
           // console.log("stopped");
-          console.log("yyyyyyyyyyyyyyyyyyes")
+          // console.log("yyyyyyyyyyyyyyyyyyes")
          
           const url = URL.createObjectURL(chunks.current[0]);
-          console.log(audioUrl);
+          // console.log(audioUrl);
           chunks.current = [];
           audioUrl.url = url;
+          send(url);
           
 
         setRecording({
@@ -127,7 +128,7 @@ export default function Audio({username, time, fromMe, audioUrl}) {
         setStream({ ...stream, error });
       });
 
-      console.log(micAccess);
+      // console.log(micAccess);
 
   }
 
@@ -137,6 +138,17 @@ export default function Audio({username, time, fromMe, audioUrl}) {
       micAccessUpdate();
     }
   }
+
+  // function sendAudioHandler() {
+  //   const messageObject = {
+  //     username: this.props.username,
+  //     message: audioUrl,
+  //     time: this.getCurrentTime()
+  //   }
+  //   // this.props.renderAllContacts();
+  //   messageObject.fromMe = true;
+  //   send('Audio', messageObject);
+  // }
   
   return (
     <div>
@@ -164,7 +176,7 @@ export default function Audio({username, time, fromMe, audioUrl}) {
               )}
           </div>
           )}
-          {isBoxOpen ?
+          {(isBoxOpen && !isRecording )?
             null
           :
           null
