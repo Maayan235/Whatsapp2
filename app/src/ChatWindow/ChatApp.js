@@ -209,7 +209,7 @@ class ChatApp extends React.Component {
           </span>
           <div>
           { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler}/>
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
     
       </div>
             : 
