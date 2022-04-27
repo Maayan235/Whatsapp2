@@ -18,7 +18,7 @@ class Chat extends React.Component {
             chosenChatMember: ContactsData[0],
             isChosedChat: false,
             chosenChatMemberNumber: -1,
-            render: false
+            render: false,
         };
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();

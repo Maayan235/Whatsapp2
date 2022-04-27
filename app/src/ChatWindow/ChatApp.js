@@ -168,7 +168,7 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
-      {this.state.audioUrl.url !=null? <audio controls src={this.state.audioUrl.url}></audio> : <div></div>}
+      
       
         <div ref={this.scroll}>
           <Messages messages={this.props.chosenChatMember.messages} />
@@ -209,7 +209,7 @@ class ChatApp extends React.Component {
           </span>
           <div>
           { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler}/>
+      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
     
       </div>
             : 
