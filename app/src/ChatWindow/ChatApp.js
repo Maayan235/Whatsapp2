@@ -24,7 +24,7 @@ class ChatApp extends React.Component {
     super(props);
 
     this.state = {
-      messages: ContactsData[this.props.chosenChatMember].messages,
+      messages: this.props.chosenChatMember.messages,
       time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
@@ -122,7 +122,7 @@ class ChatApp extends React.Component {
 
   addMessage = (messageType, message) => {
     // Append the message to the component state
-    const messages = ContactsData[this.props.chosenChatMember].messages;
+    const messages = this.props.chosenChatMember.messages;
     messages.push({ type: messageType, context: message });
     this.setState({ messages });
   }
@@ -171,7 +171,7 @@ class ChatApp extends React.Component {
       {this.state.audioUrl.url !=null? <audio controls src={this.state.audioUrl.url}></audio> : <div></div>}
       
         <div ref={this.scroll}>
-          <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
+          <Messages messages={this.props.chosenChatMember.messages} />
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-9 align-middle border rounded'>

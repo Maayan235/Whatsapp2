@@ -1,9 +1,10 @@
 import ContactItem from "./ContactItem";
 
-function ContactsListResults({relContacts, username, setChatMember,}){
+function ContactsListResults({relContacts, username, setChatMember}){
 
+    const changeChat = (key) => setChatMember(key);
 
-    const handleClick = (key) => {setChatMember(key)
+    const handleClick = (key) => {
         relContacts[key].numOfMessages = "0";
     };
 
@@ -11,8 +12,9 @@ function ContactsListResults({relContacts, username, setChatMember,}){
     const contactsList = relContacts.map((contact, key)=>{
         if (contact.name !== username) {
             return (
-                <div key={key} onClick={() => handleClick(key)}>
-                <ContactItem {...contact} key={key}></ContactItem>
+                // <div key={key} onClick={() => handleClick(key)}>
+                <div  key={key}>
+                    <ContactItem item={contact} key={key} setChatMember={changeChat}></ContactItem>
                 </div>
             );
         }

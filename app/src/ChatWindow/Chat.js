@@ -29,8 +29,8 @@ class Chat extends React.Component {
     setChat = (chatMember) => {
         this.setState({
             isChosedChat: true,
-            chosenChatMember: ContactsData[chatMember],
-            chosenChatMemberNumber: chatMember
+            chosenChatMember: chatMember,
+            // chosenChatMemberNumber: ContactsData.findIndex(chatMember)
         }
         );
         this.state.chosenChatMember.numOfMessages = "0";
@@ -53,7 +53,7 @@ class Chat extends React.Component {
             <div className="col-9 vh-100 p-0">
                 <ChosenContact name={this.state.chosenChatMember.name} nickName={this.state.chosenChatMember.nickName} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMemberNumber} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
+                    <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
                 </div>
             </div>
         );

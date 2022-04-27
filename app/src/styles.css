@@ -121,6 +121,7 @@ body, html, .App, #root, .auth-wrapper {
   text-align: left;
 }
 .auth-inner {
+  margin-top: 50px;
   width: 470px;
   margin: auto;
   background: #ffffff;
