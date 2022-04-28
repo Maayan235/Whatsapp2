@@ -3,7 +3,7 @@ import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
 
-function AddContact({username, addContact, ContactsToAdd}) {
+function AddContact({username, addContact, ContactsToAdd, userData}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {

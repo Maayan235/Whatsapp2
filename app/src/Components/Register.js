@@ -1,11 +1,9 @@
-import React, { Component } from "react";
 import "../styles.css";
 import NameForm from "../NameForm.js"
 import { Link } from 'react-router-dom'
 import { useState } from "react";
 import { userDetails } from "../index.js";
 import ContactsData from "../Contacts/ContactsData";
-import UnChosenContacts from "../Contacts/UnChosenContacts";
 import unknownImg from "./unknown.png"
 
 
@@ -26,8 +24,7 @@ export default function Register() {
         // Compare user info
         if (!userData) {
             setErrorMessage("sucsses!");
-            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg, messages:[] });
-            UnChosenContacts.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg, messages:[]  });
+            ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg, messages:[], myContactList: []});
         }
         else {
             setErrorMessage("username already exist");

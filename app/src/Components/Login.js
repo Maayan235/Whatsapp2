@@ -1,4 +1,4 @@
-import React, { Component, useState,  useCallback } from "react";
+import React, { useState,  useCallback } from "react";
 import "../styles.css";
 import { Link } from 'react-router-dom'
 import ContactsData from "../Contacts/ContactsData";

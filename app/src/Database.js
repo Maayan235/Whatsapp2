@@ -1,9 +1,6 @@
 import React from 'react';
 
 class Database extends React.Component {
-    constructor(props) {
-        super(props);        
-    }
     toStrin(u){
         let txt=""
         for(let i = 0; i<u.length; i++){

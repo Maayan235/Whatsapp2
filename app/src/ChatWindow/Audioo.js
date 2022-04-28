@@ -1,5 +1,4 @@
-import React, { useState, useRef, useContext } from "react";
-import { useMic, useMicUpdate } from "./MicContext";
+import React, { useState, useRef} from "react";
 
 const mystyle = {
   position: "fixed",
@@ -15,13 +14,6 @@ const myGivStyle = {
   padding: "30px",
   width: "50%",
   transform: "translate(50%, 0%)",
-};
-
-const myButtonStyle = {
-  position: "fixed",
-  top: "60%",
-  left: "35%",
-  transform: "translate(20%, 300%)",
 };
 
 const myCancleButtonStyle = {
@@ -41,8 +33,7 @@ const mySendButtonStyle = {
 
 export default function Audio({username, time, fromMe, audioUrl, send}) {
   let soundWavesGif = require("./soundWaves.gif");
-  const micAccess = useMic();
-  const micAccessUpdate = useMicUpdate();
+
   const [stream, setStream] = useState({
     access: false,
     recorder: null,

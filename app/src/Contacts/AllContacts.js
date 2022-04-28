@@ -6,25 +6,26 @@ import "../styles.css";
 import unknownImg from "../Components/unknown.png"
 import plusIconImg from "./plusIcon.png"
 import AddContact from '../AddContact/AddContact';
-import UnChosenContacts from "../Contacts/UnChosenContacts";
-import ContactsDataStartPoint from "./ContactsDataStartPoint"
 
 
-function AllContacts({ username, setChatMember, logout}) {
-    const [contactsList, setContactsList] = useState(ContactsDataStartPoint);
+function AllContacts({ username, setChatMember, logout, chosenChatMember}) {
     const userData = ContactsData.find((user) => user.name === username);
-    const [contactsListToAdd, setContactsListToAdd] = useState(UnChosenContacts);
-    const [showContactsList, setShowContactsList] = useState(ContactsDataStartPoint);
+    const userContactsList = ContactsData.filter(user => (userData.myContactList.indexOf(user.name) > -1));
+    const userContactsListToAdd = ContactsData.filter(user => (userData.myContactList.indexOf(user.name) <= -1));
+
+    const [contactsList, setContactsList] = useState(userContactsList);
+    const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
+    const [showContactsList, setShowContactsList] = useState(userContactsList);
 
     const doSearch = function (query) {
         setContactsList(showContactsList.filter((contact) => contact.name.includes(query)))
     }
 
     const addContact = function (item) {
-        ContactsData.push(item);
         setContactsList(state => [...state, item]);
         setShowContactsList(state => [...state, item]);
-        setContactsListToAdd(contactsListToAdd.filter(list => list !== item));
+        setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
+        userData.myContactList.push(item.name);
     }
 
     const [userImage, setUserImage] = useState(userData.pic);
@@ -43,8 +44,8 @@ function AllContacts({ username, setChatMember, logout}) {
 
     const changeChat = (key) => setChatMember(key);
 
-    const profilePic = unknownImg === userImage ? (<div><button className="picButton" onClick={uploadFiles} ><img src={plusIconImg} className="rounded-circle m-2" width="50" height="50"></img></button>
-        <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>) : (<div><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50"></img></button>
+    const profilePic = unknownImg === userImage ? (<div><button className="picButton" onClick={uploadFiles} ><img src={plusIconImg} className="rounded-circle m-2" width="50" height="50" alt={""}></img></button>
+        <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>) : (<div><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50" alt={""}></img></button>
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>)
             
     return (
@@ -54,8 +55,8 @@ function AllContacts({ username, setChatMember, logout}) {
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} />
-            <AddContact username={username} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" />
+            <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <AddContact username={username} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" userData={userData}/>
         </div>
 
     );

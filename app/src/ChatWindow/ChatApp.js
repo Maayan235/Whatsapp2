@@ -21,9 +21,9 @@ class ChatApp extends React.Component {
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
-      audioUrl : {url: null},
+      audioUrl: { url: null },
       streamAccess: false,
-      
+
       isRecording: false
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
@@ -101,8 +101,8 @@ class ChatApp extends React.Component {
       this.addMessage('Audio', messageObject);
     }
     this.setState({
-      isRecording:false
-    })    
+      isRecording: false
+    })
   }
 
   addMessage = (messageType, message) => {
@@ -113,7 +113,7 @@ class ChatApp extends React.Component {
   }
 
   onImageChange = event => {
-    
+
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
@@ -161,7 +161,7 @@ class ChatApp extends React.Component {
           </span>
           <span className='list-inline-item mb-1'>
             <button onClick={this.handleImageClick} className="btn btn-outline-dark">
-              <img src={camera} height='20' width='20' />
+              <img src={camera} height='20' width='20' alt={""}/>
             </button>
             <input
               ref={this.imageRef}
@@ -173,7 +173,7 @@ class ChatApp extends React.Component {
           </span>
           <span className="VideoInput list-inline-item">
             <button onClick={this.handleVideoClick} className="btn btn-outline-dark">
-              <img src={video} height='20' width='20' />
+              <img src={video} height='20' width='20' alt={""}/>
             </button>
             <input
               ref={this.videoRef}
@@ -186,7 +186,7 @@ class ChatApp extends React.Component {
           </span>
           <span className='list-inline-item'>
             <button onClick={this.handleAudioClick} className="btn btn-outline-dark">
-              <img src={microphone} height='20' width='20' />
+              <img src={microphone} height='20' width='20' alt={""}/>
             </button>
           </span>
           <div>
