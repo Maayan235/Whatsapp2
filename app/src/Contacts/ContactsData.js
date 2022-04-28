@@ -60,6 +60,5 @@ const ContactsData = [{
 { name: "Asaf", password: "123456", numOfMessages: "0", pic: Asaf, nickName: "Asaf", messages: [], myContactList: ["Maayan", "Avital"] },
 { name: "Itamar", password: "123456", numOfMessages: "0", pic: Itamar, nickName: "Itamar", messages: [], myContactList: ["Maayan", "Avital"] }
 ];
->>>>>>> 33789a6b386a0bb9dde7900ab854415f7f0c018c
 
 export default ContactsData
