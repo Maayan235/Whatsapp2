@@ -1,7 +1,5 @@
-import ContactsData from "../Contacts/ContactsData";
 import AddContactsListResults from "./AddContantListResult"
 import Search from "../Contacts/SearchContact";
-import ContactsListResults from "../Contacts/ContactsListResult";
 import {useState} from 'react';
 
 

@@ -1,4 +1,3 @@
-import ContactItem from "../Contacts/ContactItem";
 import AddContactItem from "./AddContactItem";
 
 function AllContactsListResults({username, relContacts, addContact, removeAdd}){

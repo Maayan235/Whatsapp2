@@ -1,22 +1,10 @@
-import React, { Component, useState,  useCallback } from "react";
+import React, { useState,  useCallback } from "react";
 import "../styles.css";
-
-import NameForm from "../NameForm"
-import { users, userDetails } from "../index"
 import { Link } from 'react-router-dom'
-
-import Database from '../Database';
-import AllContacts from '../Contacts/AllContacts';
 import ContactsData from "../Contacts/ContactsData";
-import loggedUserName from "../Contacts/ContactsData";
-import Chat from '../ChatWindow/Chat';
-import App from "../App";
-import Register from "./Register.js";
-
 
 export default function Login({ isSubmitted, onSubmit, setUser }) {
     const [errorMessage, setErrorMessage] = useState({});
-    // const [submitted, setIsSubmitted] = useState(false);
 
     const errors = {
         uname: "Username doesn't exist",
@@ -86,17 +74,3 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         </div>
     );
 }
-
-// remmeber me button
-// <div className="form-group">
-// <div className="custom-control custom-checkbox">
-//     <input type="checkbox" className="custom-control-input" id="customCheck1" />
-//     <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-// </div>
-// </div>
-
-// forgot your password?
-// <p className="forgot-password text-right">
-// <a href="#">Forgot your password?</a>
-// </p>
-// <p></p>

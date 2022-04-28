@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import AllContacts from '../Contacts/AllContacts';
-import ContactsData from '../Contacts/ContactsData';
-import AddContactsListResults from './AddContantListResult';
 import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
 
-function AddContact({username, addContact, ContactsToAdd}) {
+function AddContact({username, addContact, ContactsToAdd, userData}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {

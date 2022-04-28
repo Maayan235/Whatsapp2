@@ -1,22 +1,12 @@
 import React from 'react';
-// import io from 'socket.io-client';
-import config from '../config';
-
 import Messages from './Messages';
-import Message from './Message';
 import ChatInput from './ChatInput.js';
-import ContactsData from '../Contacts/ContactsData'
-// require('../ChatApp.css');
-import DisplayImage from './DisplayImage';
-import VideoInput from './VideoInput';
 import Audio from "./Audioo";
 import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
-
 require('../ChatApp.css');
-
 
 class ChatApp extends React.Component {
 
@@ -24,16 +14,16 @@ class ChatApp extends React.Component {
     super(props);
 
     this.state = {
-      messages: ContactsData[this.props.chosenChatMember].messages,
+      messages: this.props.chosenChatMember.messages,
       time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
       videoRef: null,
       videoSrc: null,
       audioSrc: null,
-      audioUrl : {url: null},
+      audioUrl: { url: null },
       streamAccess: false,
-      
+
       isRecording: false
     };
     this.sendTextHandler = this.sendTextHandler.bind(this);
@@ -76,11 +66,6 @@ class ChatApp extends React.Component {
   }
 
   sendImageHandler(src) {
-    if(this.state.audioUrl.url != null){
-      console.log(this.state.audioUrl);
-    }else{
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-    }
     const messageObject = {
       username: this.props.username,
       message: src,
@@ -117,19 +102,19 @@ class ChatApp extends React.Component {
     this.props.renderAllContacts();
 
     this.setState({
-      isRecording:false
-    })    
+      isRecording: false
+    })
   }
 
   addMessage = (messageType, message) => {
     // Append the message to the component state
-    const messages = ContactsData[this.props.chosenChatMember].messages;
+    const messages = this.props.chosenChatMember.messages;
     messages.push({ type: messageType, context: message });
     this.setState({ messages });
   }
 
   onImageChange = event => {
-    
+
     if (event.target.files && event.target.files[0]) {
       let img = event.target.files[0];
       let url = URL.createObjectURL(img);
@@ -161,7 +146,6 @@ class ChatApp extends React.Component {
     this.setState({
       isRecording: true
     });
-   // console.log(this.state.isRecording);
   }
 
   executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
@@ -169,10 +153,8 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
-      
-      
         <div ref={this.scroll}>
-          <Messages messages={ContactsData[this.props.chosenChatMember].messages} />
+          <Messages messages={this.props.chosenChatMember.messages} />
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-9 align-middle border rounded'>
@@ -180,7 +162,7 @@ class ChatApp extends React.Component {
           </span>
           <span className='list-inline-item mb-1'>
             <button onClick={this.handleImageClick} className="btn btn-outline-dark">
-              <img src={camera} height='20' width='20' />
+              <img src={camera} height='20' width='20' alt={""}/>
             </button>
             <input
               ref={this.imageRef}
@@ -192,7 +174,7 @@ class ChatApp extends React.Component {
           </span>
           <span className="VideoInput list-inline-item">
             <button onClick={this.handleVideoClick} className="btn btn-outline-dark">
-              <img src={video} height='20' width='20' />
+              <img src={video} height='20' width='20' alt={""}/>
             </button>
             <input
               ref={this.videoRef}
@@ -205,17 +187,17 @@ class ChatApp extends React.Component {
           </span>
           <span className='list-inline-item'>
             <button onClick={this.handleAudioClick} className="btn btn-outline-dark">
-              <img src={microphone} height='20' width='20' />
+              <img src={microphone} height='20' width='20' alt={""}/>
             </button>
           </span>
           <div>
-          { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
-    
-      </div>
-            : 
-            null
-          }
+            {this.state.isRecording ?
+              <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
+
+              </div>
+              :
+              null
+            }
           </div>
         </div>
       </div>
@@ -230,7 +212,3 @@ ChatApp.defaultProps = {
 };
 
 export default ChatApp;
-
-
-// <input type="text" className="w-75"></input>
-// <button type="button" className="btn btn-primary">send</button>

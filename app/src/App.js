@@ -1,6 +1,4 @@
-// import './App.css';
 import React, { Component } from "react";
-import AllContacts from './Contacts/AllContacts';
 import Chat from './ChatWindow/Chat';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
