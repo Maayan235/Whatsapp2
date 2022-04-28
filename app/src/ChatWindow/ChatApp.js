@@ -66,9 +66,6 @@ class ChatApp extends React.Component {
   }
 
   sendImageHandler(src) {
-    if(this.state.audioUrl.url != null){
-      console.log(this.state.audioUrl);
-    }
     const messageObject = {
       username: this.props.username,
       message: src,
@@ -214,7 +211,3 @@ ChatApp.defaultProps = {
 };
 
 export default ChatApp;
-
-
-// <input type="text" className="w-75"></input>
-// <button type="button" className="btn btn-primary">send</button>
