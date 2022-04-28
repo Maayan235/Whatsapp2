@@ -35,7 +35,7 @@ function ContactItem({ name, password, numOfMessages, nickName, pic, messages })
         else if (userData.messages[userData.messages.length - 1].type == "Video") {
             lastMessage1 = <div><div className='overflow'>Video...</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
-        }else{
+        }else if (userData.messages[userData.messages.length - 1].type == "Audio"){
             lastMessage1 = <div><div className='overflow'>Audio...</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }

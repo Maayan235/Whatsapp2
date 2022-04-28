@@ -111,10 +111,11 @@ class ChatApp extends React.Component {
         message: url,
         time: this.getCurrentTime()
       }
-      this.props.renderAllContacts();
       messageObject.fromMe = true;
       this.addMessage('Audio', messageObject);
     }
+    this.props.renderAllContacts();
+
     this.setState({
       isRecording:false
     })    
