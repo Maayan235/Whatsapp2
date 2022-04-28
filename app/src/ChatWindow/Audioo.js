@@ -26,15 +26,15 @@ const myButtonStyle = {
 
 const myCancleButtonStyle = {
   position: "fixed",
-  top: "60%",
-  left: "35%",
+  top: "50%",
+  left: "15%",
   transform: "translate(350%, 300%)",
 };
 
 const mySendButtonStyle = {
   position: "fixed",
-  top: "60%",
-  left: "35%",
+  top: "50%",
+  left: "10%",
   transform: "translate(70%, 300%)",
 };
 
@@ -73,7 +73,6 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
             mimeType: "audio/webm"
           });
         } catch (err) {
-          // console.log(err);
         }
 
         const track = mediaRecorder.stream.getTracks()[0];
@@ -134,8 +133,8 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
                 <div>
                   <h3>Recording now...</h3>
                   <img style={myGivStyle} src={soundWavesGif} alt="wait until the record stops" />
-                  <button style={mySendButtonStyle} onClick={function (event) { stream.recorder.stop(); setIsRecording(false); }}>Send</button>
-                  <button style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancle</button>
+                  <button className="btn btn-outline-dark" style={mySendButtonStyle} onClick={function (event) { stream.recorder.stop(); setIsRecording(false); }}>Send</button>
+                  <button className="btn btn-outline-dark" style={myCancleButtonStyle} onClick={function (event) {setisBoxOpen(false); send(null)}}>Cancel</button>
                 </div>
                 :
                 <div></div>

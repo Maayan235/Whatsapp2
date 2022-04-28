@@ -25,9 +25,7 @@ function ContactItem({ item, setChatMember}) {
 
     function handleClick() {
         setChatMember(item);
-        console.log(item);
       }
-    {console.log(userData.messages)}
     if (userData.messages.length !== 0) {
         if (userData.messages[userData.messages.length - 1].type == "Text") {
             lastMessage1 = <div><div className='overflow'>{userData.messages[userData.messages.length - 1].context.message}</div>
