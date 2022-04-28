@@ -2,14 +2,14 @@
 IMPORTANT! Our Project is in branch ex1.
 
 Project of:
-Avital Gololobov 318960168,
-Maayan Sharabi 209370469,
-Yarin Tzedaka 319091278.
+1. Avital Gololobov 318960168,
+2. Maayan Sharabi 209370469,
+3. Yarin Tzedaka 319091278.
 
 Commands to execute:
-git checkout ex1
-cd app
-npm start
+1. git checkout ex1
+2. cd app
+3. npm start
 
 We used react-router-dom package
 To open the website, you need to run npm-start inside App folder
