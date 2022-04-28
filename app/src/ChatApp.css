@@ -19,7 +19,7 @@ html {
   overflow-y: auto;
   overflow-x: hidden;
   flex-grow: 1;
-  height: 65vh;
+  height: 60vh;
 }
 
 h3 {

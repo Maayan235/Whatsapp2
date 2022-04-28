@@ -2,9 +2,14 @@ import { useState } from 'react';
 import "../styles.css"
 import ContactsData from './ContactsData';
 import UnChosenContacts from './UnChosenContacts';
-function ContactItem({ item, setChatMember}) {
-    let userData = ContactsData.find((user) => user.name === item.name);
+import video from './videoIcon.jpg'
+import picture from './pictureIcon.png'
+import audio from './audioIcon.png'
 
+
+function ContactItem({ item, setChatMember}) {
+    let userData = item;
+    
     let isAddedUsser = false;
     if (!userData) {
         userData = UnChosenContacts.find((user) => user.name === item.name);
@@ -26,21 +31,21 @@ function ContactItem({ item, setChatMember}) {
         setChatMember(item);
         console.log(item);
       }
-    {console.log(userData)}
+    {console.log(userData.messages)}
     if (userData.messages.length !== 0) {
         if (userData.messages[userData.messages.length - 1].type == "Text") {
             lastMessage1 = <div><div className='overflow'>{userData.messages[userData.messages.length - 1].context.message}</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
         else if (userData.messages[userData.messages.length - 1].type == "Image") {
-            lastMessage1 = <div><div className='overflow'>Image...</div>
+            lastMessage1 = <div><div className='overflow'><img height="20" src={picture}></img> Photo</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
         else if (userData.messages[userData.messages.length - 1].type == "Video") {
-            lastMessage1 = <div><div className='overflow'>Video...</div>
+            lastMessage1 = <div><div className='overflow'><img height="20" src={video}></img> Video</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }else{
-            lastMessage1 = <div><div className='overflow'>Audio...</div>
+            lastMessage1 = <div><div className='overflow'><img height="25" src={audio}></img> Audio</div>
                 <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
         }
     }
