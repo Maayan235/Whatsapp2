@@ -1,8 +1,8 @@
 # Whatsapp2
 Project of:
-Avital Gololobov 318960168
-Maayan Sharabi 209370469
-Yarin Tzedaka 319091278
+Avital Gololobov 318960168,
+Maayan Sharabi 209370469,
+Yarin Tzedaka 319091278.
 
 We used react-router-dom package
 To open the website, you need to run npm-start inside App folder
