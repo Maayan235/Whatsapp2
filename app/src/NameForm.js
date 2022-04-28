@@ -139,8 +139,6 @@ class NameForm extends React.Component {
     }
     return (
       <>
-
-
         <label className="registerLabel">{this.props.formType}</label>
 
         <div className="container">
@@ -156,9 +154,6 @@ class NameForm extends React.Component {
             </div>
 
           </div>
-
-
-
         </div>
       </>
     );

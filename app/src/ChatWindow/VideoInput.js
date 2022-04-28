@@ -2,7 +2,6 @@ import React from "react";
 
 export default function VideoInput(props) {
 
-    
     return (
         
         <div className="bg-light border p-2 bd-highlight">
@@ -16,6 +15,5 @@ export default function VideoInput(props) {
                 )}        
             
                 </div>
-        
     );
 }

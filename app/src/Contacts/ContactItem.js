@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import "../styles.css"
-import ContactsData from './ContactsData';
 import UnChosenContacts from './UnChosenContacts';
 import video from './videoIcon.jpg'
 import picture from './pictureIcon.png'
@@ -15,10 +14,7 @@ function ContactItem({ item, setChatMember}) {
         userData = UnChosenContacts.find((user) => user.name === item.name);
         isAddedUsser = true;
     }
-    //console.log(userData)
 
-
-    //console.log(userData.messages[messages.length - 1].context.message)
     const [lastMassage, setStream] = useState({
         access: false,
         recorder: null,

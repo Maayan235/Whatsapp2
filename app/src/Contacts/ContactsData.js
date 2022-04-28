@@ -1,9 +1,6 @@
 import Avital from'./Avital.jpg'
 import Maayan from'./Maayan.jpg'
 import Yarin from'./Yarin.jpg'
-import Shoval from './shoval.jpg'
-import Asaf from './Asaf.jpg'
-import Itamar from './itamar.jpg'
 
 let currentTime = '04:04'
 

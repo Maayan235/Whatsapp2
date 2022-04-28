@@ -1,13 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import ChosenContact from "./ChosenContact";
-import DisplayImage from "./DisplayImage";
-import VideoInput from "./VideoInput";
 import ContactsData from "../Contacts/ContactsData";
 import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
-import { userDetails } from "..";
-import NameForm from "../NameForm";
 import {MicProvider} from './MicContext';
 
 class Chat extends React.Component {
@@ -30,7 +26,6 @@ class Chat extends React.Component {
         this.setState({
             isChosedChat: true,
             chosenChatMember: chatMember,
-            // chosenChatMemberNumber: ContactsData.findIndex(chatMember)
         }
         );
         this.state.chosenChatMember.numOfMessages = "0";
@@ -47,7 +42,6 @@ class Chat extends React.Component {
     }
 
     render() {
-
         // JSX code for chat window
         const renderChatWithContact = (
             <div className="col-9 vh-100 p-0">

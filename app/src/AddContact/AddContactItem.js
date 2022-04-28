@@ -1,6 +1,3 @@
-import MyContacts from "../Contacts/MyContacts";
-import { useState } from 'react';
-
 function AddContactItem({item, addContact, removeAdd}) {
 
     function handleClick(e) {

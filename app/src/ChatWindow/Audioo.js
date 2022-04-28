@@ -1,8 +1,5 @@
 import React, { useState, useRef, useContext } from "react";
-import MyContacts from "../Contacts/MyContacts";
 import { useMic, useMicUpdate } from "./MicContext";
-import soundWaves from "./soundWaves.gif";
-//import "./styles.css";
 
 const mystyle = {
   position: "fixed",
@@ -63,12 +60,7 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
 
   const [isBoxOpen, setisBoxOpen] = useState(true);
 
-
   const chunks = useRef([]);
-
-  function getRecorder() {
-
-  }
 
   function getAccess() {
     navigator.mediaDevices
@@ -96,13 +88,10 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
         };
 
         mediaRecorder.ondataavailable = function (e) {
-          // console.log("data available");
           chunks.current.push(e.data);
         };
 
         mediaRecorder.onstop = async function () {
-          // console.log("stopped");
-          
           const url = URL.createObjectURL(chunks.current[0]);
           chunks.current = [];
           audioUrl.url = url;
@@ -124,37 +113,9 @@ export default function Audio({username, time, fromMe, audioUrl, send}) {
         );
       })
       .catch((error) => {
-        // console.log(error);
         setStream({ ...stream, error });
       });
-
-      // console.log(micAccess);
-
   }
-
-  function getMicAccess() {
-    getAccess();
-    if (stream.access) {
-      micAccessUpdate();
-      setRecording({
-          gotAccessAlready: true
-        })
-        setRecording({
-          gotAccessAlready: false
-        })
-    }
-  }
-
-  // function sendAudioHandler() {
-  //   const messageObject = {
-  //     username: this.props.username,
-  //     message: audioUrl,
-  //     time: this.getCurrentTime()
-  //   }
-  //   // this.props.renderAllContacts();
-  //   messageObject.fromMe = true;
-  //   send('Audio', messageObject);
-  // }
   
   return (
     <div>

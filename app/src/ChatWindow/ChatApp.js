@@ -1,22 +1,12 @@
 import React from 'react';
-// import io from 'socket.io-client';
-import config from '../config';
-
 import Messages from './Messages';
-import Message from './Message';
 import ChatInput from './ChatInput.js';
-import ContactsData from '../Contacts/ContactsData'
-// require('../ChatApp.css');
-import DisplayImage from './DisplayImage';
-import VideoInput from './VideoInput';
 import Audio from "./Audioo";
 import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
 
-
 require('../ChatApp.css');
-
 
 class ChatApp extends React.Component {
 
@@ -78,8 +68,6 @@ class ChatApp extends React.Component {
   sendImageHandler(src) {
     if(this.state.audioUrl.url != null){
       console.log(this.state.audioUrl);
-    }else{
-      console.log("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
     }
     const messageObject = {
       username: this.props.username,
@@ -160,7 +148,6 @@ class ChatApp extends React.Component {
     this.setState({
       isRecording: true
     });
-   // console.log(this.state.isRecording);
   }
 
   executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);
@@ -168,8 +155,6 @@ class ChatApp extends React.Component {
   render() {
     return (
       <div className="list-inline">
-      
-      
         <div ref={this.scroll}>
           <Messages messages={this.props.chosenChatMember.messages} />
         </div>
@@ -208,13 +193,13 @@ class ChatApp extends React.Component {
             </button>
           </span>
           <div>
-          { this.state.isRecording ?
-      <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
-    
-      </div>
-            : 
-            null
-          }
+            {this.state.isRecording ?
+              <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
+
+              </div>
+              :
+              null
+            }
           </div>
         </div>
       </div>

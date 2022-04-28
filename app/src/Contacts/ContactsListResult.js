@@ -4,11 +4,6 @@ function ContactsListResults({relContacts, username, setChatMember}){
 
     const changeChat = (key) => setChatMember(key);
 
-    const handleClick = (key) => {
-        relContacts[key].numOfMessages = "0";
-    };
-
-
     const contactsList = relContacts.map((contact, key)=>{
         if (contact.name !== username) {
             return (
