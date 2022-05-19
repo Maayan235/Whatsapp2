@@ -23,9 +23,9 @@ class App extends Component {
     });
   }
 
-  setUser = (username) => {
+  setUser = (userdata) => {
     this.setState({
-      user: username
+      user: userdata
     });
   }
 

@@ -10,6 +10,7 @@ class Chat extends React.Component {
         super(props);
         this.state = {
             conectedUser: this.props.user,
+            
             chosenChatMember: ContactsData[0],
             isChosedChat: false,
             chosenChatMemberNumber: -1,
@@ -20,7 +21,6 @@ class Chat extends React.Component {
         this.logout = this.logout.bind(this);
         this.renderAllContacts= this.renderAllContacts.bind(this);
     }
-
     setChat = (chatMember) => {
         this.setState({
             isChosedChat: true,
@@ -46,13 +46,14 @@ class Chat extends React.Component {
             <div className="col-9 vh-100 p-0">
                 <ChosenContact name={this.state.chosenChatMember.name} nickName={this.state.chosenChatMember.nickName} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp username={this.state.conectedUser.name} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
+                    <ChatApp username={this.state.conectedUser.userName} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
                 </div>
             </div>
         );
 
         // JSX code for chat window
         const renderHello = (
+            
             <div className="col-9 vh-100 p-0">
                 <h3>React Chat App</h3>
                 <h3>Hi {this.state.conectedUser.userName}! You Can Start Chatting Now!</h3>

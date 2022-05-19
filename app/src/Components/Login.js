@@ -52,8 +52,9 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 postUser(uname.value);
+                setUser(userData);
                 onSubmit(true);
-                setUser(uname.value);
+                
               }
         }
         else {
@@ -77,7 +78,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         // Compare user info
 
         //console.log(userData.userName);
-        //console.log(userData.UserName);
+        //console.log(userData);
         
 
         

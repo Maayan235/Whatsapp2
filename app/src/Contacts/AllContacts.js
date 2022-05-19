@@ -10,7 +10,7 @@ import { useEffect} from 'react';
 
 function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
-
+    console.log(user)
     const [contactsList,setContactsList]= useState([]);
     //useAffect
     //async function getContacts(){
