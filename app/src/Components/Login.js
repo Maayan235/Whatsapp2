@@ -17,29 +17,70 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     <div className="error">{errorMessage.message}</div>
     );
 
-    const handleSubmit = useCallback(event => {
-        // Prevent page reload
-        event.preventDefault();
 
-        var { uname, pass } = document.forms[0];
+    // function async checkUser(username){
+    //     const res = await fetch("http://localhost:5286/api/UsersAPI/" + userName);
+    //     if(res != null){
 
-        // Find user login info
-        const userData = ContactsData.find((user) => user.name === uname.value);
-
-        // Compare user info
-        if (userData) {
+    //     }
+    // }
+    async function postUser(username){
+        const res = await fetch("http://localhost:5286/api/contacts/logIn",{
+                method : 'POST',
+                headers: {
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({UserName:username })});  
+                // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, ServerName: user.ServerName,Id: user.Id, UserName : user.userName, Password: user.password, NickName: user.nickName, Contacts:user.contacts
+            }
+    async function checkUser(uname,pass){
+        // let promise = new Promise((res, rej) => {
+        //     setTimeout(() => res(fetch("http://localhost:5286/api/UsersAPI/" + uname)), 1000)
+        // });
+        const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
+        //const user = await promise;
+        console.log(user);
+        const userData = await user.json();
+        console.log(userData)
+        //setTimeout(2500);
+        
+        console.log("uname:" +uname.value)
+        console.log("serverRet" + userData.userName)
+        if (userData.userName == uname.value) {
             if (userData.password !== pass.value) {
                 // Invalid password
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
+                postUser(uname.value);
                 onSubmit(true);
-                setUser(userData);
+                setUser(uname.value);
               }
         }
         else {
             // Username not found
             setErrorMessage({ name: "uname", message: errors.uname });
         }
+        return userData;
+    }
+
+    const handleSubmit = useCallback(event => {
+        // Prevent page reload
+        event.preventDefault();
+
+        var { uname, pass } = document.
+        forms[0];
+
+        // Find user login info
+        
+       var userData =checkUser(uname, pass)
+        //const userData = ContactsData.find((user) => user.name === uname.value);
+        // Compare user info
+
+        //console.log(userData.userName);
+        //console.log(userData.UserName);
+        
+
+        
     }, [onSubmit])
 
 // JSX code for login form
