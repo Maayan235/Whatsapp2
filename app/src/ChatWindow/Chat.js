@@ -46,7 +46,7 @@ class Chat extends React.Component {
             <div className="col-9 vh-100 p-0">
                 <ChosenContact name={this.state.chosenChatMember.name} nickName={this.state.chosenChatMember.nickName} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp username={this.state.conectedUser} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
+                    <ChatApp username={this.state.conectedUser.name} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} />
                 </div>
             </div>
         );
@@ -55,13 +55,13 @@ class Chat extends React.Component {
         const renderHello = (
             <div className="col-9 vh-100 p-0">
                 <h3>React Chat App</h3>
-                <h3>Hi {this.state.conectedUser}! You Can Start Chatting Now!</h3>
+                <h3>Hi {this.state.conectedUser.name}! You Can Start Chatting Now!</h3>
             </div>
         );
 
         return (
             <Router>
-                <AllContacts username={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember}/>
+                <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember}/>
                 {this.state.isChosedChat ? renderChatWithContact : renderHello }
             </Router>
         );

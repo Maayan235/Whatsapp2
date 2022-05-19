@@ -33,7 +33,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 onSubmit(true);
-                setUser(userData.name);
+                setUser(userData);
               }
         }
         else {
