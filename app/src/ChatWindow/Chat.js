@@ -55,7 +55,7 @@ class Chat extends React.Component {
         const renderHello = (
             <div className="col-9 vh-100 p-0">
                 <h3>React Chat App</h3>
-                <h3>Hi {this.state.conectedUser.UserName}! You Can Start Chatting Now!</h3>
+                <h3>Hi {this.state.conectedUser.userName}! You Can Start Chatting Now!</h3>
             </div>
         );
 
