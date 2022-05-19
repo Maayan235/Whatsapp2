@@ -9,7 +9,7 @@ function ContactItem({ item, setChatMember}) {
     let userData = item;
     
     if (!userData) {
-        userData = ContactsData.find((user) => user.name === item.name);
+        userData = ContactsData.find((user) => user.UserName === item.name);
     }
 
     let lastMessage = null;

@@ -7,20 +7,14 @@ import unknownImg from "../Components/unknown.png"
 import plusIconImg from "./plusIcon.png"
 import AddContact from '../AddContact/AddContact';
 
-async function getContacts(){
-    const contacts = await fetch("http://localhost:5286/api/Contacts/");
-    console.log(contacts);
-    const contactsData = await contacts.json();
-    console.log(contactsData)
-}
 
-function AllContacts({ userData, setChatMember, logout, chosenChatMember}) {
-    //  userData = ContactsData.find((user) => user.name === username);
-    const userContactsList = getContacts();  //ContactsData.filter(user => (userData.myContactList.indexOf(user.name) > -1));
-    // const userContactsListToAdd = ContactsData.filter(user => (userData.myContactList.indexOf(user.name) <= -1));
+function AllContacts({ username, setChatMember, logout, chosenChatMember}) {
+    const userData = ContactsData.find((user) => user.name === username);
+    const userContactsList = ContactsData.filter(user => (userData.myContactList.indexOf(user.name) > -1));
+    const userContactsListToAdd = ContactsData.filter(user => (userData.myContactList.indexOf(user.name) <= -1));
 
     const [contactsList, setContactsList] = useState(userContactsList);
-    // const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
+    const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
     const [showContactsList, setShowContactsList] = useState(userContactsList);
 
     const doSearch = function (query) {
@@ -30,7 +24,7 @@ function AllContacts({ userData, setChatMember, logout, chosenChatMember}) {
     const addContact = function (item) {
         setContactsList(state => [...state, item]);
         setShowContactsList(state => [...state, item]);
-        //setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
+        setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
         userData.myContactList.push(item.name);
     }
 
@@ -61,8 +55,8 @@ function AllContacts({ userData, setChatMember, logout, chosenChatMember}) {
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={contactsList} username={userData.name} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
-            <AddContact username={userData.name} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" userData={userData}/>
+            <ContactsListResults relContacts={contactsList} username={username} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <AddContact username={username} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" userData={userData}/>
         </div>
 
     );

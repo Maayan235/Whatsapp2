@@ -46,7 +46,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
    
     }
 
-    const [userImage, setUserImage] = useState(user.pic);
+    const [userImage, setUserImage] = useState(user.ProfilePicSrc);
   
     function uploadFiles() {
         document.getElementById("selectFile").click()
@@ -55,8 +55,8 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
         if (event.target.files && event.target.files[0]) {
             let image = event.target.files[0];
-            user.pic = URL.createObjectURL(image);
-            setUserImage(user.pic);
+            user.ProfilePicSrc = URL.createObjectURL(image);
+            setUserImage(user.ProfilePicSrc);
         }
     }
 
@@ -69,12 +69,12 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
     return (
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
             <div className='d-flex align-items-center p-3'>
-                <span>{profilePic}</span><span id='userName'>{user.nickName}</span>
+                <span>{profilePic}</span><span id='userName'>{user.NickName}</span>
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={showContactsList} username={user.name} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
-            <AddContact username={user.name} addContact={addContact}  className="popUp" userData={user}/>
+            <ContactsListResults relContacts={showContactsList} username={user.UserName} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <AddContact username={user.UserName} addContact={addContact}  className="popUp" userData={user}/>
         </div>
 
     );
