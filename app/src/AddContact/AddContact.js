@@ -3,7 +3,7 @@ import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
 
-function AddContact({username, addContact, ContactsToAdd, userData}) {
+function AddContact({username, addContact, userData}) {
   const [isOpen, setIsOpen] = useState(false);
 
   const togglePopup = () => {
@@ -29,8 +29,10 @@ function AddContact({username, addContact, ContactsToAdd, userData}) {
       {isOpen && <CloseButton 
         content={
           <div>
-            <AllContactsToAdd  username={username} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
-          </div>
+           {// <AllContactsToAdd  username={username} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
+          
+                   }
+                              </div>
         }
         handleClose={togglePopup}
       />}

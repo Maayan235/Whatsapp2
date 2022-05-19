@@ -6,34 +6,47 @@ import "../styles.css";
 import unknownImg from "../Components/unknown.png"
 import plusIconImg from "./plusIcon.png"
 import AddContact from '../AddContact/AddContact';
+import { useEffect} from 'react';
 
-async function getContacts(){
-    const contacts = await fetch("http://localhost:5286/api/Contacts/");
-    console.log(contacts);
-    const contactsData = await contacts.json();
-    console.log(contactsData)
-}
 function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
-    const userData = ContactsData.find((user1) => user1.name === user.name);
-    const userContactsList = ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) > -1));
-    const userContactsListToAdd = ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) <= -1));
 
-    const [contactsList, setContactsList] = useState(userContactsList);
-    const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
-    const [showContactsList, setShowContactsList] = useState(userContactsList);
+
+    const [contactsList,setContactsList]= useState([]);
+    //useAffect
+    //async function getContacts(){
+    useEffect(async ()=> {
+        const contacts = await fetch("http://localhost:5286/api/UsersAPI/contacts");
+        console.log(contacts);
+        var contactsData = await contacts.json();
+        console.log(contactsData)
+        setContactsList(contactsData);
+        //return contactsData;
+    },[]);
+
+
+    //const userData = ContactsData.find((user1) => user1.name === user.name);
+    //const userContactsList = getContacts(); //ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) > -1));
+    //const userContactsListToAdd = ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) <= -1));
+
+    //const [contactsList, setContactsList] = useState(userContactsList);
+    //const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
+    const [showContactsList, setShowContactsList] = useState(contactsList); //userContactsList);
 
     const doSearch = function (query) {
-        setContactsList(showContactsList.filter((contact) => contact.name.includes(query)))
+        setShowContactsList(contactsList.filter((contact) => contact.name.includes(query)))
     }
 
     const addContact = function (item) {
         setContactsList(state => [...state, item]);
-        setShowContactsList(state => [...state, item]);
-        setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
-        userData.myContactList.push(item.name);
+        //setShowContactsList(state => [...state, item]);
+        //setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
+        //userData.myContactList.push(item.name);
+        
+        //post(!)
+   
     }
 
-    const [userImage, setUserImage] = useState(userData.pic);
+    const [userImage, setUserImage] = useState(user.pic);
   
     function uploadFiles() {
         document.getElementById("selectFile").click()
@@ -42,8 +55,8 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
         if (event.target.files && event.target.files[0]) {
             let image = event.target.files[0];
-            userData.pic = URL.createObjectURL(image);
-            setUserImage(userData.pic);
+            user.pic = URL.createObjectURL(image);
+            setUserImage(user.pic);
         }
     }
 
@@ -56,12 +69,12 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
     return (
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
             <div className='d-flex align-items-center p-3'>
-                <span>{profilePic}</span><span id='userName'>{userData.nickName}</span>
+                <span>{profilePic}</span><span id='userName'>{user.nickName}</span>
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={contactsList} username={user.name} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
-            <AddContact username={user.name} addContact={addContact} ContactsToAdd={contactsListToAdd} className="popUp" userData={userData}/>
+            <ContactsListResults relContacts={showContactsList} username={user.name} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <AddContact username={user.name} addContact={addContact}  className="popUp" userData={user}/>
         </div>
 
     );
