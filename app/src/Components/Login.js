@@ -51,6 +51,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                 // Invalid password
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
+                ContactsData.push({});
                 postUser(uname.value);
                 setUser(userData);
                 onSubmit(true);

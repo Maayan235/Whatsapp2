@@ -26,46 +26,59 @@ function AddContact({username, addContact, userData}) {
   );
 
 
-  async function checkUser(uname,ServerName){
-    // let promise = new Promise((res, rej) => {
-    //     setTimeout(() => res(fetch("http://localhost:5286/api/UsersAPI/" + uname)), 1000)
-    // });
-    const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
-    //const user = await promise;
-    console.log(user);
-    const userData = await user.json();
-    console.log(userData)
-    //setTimeout(2500);
-
-    console.log("uname:" +uname.value)
-    console.log("serverRet" + userData.userName)
-    if (userData.userName == uname.value) {
-      if (userData.ServerName !== ServerName.value) {
-        // Invalid password
-        setErrorMessage({ name: "serverName", message: errors.ServerName });
-      } else {
-        addContact(uname.value);
-        //setUser(userData);
-        //onSubmit(true);
-        
-      }      
-      
-    }
-    else {
-        // Username not found
-        setErrorMessage({ name: "uname", message: errors.uname });
-    }
-    return userData;
+  async function addNewContact (userDetails){
+    const res = await fetch("http://localhost:5286/api/UsersAPI/addContact",{
+    
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({UserName : userDetails.userName,ServerName: userDetails.serverName, NickName: userDetails.nickName})});  
+            console.log(res);
+            
 }
+//   async function checkUser(uname,ServerName){
+    
+//     const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
+    
+//     console.log(user);
+//     const userData = await user.json();
+//     console.log(userData)
+    
+
+//     console.log("uname:" +uname.value)
+//     console.log("serverRet" + userData.userName)
+//     if (userData.userName == uname.value) {
+//       if (userData.ServerName !== ServerName.value) {
+//         // Invalid password
+//         setErrorMessage({ name: "serverName", message: errors.ServerName });
+//       } else {
+//         addNewContact(userData);
+//         //setUser(userData);
+//         //onSubmit(true);
+        
+//       }      
+      
+//     }
+//     else {
+//         // Username not found
+//         setErrorMessage({ name: "uname", message: errors.uname });
+//     }
+//     return userData;
+// }
 
   const handleSubmit = useCallback(event => {
     // Prevent page reload
     event.preventDefault();
 
-    var { uname, ServerName } = document.
+    var { uname, ServerName, nickName } = document.
     forms[0];
-    var userData =checkUser(uname, ServerName)
-  })[handleSubmit]
+
+    var user = {userName : uname.value, serverName: ServerName.value, nickName: nickName.value}
+    console.log("form details:")
+    console.log(user);
+    addNewContact(user);
+  })
 
 
 
@@ -97,25 +110,22 @@ function AddContact({username, addContact, userData}) {
     <h3>Add contact</h3>
     <div className="form-group">
         <label>Username</label>
-        <input type="email" className="form-control" placeholder="username" name="uname" required/>
-        {renderErrorMessage("uname")}
+        <input  className="form-control" placeholder="username" name="uname" required/>
+        
     </div>
     <p></p> 
     <div className="form-group">
         <label>NickName</label>
-        <input type="email" className="form-control" placeholder="nickname" name="nickName" required/>
+        <input className="form-control" placeholder="nickname" name="nickName" required/>
     </div>
     <div className="form-group">
         <label>Server name</label>
-        <input type="email" className="form-control" placeholder="Server name" name="ServerName" required/>
-        {renderErrorMessage("ServerName")}
+        <input  className="form-control" placeholder="Server name" name="ServerName" required/>
+        
     </div>
     <div className="regButton">
-    <button type="submit" className="btn btn-primary btn-block" >
-    
-    { 
-      //onClick={handleSubmit}>
-      } 
+    <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>
+       
        Add
     </button>
     </div>
