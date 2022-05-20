@@ -12,11 +12,11 @@ function AddContact({username, addContact, userData}) {
     setIsOpen(!isOpen);
   }
 
-  const [errorMessage, setErrorMessage] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
 
   const errors = {
-      uname: "Username doesn't exist",
-      ServerName: "Wrong Server name"
+      uname: "User doesn't exist",
+      success: "Contact added!"
   };
 
   // JSX code for error message
@@ -35,6 +35,13 @@ function AddContact({username, addContact, userData}) {
             },
             body: JSON.stringify({UserName : userDetails.userName,ServerName: userDetails.serverName, NickName: userDetails.nickName})});  
             console.log(res);
+          if(res.status!=201){
+            //console.log("not 201..")
+            setErrorMessage({ name: "uname", message: errors.uname });
+          }    
+          else{
+                
+          }   
             
 }
 //   async function checkUser(uname,ServerName){
@@ -123,7 +130,9 @@ function AddContact({username, addContact, userData}) {
         <input  className="form-control" placeholder="Server name" name="ServerName" required/>
         
     </div>
+    <div className="">        {renderErrorMessage("uname")}    </div>
     <div className="regButton">
+    
     <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>
        
        Add

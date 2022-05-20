@@ -34,14 +34,12 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                 // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, ServerName: user.ServerName,Id: user.Id, UserName : user.userName, Password: user.password, NickName: user.nickName, Contacts:user.contacts
             }
     async function checkUser(uname,pass){
-        // let promise = new Promise((res, rej) => {
-        //     setTimeout(() => res(fetch("http://localhost:5286/api/UsersAPI/" + uname)), 1000)
-        // });
+        
         const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
         //const user = await promise;
         console.log(user);
         const userData = await user.json();
-        console.log(userData)
+        console.log(userData);
         //setTimeout(2500);
         
         console.log("uname:" +uname.value)
