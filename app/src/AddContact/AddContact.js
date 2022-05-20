@@ -1,4 +1,5 @@
 import React, { useState,  useCallback } from "react";
+import "../styles.css";
 
 import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
@@ -121,11 +122,12 @@ function AddContact({username, addContact, userData}) {
     
     </form>
 
-
+    
           {// <AllContactsToAdd  username={username} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
           
                    }
-                              </div>
+                   
+  </div>
         }
         handleClose={togglePopup}
       />}

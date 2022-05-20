@@ -25,7 +25,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     //     }
     // }
     async function postUser(username){
-        const res = await fetch("http://localhost:5286/api/contacts/logIn",{
+        const res = await fetch("http://localhost:5286/api/UsersAPI/logIn",{
                 method : 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
