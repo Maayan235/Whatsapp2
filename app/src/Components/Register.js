@@ -18,8 +18,8 @@ export default function Register() {
         console.log(data);
         if(data.UserName != userDetails.userName){
             //if (!userData) {
-                setErrorMessage("sucsses!");
-                postUser(userDetails);       
+                setErrorMessage("sucsses!");  
+                postUser(userDetails);
         }else {
             setErrorMessage("username already exist");
         }
@@ -31,13 +31,14 @@ export default function Register() {
                 headers: {
                     'Content-Type' : 'application/json'
                 },
-                body: JSON.stringify({UserName : userDetails.userName, Password: userDetails.password, NickName: userDetails.nickName,ProfilePic: unknownImg})});  
+                body: JSON.stringify({UserName : userDetails.userName, Password: userDetails.password, NickName: userDetails.nickName, ProfilePicSrc: userDetails.profilePicSrc })});  
                 console.log(res);
                 
                 
-                ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: unknownImg, messages:[], myContactList: []});
+                ContactsData.push({ name: userDetails.userName, password: userDetails.password, numOfMessages: "0",nickName: userDetails.nickName, pic: userDetails.profilePicSrc, messages:[], myContactList: []});
       
     }
+
     const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = () => {
