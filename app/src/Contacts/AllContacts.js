@@ -12,6 +12,9 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
     console.log(user)
     const [contactsList,setContactsList]= useState([]);
+    const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
+
+
     //useAffect
     //async function getContacts(){
     useEffect(async ()=> {
@@ -20,6 +23,8 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
         var contactsData = await contacts.json();
         console.log(contactsData)
         setContactsList(contactsData);
+        
+        setShowContactsList(contactsData);
         //return contactsData;
     },[]);
 
@@ -30,7 +35,6 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
     //const [contactsList, setContactsList] = useState(userContactsList);
     //const [contactsListToAdd, setContactsListToAdd] = useState(userContactsListToAdd);
-    const [showContactsList, setShowContactsList] = useState(contactsList); //userContactsList);
 
     const doSearch = function (query) {
         setShowContactsList(contactsList.filter((contact) => contact.name.includes(query)))
@@ -38,7 +42,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 
     const addContact = function (item) {
         setContactsList(state => [...state, item]);
-        //setShowContactsList(state => [...state, item]);
+        setShowContactsList(state => [...state, item]);
         //setContactsListToAdd(contactsListToAdd.filter(list => list.name !== item.name));
         //userData.myContactList.push(item.name);
         
@@ -81,5 +85,6 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
 }
 
 export default AllContacts
+
 
 

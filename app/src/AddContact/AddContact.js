@@ -1,5 +1,6 @@
 import React, { useState,  useCallback } from "react";
 import "../styles.css";
+import unknownImg from "../Components/unknown.png"
 
 import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
@@ -40,7 +41,7 @@ function AddContact({username, addContact, userData}) {
             setErrorMessage({ name: "uname", message: errors.uname });
           }    
           else{
-                
+              addContact(userDetails); 
           }   
             
 }
@@ -81,7 +82,7 @@ function AddContact({username, addContact, userData}) {
     var { uname, ServerName, nickName } = document.
     forms[0];
 
-    var user = {userName : uname.value, serverName: ServerName.value, nickName: nickName.value}
+    var user = {userName : uname.value, serverName: ServerName.value, nickName: nickName.value, profilePicSrc: unknownImg}
     console.log("form details:")
     console.log(user);
     addNewContact(user);

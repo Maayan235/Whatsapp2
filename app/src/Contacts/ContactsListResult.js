@@ -1,7 +1,7 @@
 import ContactItem from "./ContactItem";
 
 function ContactsListResults({relContacts, username, setChatMember, chosenChatMember}){
-
+    console.log(relContacts);
     const changeChat = (key) => setChatMember(key);
 
     const contactsList = relContacts.map((contact, key)=>{
