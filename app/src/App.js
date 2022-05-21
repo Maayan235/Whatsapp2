@@ -68,8 +68,7 @@ class App extends Component {
                 <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} setUser={this.setUser} />
               </Route>
               <Route path="/Login" component={Login} />
-              <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} />
-
+              <Login isSubmitted={this.state.isSubmitted} onSubmit={this.setIsSubmitted} setUser={this.setUser}/>
             </Switch>
           </div>
         </div>
