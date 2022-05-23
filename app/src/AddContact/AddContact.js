@@ -1,22 +1,57 @@
 import React, { useState,  useCallback } from "react";
 import "../styles.css";
 import unknownImg from "../Components/unknown.png"
+import ContactItem from "../Contacts/ContactItem";
 
 import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
 
-function AddContact({username, addContact, userData}) {
+function AddContact({id, addContact, className, userData, removeItem, relContacts, editContact}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [RemoveIsOpen, setRemoveIsOpen] = useState(false);
+  const [EditIsOpen, setEditIsOpen] = useState(false);
 
-  const togglePopup = () => {
+
+  const toggleAddPopup = () => {
     setIsOpen(!isOpen);
   }
+  const toggleRemovePopup = () => {
+    setRemoveIsOpen(!RemoveIsOpen);
+  }
+  const toggleEditPopup = () => {
+    setEditIsOpen(!EditIsOpen);
+  }
+
+ 
+
+    const removeContact = function (contact) {
+        removeItem(contact);
+    }
+    const contactsList = relContacts.map((contact, key)=>{
+        return (
+            // <div key={key} onClick={() => handleClick(key)}>
+            <div  key={key}>
+                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key}></ContactItem>
+            </div>
+        );      
+    });     
+    const EditContactsList = relContacts.map((contact, key)=>{
+      return (
+          // <div key={key} onClick={() => handleClick(key)}>
+          <div  key={key}>
+              <ContactItem item={contact} contacts={relContacts} editItem={editContact} key={key}></ContactItem>
+          </div>
+      );      
+  }); 
+    
+
 
   const [errorMessage, setErrorMessage] = useState("");
 
   const errors = {
       uname: "User doesn't exist",
+      exist: "User already added!",
       success: "Contact added!"
   };
 
@@ -27,65 +62,64 @@ function AddContact({username, addContact, userData}) {
   );
 
 
-  async function addNewContact (userDetails){
-    const res = await fetch("http://localhost:5286/api/UsersAPI/addContact",{
+  async function addNewContact (thisUser, userDetails){
+    
+    const res = await fetch("http://localhost:5286/api/contacts2/" + thisUser.id,{
     
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({UserName : userDetails.userName,ServerName: userDetails.serverName, NickName: userDetails.nickName})});  
+            body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
+            console.log(res);
+          if(res.status==404){
+            //console.log("not 201..")
+            setErrorMessage({ name: "uname", message: errors.uname });
+          }else if(res.status==400){
+            setErrorMessage({ name: "uname", message: errors.exist });
+          }    
+          else{
+            setErrorMessage({ name: "uname", message: errors.success });
+              addContact(userDetails);
+          }   
+            
+}
+
+    async function addContactToOtherServer (thisUser,otherUser){
+            const res = await fetch("http://" + otherUser.server+ "/api/invitations",{
+    
+            method : 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({from : thisUser.id,to: thisUser.id, server: thisUser.server})});  
             console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });
           }    
-          else{
-              addContact(userDetails); 
-          }   
-            
 }
-//   async function checkUser(uname,ServerName){
-    
-//     const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
-    
-//     console.log(user);
-//     const userData = await user.json();
-//     console.log(userData)
-    
-
-//     console.log("uname:" +uname.value)
-//     console.log("serverRet" + userData.userName)
-//     if (userData.userName == uname.value) {
-//       if (userData.ServerName !== ServerName.value) {
-//         // Invalid password
-//         setErrorMessage({ name: "serverName", message: errors.ServerName });
-//       } else {
-//         addNewContact(userData);
-//         //setUser(userData);
-//         //onSubmit(true);
-        
-//       }      
-      
-//     }
-//     else {
-//         // Username not found
-//         setErrorMessage({ name: "uname", message: errors.uname });
-//     }
-//     return userData;
-// }
-
   const handleSubmit = useCallback(event => {
     // Prevent page reload
     event.preventDefault();
 
-    var { uname, ServerName, nickName } = document.
+    var { uname, server, name } = document.
     forms[0];
 
-    var user = {userName : uname.value, serverName: ServerName.value, nickName: nickName.value, profilePicSrc: unknownImg}
+    var contact = {id : uname.value, server: server.value, name: name.value, profilePicSrc: unknownImg}
     console.log("form details:")
-    console.log(user);
-    addNewContact(user);
+    console.log(contact);
+    
+      addNewContact(userData, contact );
+      if(userData.server != server.value){
+        addContactToOtherServer(userData, contact)
+        console.log("add to other server...")
+      }
+    else{
+
+    }
+    
+
   })
 
 
@@ -105,30 +139,31 @@ function AddContact({username, addContact, userData}) {
   };
 
   return (<div className='border rounded' >
-    <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-3" id="addButton" onClick={togglePopup}>{isOpen ? 'x' : '+'}</button>
+    <span><button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-2" id="addButton" onClick={toggleAddPopup}>{isOpen ? 'x' : '+'}</button></span>
+   <span> <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-4" id="removeButton" onClick={toggleRemovePopup}>{RemoveIsOpen ? 'x' : '-'}</button></span>
+   <span> <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-6" id="editButton" onClick={toggleEditPopup}>{EditIsOpen ? 'x' : 'e'}</button></span>
+    <span>
     <div style={mystyle}>
+    
       {isOpen && <CloseButton 
         content={
           <div>
           
-
-
-
           <form>
     <h3>Add contact</h3>
     <div className="form-group">
         <label>Username</label>
-        <input  className="form-control" placeholder="username" name="uname" required/>
+        <input  className="form-control" placeholder="id" name="uname" required/>
         
     </div>
     <p></p> 
     <div className="form-group">
-        <label>NickName</label>
-        <input className="form-control" placeholder="nickname" name="nickName" required/>
+        <label>name</label>
+        <input className="form-control" placeholder="name" name="name" required/>
     </div>
     <div className="form-group">
         <label>Server name</label>
-        <input  className="form-control" placeholder="Server name" name="ServerName" required/>
+        <input  className="form-control" placeholder="Server name" name="server" required/>
         
     </div>
     <div className="">        {renderErrorMessage("uname")}    </div>
@@ -143,15 +178,50 @@ function AddContact({username, addContact, userData}) {
     </form>
 
     
-          {// <AllContactsToAdd  username={username} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
+          {// <AllContactsToAdd  id={id} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
           
                    }
                    
   </div>
         }
-        handleClose={togglePopup}
+        
+        handleClose={toggleAddPopup}
       />}
+      </div>
+      </span>
+    
+        <span>
+    <div style={mystyle}>
+    {RemoveIsOpen && <CloseButton 
+      content={
+        
+        <div className="contacts">
+        <ol className="list-group" role="tablist">
+            {contactsList}
+        </ol>
     </div>
+        } handleClose={toggleRemovePopup}
+        />}
+        </div>
+        </span>
+
+
+        <div style={mystyle}>
+        {EditIsOpen && <CloseButton 
+          content={
+            
+            <div className="contacts">
+            <ol className="list-group" role="tablist">
+                {EditContactsList}
+            </ol>
+        </div>
+            } handleClose={toggleEditPopup}
+            />}
+            </div>
+            
+
+
+
   </div>);
 
 }

@@ -9,12 +9,14 @@ import microphone from "./microphone.png"
 require('../ChatApp.css');
 
 class ChatApp extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      messages: this.props.chosenChatMember.messages,
+      
+      chatContact: this.props.chosenChatMember,
+      defMessages: [{id:0 ,message:"",time: "", fromMe:true}],
+      messages: this.props.chat,
       time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
@@ -26,6 +28,12 @@ class ChatApp extends React.Component {
 
       isRecording: false
     };
+
+
+    
+    console.log(this.props.chat)
+
+
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
     this.sendVideoHandler = this.sendVideoHandler.bind(this);
@@ -56,7 +64,7 @@ class ChatApp extends React.Component {
   }
   sendTextHandler(message) {
     const messageObject = {
-      username: this.props.username,
+      id: this.props.id,
       message,
       time: this.getCurrentTime(),
     }
@@ -65,9 +73,21 @@ class ChatApp extends React.Component {
     this.addMessage('Text', messageObject);
   }
 
+  async getChat(Contact){
+        
+    const res = await fetch("http://localhost:5286/api/messages/" + Contact.id,{
+            method : 'GET',
+            }); 
+            this.setState({
+                Chat : await res.json()   
+            });
+            console.log(res)
+            // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
+        }
+
   sendImageHandler(src) {
     const messageObject = {
-      username: this.props.username,
+      id: this.props.id,
       message: src,
       time: this.getCurrentTime()
     }
@@ -79,7 +99,7 @@ class ChatApp extends React.Component {
 
   sendVideoHandler(src) {
     const messageObject = {
-      username: this.props.username,
+      id: this.props.id,
       message: src,
       time: this.getCurrentTime()
     }
@@ -92,7 +112,7 @@ class ChatApp extends React.Component {
   sendAudioHandler = (url) => {
     if (url) {
       const messageObject = {
-        username: this.props.username,
+        id: this.props.id,
         message: url,
         time: this.getCurrentTime()
       }
@@ -154,8 +174,11 @@ class ChatApp extends React.Component {
     return (
       <div className="list-inline">
         <div ref={this.scroll}>
-          <Messages messages={this.props.chosenChatMember.messages} />
-        </div>
+        {
+         // <Messages messages={this.props.chosenChatMember.messages} />
+        }
+        <Messages messages={this.state.messages} defMessages={this.state.Messages}/>
+          </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-9 align-middle border rounded'>
             <ChatInput type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
@@ -192,7 +215,7 @@ class ChatApp extends React.Component {
           </span>
           <div>
             {this.state.isRecording ?
-              <div><Audio username={this.props.username} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
+              <div><Audio id={this.props.id} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
 
               </div>
               :
@@ -208,7 +231,7 @@ class ChatApp extends React.Component {
 }
 
 ChatApp.defaultProps = {
-  username: 'Anonymous'
+  id: 'Anonymous'
 };
 
 export default ChatApp;

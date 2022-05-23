@@ -31,7 +31,7 @@ const mySendButtonStyle = {
 };
 
 
-export default function Audio({username, time, fromMe, audioUrl, send}) {
+export default function Audio({Id, time, fromMe, audioUrl, send}) {
   let soundWavesGif = require("./soundWaves.gif");
 
   const [stream, setStream] = useState({

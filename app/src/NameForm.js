@@ -12,9 +12,9 @@ function setFlag(formType) {
   if (formType === "New password: ") {
     return flagList.password;
   } else if (formType === "Username: ") {
-    return flagList.userName;
+    return flagList.id;
   } else if (formType === "Display Name: ") {
-    return flagList.nickName;
+    return flagList.name;
   } else if (formType === "Password confirmation: ") {
     return flagList.cnfPassword;
   }
@@ -33,7 +33,7 @@ class NameForm extends React.Component {
     this.passwordConfirmation = this.passwordConfirmation.bind(this);
     this.userValidation = this.userValidation.bind(this);
     this.passwordValidation = this.passwordValidation.bind(this);
-    this.nickNameValidation = this.nickNameValidation.bind(this);
+    this.nameValidation = this.nameValidation.bind(this);
     this.flag = setFlag(this.props.formType);
     this.showPassword = false;
 
@@ -41,7 +41,7 @@ class NameForm extends React.Component {
 
   userValidation(user) {
 
-    this.flag = flagList.userName = false;
+    this.flag = flagList.id = false;
 
     if (user.length < 5)
       return "too short!"
@@ -49,8 +49,8 @@ class NameForm extends React.Component {
       return "pls use numbers \n and english letters only";
     if (ContactsData.find((userInput) => userInput.name === user) != null)
       return "Username already exist!"
-    this.flag = flagList.userName = true;
-    userDetails.userName = user;
+    this.flag = flagList.id = true;
+    userDetails.id = user;
     return "good!";
   }
 
@@ -80,12 +80,12 @@ class NameForm extends React.Component {
     this.flag = flagList.cnfPassword = true
     return "good!";
   }
-  nickNameValidation(nick) {
-    this.flag = flagList.nickName = false;
+  nameValidation(nick) {
+    this.flag = flagList.name = false;
     if (nick.length < 3)
       return "too short!"
-    this.flag = flagList.nickName = true;
-    userDetails.nickName = nick;
+    this.flag = flagList.name = true;
+    userDetails.name = nick;
     return "good!";
   }
 
@@ -115,10 +115,10 @@ class NameForm extends React.Component {
       this.flag = flagList.password;
     } else if (this.props.formType === "Username: ") {
       this.guideMessage = this.userValidation(event.target.value);
-      this.flag = flagList.userName;
+      this.flag = flagList.id;
     } else if (this.props.formType === "Display Name: ") {
-      this.guideMessage = this.nickNameValidation(event.target.value)
-      this.flag = flagList.nickName;
+      this.guideMessage = this.nameValidation(event.target.value)
+      this.flag = flagList.name;
     } else if (this.props.formType === "Password confirmation: ") {
       this.guideMessage = this.passwordConfirmation(event.target.value)
       this.flag = flagList.cnfPassword;

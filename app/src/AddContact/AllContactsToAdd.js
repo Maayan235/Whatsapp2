@@ -3,7 +3,7 @@ import Search from "../Contacts/SearchContact";
 import {useState} from 'react';
 
 
-function AllContactsToAdd({username, addContact, ContactsToAdd, removeAdd}){
+function AllContactsToAdd({Id, addContact, ContactsToAdd, removeAdd}){
 
     const [contactsList, setContactsList] = useState(ContactsToAdd);
     const [showContactsList, setShowContactsList] = useState(ContactsToAdd);
@@ -26,7 +26,7 @@ function AllContactsToAdd({username, addContact, ContactsToAdd, removeAdd}){
     return(
         <div className="bg-light border">
             <Search doSearch={doSearch} />
-            <AddContactsListResults username={username} relContacts={contactsList} removeAdd={togglePopup} addContact={changeContacts}/>
+            <AddContactsListResults Id={Id} relContacts={contactsList} removeAdd={togglePopup} addContact={changeContacts}/>
         </div>
     );
 }

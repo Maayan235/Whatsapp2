@@ -1,14 +1,17 @@
 import ContactItem from "./ContactItem";
 
-function ContactsListResults({relContacts, username, setChatMember, chosenChatMember}){
+function ContactsListResults({relContacts, id, setChatMember, removeItem, chosenChatMember}){
     console.log(relContacts);
     const changeChat = (key) => setChatMember(key);
 
+    const removeContact = function (contact) {
+        removeItem(contact);
+    }
     const contactsList = relContacts.map((contact, key)=>{
         return (
             // <div key={key} onClick={() => handleClick(key)}>
             <div  key={key}>
-                <ContactItem item={contact} key={key} setChatMember={changeChat}></ContactItem>
+                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} setChatMember={changeChat}></ContactItem>
             </div>
         );      
     });     

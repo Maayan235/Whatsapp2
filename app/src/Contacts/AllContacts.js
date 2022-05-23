@@ -14,16 +14,23 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
     const [contactsList,setContactsList]= useState([]);
     const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
 
-
+    var i = 1
+    for(var x=0; x<1000; x++){
+        if(x*80 == 800 || x== 452){
+            console.log("yes!")
+        }
+    }
     //useAffect
     //async function getContacts(){
     useEffect(async ()=> {
-        const contacts = await fetch("http://localhost:5286/api/UsersAPI/contacts");
+        const contacts = await fetch("http://localhost:5286/api/contacts1/" + user.id,{
+    
+            method : 'GET' })
         console.log(contacts);
         var contactsData = await contacts.json();
         console.log(contactsData)
         setContactsList(contactsData);
-        
+        console.log(contactsList)
         setShowContactsList(contactsData);
         //return contactsData;
     },[]);
@@ -49,6 +56,17 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
         //post(!)
    
     }
+    const removeContact = function (contact) {
+        setShowContactsList(showContactsList.filter(item => item.id !== contact.id));
+        setContactsList(contactsList.filter(item => item.id !== contact.id));
+        };
+
+    const editContact = function(contact){
+       removeContact(contact);
+       addContact(contact);
+        }
+   
+    
 
     const [userImage, setUserImage] = useState(user.profilePicSrc);
   
@@ -73,12 +91,12 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
     return (
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
             <div className='d-flex align-items-center p-3'>
-                <span>{profilePic}</span><span id='userName'>{user.nickName}</span>
+                <span>{profilePic}</span><span id='id'>{user.name}</span>
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={showContactsList} username={user.userName} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
-            <AddContact username={user.userName} addContact={addContact}  className="popUp" userData={user}/>
+            <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
         </div>
 
     );

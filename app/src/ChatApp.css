@@ -42,7 +42,7 @@ h3 {
   line-height: 30px;
 }
 
-.message.from-me .username {
+.message.from-me .id {
   display: none;
 }
 
@@ -78,7 +78,7 @@ h3 {
   /* padding-left: 50px; */
 }
 
-.username {
+.id {
   font-weight: bold;
   font-size: 0.9rem;
   color: #999;

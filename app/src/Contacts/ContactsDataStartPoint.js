@@ -5,30 +5,30 @@ import Yarin from'./Yarin.jpg'
 let currentTime = '04:04'
 
 
-const ContactsData = [{name: "Avital", password:"1234567A", numOfMessages: "2", pic: Avital,nickName:"Avital", messages: [{message: 'Hi!',
-username: '',
+const ContactsData = [{name: "Avital", password:"1234567A", numOfMessages: "2", pic: Avital,name:"Avital", messages: [{message: 'Hi!',
+id: '',
 fromMe: false, time: currentTime } ,{message: 'I missed you',
-username: '',
+id: '',
 fromMe: false, time: currentTime}]},
     {
-        name: "Maayan", password: "1234567A", numOfMessages: "2", pic: Maayan,nickName:"Maayan", messages: [{
+        name: "Maayan", password: "1234567A", numOfMessages: "2", pic: Maayan,name:"Maayan", messages: [{
             message: 'Hello Buba',
-            username: '',
+            id: '',
             fromMe: false, time: currentTime
         }, {
             message: 'How you Doin?',
-            username: '',
+            id: '',
             fromMe: false, time: currentTime
         }]
     },
     {
-        name: "Yarin", password: "1234567A", numOfMessages: "2", pic: Yarin,nickName:"Yaarin", messages: [{
+        name: "Yarin", password: "1234567A", numOfMessages: "2", pic: Yarin,name:"Yaarin", messages: [{
             message: 'Heyyyy',
-            username: '',
+            id: '',
             fromMe: false, time: currentTime
         }, {
             message: 'Iv been tryin to call youuu',
-            username: '',
+            id: '',
             fromMe: false, time: currentTime
         }]
     }];

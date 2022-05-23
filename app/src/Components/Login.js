@@ -18,24 +18,44 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     );
 
 
-    // function async checkUser(username){
-    //     const res = await fetch("http://localhost:5286/api/UsersAPI/" + userName);
+    // function async checkUser(id){
+    //     const res = await fetch("http://localhost:5286/api/UsersAPI/" + id);
     //     if(res != null){
 
     //     }
     // }
-    async function postUser(username){
-        const res = await fetch("http://localhost:5286/api/UsersAPI/logIn",{
+    async function postUser(id2, userData){
+        
+        const res = await fetch("http://localhost:5286/api/logIn",{
                 method : 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
                 },
-                body: JSON.stringify({UserName:username })});  
-                // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, ServerName: user.ServerName,Id: user.Id, UserName : user.userName, Password: user.password, NickName: user.nickName, Contacts:user.contacts
+                body: JSON.stringify({id:id2 })}); 
+                console.log(res)
+                if(res.status == 201){
+                    signIn(id2,userData);
+                } 
+                // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
             }
+            async function signIn(uname, userData){
+                console.log("in sign in...")
+                const res = await fetch("http://localhost:5286/api/signIn/" +uname,{
+            
+                    method : 'POST',
+                    headers: {
+                        'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify({})});
+                    console.log(res)
+                    if(res.status == 200){
+                        setUser(userData);
+                        onSubmit(true);
+                    } 
+                }
     async function checkUser(uname,pass){
         
-        const user = await fetch("http://localhost:5286/api/UsersAPI/" + uname.value);
+        const user = await fetch("http://localhost:5286/api/getUser/" + uname.value);
         //const user = await promise;
         console.log(user);
         const userData = await user.json();
@@ -43,21 +63,21 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         //setTimeout(2500);
         
         console.log("uname:" +uname.value)
-        console.log("serverRet" + userData.userName)
-        if (userData.userName == uname.value) {
+        console.log("serverRet" + userData.id)
+        if (userData.id == uname.value) {
             if (userData.password !== pass.value) {
                 // Invalid password
                 setErrorMessage({ name: "pass", message: errors.pass });
               } else {
                 ContactsData.push({});
-                postUser(uname.value);
-                setUser(userData);
-                onSubmit(true);
+                postUser(uname.value, userData);
+                // signIn(uname.value);
+                
                 
               }
         }
         else {
-            // Username not found
+            // id not found
             setErrorMessage({ name: "uname", message: errors.uname });
         }
         return userData;
@@ -76,7 +96,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         //const userData = ContactsData.find((user) => user.name === uname.value);
         // Compare user info
 
-        //console.log(userData.userName);
+        //console.log(userData.id);
         //console.log(userData);
         
 
@@ -89,7 +109,7 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     <h3>Sign In</h3>
     <div className="form-group">
         <label>Username</label>
-        <input type="email" className="form-control" placeholder="Enter username" name="uname" required/>
+        <input type="email" className="form-control" placeholder="Enter id" name="uname" required/>
         {renderErrorMessage("uname")}
     </div>
     <p></p> 
