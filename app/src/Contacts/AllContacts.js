@@ -8,9 +8,9 @@ import plusIconImg from "./plusIcon.png"
 import AddContact from '../AddContact/AddContact';
 import { useEffect} from 'react';
 
-function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
+function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessage}) {
 
-    console.log(user)
+    
     const [contactsList,setContactsList]= useState([]);
     const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
 
@@ -23,7 +23,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
     //useAffect
     //async function getContacts(){
     useEffect(async ()=> {
-        const contacts = await fetch("http://localhost:5286/api/contacts1/" + user.id,{
+        const contacts = await fetch("http://localhost:5286/api/contacts" ,{
     
             method : 'GET' })
         console.log(contacts);
@@ -95,7 +95,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember}) {
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember}/>
+            <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
             <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
         </div>
 

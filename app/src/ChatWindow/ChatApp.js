@@ -15,8 +15,8 @@ class ChatApp extends React.Component {
     this.state = {
       
       chatContact: this.props.chosenChatMember,
-      defMessages: [{id:0 ,message:"",time: "", fromMe:true}],
       messages: this.props.chat,
+      lastMessage: this.props.lastMessage,
       time: this.getCurrentTime(),
       imageSrc: null,
       imageRef: null,
@@ -177,7 +177,7 @@ class ChatApp extends React.Component {
         {
          // <Messages messages={this.props.chosenChatMember.messages} />
         }
-        <Messages messages={this.state.messages} defMessages={this.state.Messages}/>
+        <Messages messages={this.state.messages}/>
           </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-9 align-middle border rounded'>

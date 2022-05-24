@@ -64,7 +64,7 @@ function AddContact({id, addContact, className, userData, removeItem, relContact
 
   async function addNewContact (thisUser, userDetails){
     
-    const res = await fetch("http://localhost:5286/api/contacts2/" + thisUser.id,{
+    const res = await fetch("http://localhost:5286/api/contacts/" , {
     
             method : 'POST',
             headers: {

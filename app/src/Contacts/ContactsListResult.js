@@ -1,6 +1,6 @@
 import ContactItem from "./ContactItem";
 
-function ContactsListResults({relContacts, id, setChatMember, removeItem, chosenChatMember}){
+function ContactsListResults({relContacts, id, setChatMember, removeItem, chosenChatMember,lastMessage}){
     console.log(relContacts);
     const changeChat = (key) => setChatMember(key);
 
@@ -11,7 +11,7 @@ function ContactsListResults({relContacts, id, setChatMember, removeItem, chosen
         return (
             // <div key={key} onClick={() => handleClick(key)}>
             <div  key={key}>
-                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} setChatMember={changeChat}></ContactItem>
+                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} setChatMember={changeChat} lastMessage={lastMessage}></ContactItem>
             </div>
         );      
     });     

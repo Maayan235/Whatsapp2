@@ -19,7 +19,7 @@ class Messages extends React.Component {
         <Message
           key={i}
           id={message.id}
-          message={message.message}
+          message={message.content}
           fromMe={message.fromMe} 
           time={message.time}
           

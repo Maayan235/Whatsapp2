@@ -7,16 +7,16 @@ import audio from './audioIcon.png'
 import React, { useState,  useCallback } from "react";
 import unknownImg from "../Components/unknown.png"
 
-function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem}) {
+function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem, lastMessage}) {
     let userData = item;
 
-
+  console.log(lastMessage)
     const [editVar, setEditVar] = useState(<div></div>);
     // if (!userData) {
     //     userData = ContactsData.find((user) => user.id === item.name);
     // }
 
-    let lastMessage = null;
+    //let lastMessage = null;
 
     const mystyle = {
         position: "fixed",
@@ -57,7 +57,7 @@ function ContactItem({ item,contacts, removeItem, setChatMember, contactList, ed
       
     async function deleteContact (id){
     
-        const res = await fetch("http://localhost:5286/api/contacts3/" + id,{
+        const res = await fetch("http://localhost:5286/api/contacts/" + id,{
         
                 method : 'DELETE', });  
                 console.log(res);
@@ -71,7 +71,7 @@ function ContactItem({ item,contacts, removeItem, setChatMember, contactList, ed
 
     async function edit (id,newName, newServer){
     
-        const res = await fetch("http://localhost:5286/api/contacts4/" + id,{
+        const res = await fetch("http://localhost:5286/api/contacts/" + id,{
         
                 method : 'PUT',
                 headers: {
@@ -121,6 +121,7 @@ function ContactItem({ item,contacts, removeItem, setChatMember, contactList, ed
 //     forms[0];
 //   edit(item.id, name.value, server.value )
     }
+    var lastMessageprev = <div></div>;
     var action = <div></div>;
 if(removeItem!= undefined){
     action =<span> <button onClick={delContact} > del</button></span>    
@@ -131,8 +132,11 @@ if(editItem != undefined){
 }
     // if (userData.messages.length !== 0) {
     //     if (userData.messages[userData.messages.length - 1].type === "Text") {
-    //         lastMessage = <div><div className='overflow'>{userData.messages[userData.messages.length - 1].context.message}</div>
-    //             <div className='overflow'>{userData.messages[userData.messages.length - 1].context.time} </div> </div>
+             if(lastMessage!=null && lastMessage != undefined){
+                lastMessageprev = <div><div className='overflow'>{lastMessage.content}</div>
+                 <div className='overflow'>{lastMessage.time} </div> </div>
+             }
+
     //     }
     //     else if (userData.messages[userData.messages.length - 1].type === "Image") {
     //         lastMessage = <div><div className='overflow'><img height="20" src={picture} alt={""}></img> Photo</div>
@@ -162,8 +166,8 @@ if(editItem != undefined){
                 <div className="fw-bold text-secondary">
                 
                     {
-                        //userData.messages.length !== 0 ?
-                        //<div>{lastMessage} </div> : <span className='float-right'></span>
+                        lastMessage != null ?
+                        <div>{lastMessageprev} </div> : <span className='float-right'></span>
                     }
                 </div>
             </div>
