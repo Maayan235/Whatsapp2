@@ -17,10 +17,11 @@ class Messages extends React.Component {
      messages = this.props.messages.map((message, i) => {
       return (
         <Message
+          userId = {this.props.id}
           key={i}
           id={message.id}
           message={message.content}
-          fromMe={message.fromMe} 
+          fromMe={message.from == this.props.id? true:false} 
           time={message.time}
           
           />

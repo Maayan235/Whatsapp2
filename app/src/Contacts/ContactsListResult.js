@@ -1,7 +1,7 @@
 import ContactItem from "./ContactItem";
 
 function ContactsListResults({relContacts, id, setChatMember, removeItem, chosenChatMember,lastMessage}){
-    console.log(relContacts);
+//    console.log(relContacts);
     const changeChat = (key) => setChatMember(key);
 
     const removeContact = function (contact) {
