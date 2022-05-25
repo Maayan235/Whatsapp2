@@ -11,7 +11,7 @@ function ContactsListResults({relContacts, id, setChatMember, removeItem, chosen
         return (
             // <div key={key} onClick={() => handleClick(key)}>
             <div  key={key}>
-                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} setChatMember={changeChat} lastMessage={lastMessage}></ContactItem>
+                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} setChatMember={changeChat} lastMessage={lastMessage} ableToDelete={false}></ContactItem>
             </div>
         );      
     });     

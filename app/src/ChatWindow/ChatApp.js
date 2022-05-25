@@ -215,38 +215,8 @@ class ChatApp extends React.Component {
           <Messages id={this.state.id} messages={this.state.messages} />
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
-          <span className='list-inline-item col-9 align-middle border rounded'>
+          <span className='list-inline-item col-11 align-middle border rounded'>
             <ChatInput type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
-          </span>
-          <span className='list-inline-item mb-1'>
-            <button onClick={this.handleImageClick} className="btn btn-outline-dark">
-              <img src={camera} height='20' width='20' alt={""} />
-            </button>
-            <input
-              ref={this.imageRef}
-              type="file"
-              name="myImage"
-              onChange={this.onImageChange}
-              style={{ display: 'none' }}
-            />
-          </span>
-          <span className="VideoInput list-inline-item">
-            <button onClick={this.handleVideoClick} className="btn btn-outline-dark">
-              <img src={video} height='20' width='20' alt={""} />
-            </button>
-            <input
-              ref={this.videoRef}
-              className="VideoInput_input"
-              type="file"
-              onChange={this.handleVideoChange}
-              accept=".mov,.mp4"
-              style={{ display: 'none' }}
-            />
-          </span>
-          <span className='list-inline-item'>
-            <button onClick={this.handleAudioClick} className="btn btn-outline-dark">
-              <img src={microphone} height='20' width='20' alt={""} />
-            </button>
           </span>
           <div>
             {this.state.isRecording ?

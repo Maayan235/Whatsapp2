@@ -32,7 +32,7 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
         return (
             // <div key={key} onClick={() => handleClick(key)}>
             <div  key={key}>
-                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key}></ContactItem>
+                <ContactItem item={contact} contacts={relContacts} removeItem={removeContact} key={key} ableToDelete={true}></ContactItem>
             </div>
         );      
     });     
@@ -165,44 +165,48 @@ async function addContactToOtherServer (thisUser,otherUser){
     "box-shadow": "#000 0 2px 18px"
   };
 
-  return (<div className='border rounded' >
-    <span><button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-2" id="addButton" onClick={toggleAddPopup}>{isOpen ? 'x' : '+'}</button></span>
-   <span> <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-4" id="removeButton" onClick={toggleRemovePopup}>{RemoveIsOpen ? 'x' : '-'}</button></span>
-   <span> <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-6" id="editButton" onClick={toggleEditPopup}>{EditIsOpen ? 'x' : 'e'}</button></span>
+  return (
+    <div className='m-3 top-0 end-0 w-50 position-absolute' >
+      <div className="list-group list-group-horizontal">
+        <button type="button" className="p-1 m-1 border rounded position-relative list-group-item btn btn-outline-dark" id="addButton" onClick={toggleAddPopup}><img src="https://static.thenounproject.com/png/196436-200.png" height='30' width='30' alt={"+"} className="p-0"></img></button>
+        <button type="button" className="p-1 m-1 border rounded position-relative list-group-item btn btn-outline-dark" id="removeButton" onClick={toggleRemovePopup}><img src="https://www.pngall.com/wp-content/uploads/6/Delete-Button-PNG-HD-Image.png" height='30' width='30' alt={"delete"} className="p-0"></img></button>
+        <button type="button" className="p-1 m-1 border rounded position-relative list-group-item btn btn-outline-dark" id="editButton" onClick={toggleEditPopup}><img src="https://icon-library.com/images/user001_edit-512.png" height='30' width='30' alt={"edit"} className="p-0"></img></button>
+      </div>
     <span>
-    <div style={mystyle}>
-    
-      {isOpen && <CloseButton 
-        content={
-          <div>
-          
-          <form>
-    <h3>Add contact</h3>
-    <div className="form-group">
-        <label>Username</label>
-        <input  className="form-control" placeholder="id" name="uname" required/>
-        
-    </div>
-    <p></p> 
-    <div className="form-group">
-        <label>name</label>
-        <input className="form-control" placeholder="name" name="name" required/>
-    </div>
-    <div className="form-group">
-        <label>Server name</label>
-        <input  className="form-control" placeholder="Server name" name="server" required/>
-        
-    </div>
-    <div className="">        {renderErrorMessage("uname")}    </div>
-    <div className="regButton">
-    
-    <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>
-       
-       Add
-    </button>
-    </div>
-    
-    </form>
+      <div style={mystyle}>
+
+        {isOpen && <CloseButton
+          content={
+            <div>
+
+              <form>
+                <h3>Add contact</h3>
+                <button type="button" className="m-1 end-0 top-0 position-absolute btn btn-outline-dark" id="addButton" onClick={toggleAddPopup}>X</button>
+                <div className="form-group">
+                  <label>Username</label>
+                  <input className="form-control" placeholder="id" name="uname" required />
+
+                </div>
+                <p></p>
+                <div className="form-group">
+                  <label>name</label>
+                  <input className="form-control" placeholder="name" name="name" required />
+                </div>
+                <div className="form-group">
+                  <label>Server name</label>
+                  <input className="form-control" placeholder="Server name" name="server" required />
+
+                </div>
+                <div className="">        {renderErrorMessage("uname")}    </div>
+                <div className="regButton">
+
+                  <button type="submit" className="btn btn-primary btn-block m-2" onClick={handleSubmit}>
+
+                    Add
+                  </button>
+                </div>
+
+              </form>
 
     
           {// <AllContactsToAdd  id={id} addContact={changeContacts} removeAdd={togglePopup} ContactsToAdd={ContactsToAdd}/>
@@ -221,11 +225,18 @@ async function addContactToOtherServer (thisUser,otherUser){
     <div style={mystyle}>
     {RemoveIsOpen && <CloseButton 
       content={
-        
+
         <div className="contacts">
-        <ol className="list-group" role="tablist">
-            {contactsList}
-        </ol>
+          <div>
+            <h3>Remove contacts</h3>
+            <button type="button" className="m-1 end-0 top-0 position-absolute btn btn-outline-dark" id="addButton" onClick={toggleRemovePopup}>X</button>
+          </div>
+          <div>
+            <ol className="list-group" role="tablist">
+              {contactsList}
+            </ol>
+          </div>
+
     </div>
         } handleClose={toggleRemovePopup}
         />}
@@ -238,9 +249,16 @@ async function addContactToOtherServer (thisUser,otherUser){
           content={
             
             <div className="contacts">
-            <ol className="list-group" role="tablist">
+            <div>
+              <h3>Edit contacts</h3>
+              <button type="button" className="m-1 end-0 top-0 position-absolute btn btn-outline-dark" id="addButton" onClick={toggleEditPopup}>X</button>
+            </div>
+            <div>
+              <ol className="list-group" role="tablist">
                 {EditContactsList}
-            </ol>
+              </ol>
+            </div>
+
         </div>
             } handleClose={toggleEditPopup}
             />}
