@@ -34,10 +34,10 @@ class Chat extends React.Component {
 
     setChat = (chatMember) => {
         chatMember.numOfMessages = "0"
-        // this.setState({
-        //     isChosedChat: true,
-        //     chosenChatMember: chatMember,   
-        // });
+        this.setState({
+            isChosedChat: true,
+            chosenChatMember: chatMember,   
+        });
         console.log("chat member:",chatMember)
         this.getChat(chatMember);
         // this.state.chosenChatMember.numOfMessages = "0";
@@ -61,15 +61,20 @@ class Chat extends React.Component {
                     chat : data.messages,
                     lastMessage : data.lastMessage,
                     chatUsers: data.contacts,
+                    chosenChatMember: Contact,   
                     isChosedChat:true
                     },()=>{
                         
                         //lastMessage = data.lastMessage;
-                        //  console.log("chat users!: " + this.state.chatUsers)
-                        // this.setState({
-                        //     render:true,
-                        //     isChosedChat:true
-                        // })
+                          console.log( this.state.chatUsers)
+                          console.log( this.state.chosenChatMember)
+
+                          
+                          
+                        //  this.setState({
+                        //      render:true,
+                        //      isChosedChat:true
+                        //  })
                     });
 
                     
@@ -118,7 +123,7 @@ class Chat extends React.Component {
         return (
             <Router>
                 <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember} lastMessage = {this.state.lastMessage}/>
-                { this.state.chat!=null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
+                { this.state.chat!==null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
                     <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} />

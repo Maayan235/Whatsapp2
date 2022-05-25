@@ -16,7 +16,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
      if(doUseEffect!==null && doUseEffect != undefined&& lastMessage != null){
          if(lastMessage.id != doUseEffect.id){
          console.log("yay im in!")
-         setDoUseEffect(s=>({value:1, id: lastMessage.id}));
+        // setDoUseEffect(s=>({value:1, id: lastMessage.id}));
          }
     }
     
@@ -95,7 +95,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
         <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>) : (<div><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50" alt={""}></img></button>
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>)
             
-    return (contactsList.length > 0 ?
+    return ( 
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
             <div className='d-flex align-items-center p-3'>
                 <span>{profilePic}</span><span id='id'>{user.name}</span>
@@ -105,7 +105,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
             <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
             <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
         </div>
-        : <div></div>
+        
 
     );
 }
