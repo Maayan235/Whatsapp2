@@ -9,11 +9,19 @@ import AddContact from '../AddContact/AddContact';
 import { useEffect} from 'react';
 
 function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessage}) {
-
+    console.log("last..." + lastMessage)
+    var contactsData = null;
+    const [doUseEffect,setDoUseEffect] = useState({value: 0, id : -2});
+    console.log("useAffect..." + doUseEffect);
+     if(doUseEffect!==null && doUseEffect != undefined&& lastMessage != null){
+         if(lastMessage.id != doUseEffect.id){
+         console.log("yay im in!")
+         setDoUseEffect(s=>({value:1, id: lastMessage.id}));
+         }
+    }
     
     const [contactsList,setContactsList]= useState([]);
     const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
-
    console.log("allcontacts...")
     //useAffect
     //async function getContacts(){
@@ -22,15 +30,19 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
     
             method : 'GET' })
         console.log(contacts);
-        var contactsData = await contacts.json();
+        contactsData = await contacts.json();
         console.log(contactsData)
+        
         setContactsList(contactsData);
         //console.log(contactsList)
         setShowContactsList(contactsData);
         //return contactsData;
-    },[]);
+    },[doUseEffect.value]);
+    
 
 
+    
+    
     //const userData = ContactsData.find((user1) => user1.name === user.name);
     //const userContactsList = getContacts(); //ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) > -1));
     //const userContactsListToAdd = ContactsData.filter(user1 => (userData.myContactList.indexOf(user1.name) <= -1));
@@ -83,7 +95,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
         <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>) : (<div><button className="picButton" onClick={uploadFiles}><img src={userImage} className="rounded-circle m-2" width="50" height="50" alt={""}></img></button>
             <input id="selectFile" type="file" style={{ display: "none" }} onChange={handleImageChange} /></div>)
             
-    return (
+    return (contactsList.length > 0 ?
         <div className="col-3 bg-light border border-5 vh-100 position-relative">
             <div className='d-flex align-items-center p-3'>
                 <span>{profilePic}</span><span id='id'>{user.name}</span>
@@ -93,6 +105,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
             <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
             <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
         </div>
+        : <div></div>
 
     );
 }

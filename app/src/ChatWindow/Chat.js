@@ -34,10 +34,10 @@ class Chat extends React.Component {
 
     setChat = (chatMember) => {
         chatMember.numOfMessages = "0"
-        this.setState({
-            isChosedChat: true,
-            chosenChatMember: chatMember,   
-        });
+        // this.setState({
+        //     isChosedChat: true,
+        //     chosenChatMember: chatMember,   
+        // });
         console.log("chat member:",chatMember)
         this.getChat(chatMember);
         // this.state.chosenChatMember.numOfMessages = "0";
@@ -60,15 +60,16 @@ class Chat extends React.Component {
                     this.setState({
                     chat : data.messages,
                     lastMessage : data.lastMessage,
-                    chatUsers: [data.contacts]
+                    chatUsers: data.contacts,
+                    isChosedChat:true
                     },()=>{
                         
                         //lastMessage = data.lastMessage;
-                         console.log("chat users!: " + this.state.chatUsers)
-                        this.setState({
-                            render:true,
-                            isChosedChat:true
-                        })
+                        //  console.log("chat users!: " + this.state.chatUsers)
+                        // this.setState({
+                        //     render:true,
+                        //     isChosedChat:true
+                        // })
                     });
 
                     

@@ -10,7 +10,7 @@ import { useEffect} from 'react';
 
 function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem, lastMessage}) {
     //var lastMessage = item.lastMessage, userData = item;
-    if(! (lastMessage!=null && (lastMessage.to == item.id || lastMessage.from == item.id))){
+    if(! (lastMessage!=null && (lastMessage.to == item.id || lastMessage.from == item.id)) && item != null){
       lastMessage = item.lastMessage;
     }
     

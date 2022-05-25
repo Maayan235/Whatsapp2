@@ -156,7 +156,7 @@ class ChatApp extends React.Component {
 
   addMessage = (messageType, message) => {
     // Append the message to the component state
-    const messages = this.props.chat;
+    const messages = this.state.messages;
     //messages.push({ type: messageType, context: message });
     console.log(message);
     console.log(messages);
