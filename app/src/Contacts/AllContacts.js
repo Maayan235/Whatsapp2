@@ -14,12 +14,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
     const [contactsList,setContactsList]= useState([]);
     const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
 
-    var i = 1
-    for(var x=0; x<1000; x++){
-        if(x*80 == 800 || x== 452){
-            console.log("yes!")
-        }
-    }
+   console.log("allcontacts...")
     //useAffect
     //async function getContacts(){
     useEffect(async ()=> {
@@ -30,7 +25,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
         var contactsData = await contacts.json();
         console.log(contactsData)
         setContactsList(contactsData);
-        console.log(contactsList)
+        //console.log(contactsList)
         setShowContactsList(contactsData);
         //return contactsData;
     },[]);

@@ -7,7 +7,7 @@ import AllContactsToAdd from './AllContactsToAdd';
 import CloseButton from './CloseButton';
  
 
-function AddContact({id, addContact, className, userData, removeItem, relContacts, editContact}) {
+function  AddContact({id, addContact, className, userData, removeItem, relContacts, editContact}) {
   const [isOpen, setIsOpen] = useState(false);
   const [RemoveIsOpen, setRemoveIsOpen] = useState(false);
   const [EditIsOpen, setEditIsOpen] = useState(false);
@@ -85,7 +85,32 @@ function AddContact({id, addContact, className, userData, removeItem, relContact
             
 }
 
-    async function addContactToOtherServer (thisUser,otherUser){
+async function addNContact (thisUser, userDetails){
+    
+  const res = await fetch("http://localhost:5286/api/invitations/" , {
+  
+          method : 'POST',
+          headers: {
+              'Content-Type' : 'application/json'
+          },
+          body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
+          console.log(res);
+        if(res.status==404){
+          //console.log("not 201..")
+          setErrorMessage({ name: "uname", message: errors.uname });
+        }else if(res.status==400){
+          setErrorMessage({ name: "uname", message: errors.exist });
+        }    
+        else{
+          setErrorMessage({ name: "uname", message: errors.success });
+            addContact(userDetails);
+        }   
+          
+}
+
+
+
+async function addContactToOtherServer (thisUser,otherUser){
             const res = await fetch("http://" + otherUser.server+ "/api/invitations",{
     
             method : 'POST',
@@ -110,6 +135,8 @@ function AddContact({id, addContact, className, userData, removeItem, relContact
     console.log("form details:")
     console.log(contact);
     
+
+    //addNContact(userData, contact );    
       addNewContact(userData, contact );
       if(userData.server != server.value){
         addContactToOtherServer(userData, contact)

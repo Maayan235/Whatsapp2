@@ -6,11 +6,27 @@ import picture from './pictureIcon.png'
 import audio from './audioIcon.png'
 import React, { useState,  useCallback } from "react";
 import unknownImg from "../Components/unknown.png"
+import { useEffect} from 'react';
 
 function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem, lastMessage, ableToDelete}) {
-    let userData = item;
+  let userData = item;
 
-  console.log(lastMessage)
+    //var lastMessage = item.lastMessage, userData = item;
+    if(! (lastMessage!=null && (lastMessage.to == item.id || lastMessage.from == item.id))){
+      lastMessage = item.lastMessage;
+    }
+    
+    console.log(lastMessage);
+    // console.log("contactItem fetch..")
+    // useEffect(async ()=> {
+    // const res = await fetch("http://localhost:5286/api/contacts/" + item.id + "/lastMessage",{
+    //   method : 'GET',
+    //   });
+    //   console.log(res)
+    //   lastMessage = await res.json();      
+    //   console.log(lastMessage)
+    // });
+
     const [editVar, setEditVar] = useState(<div></div>);
     // if (!userData) {
     //     userData = ContactsData.find((user) => user.id === item.name);

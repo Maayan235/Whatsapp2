@@ -6,7 +6,7 @@ import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
 
 
-var data, lastMessage = null;
+var data, chosenMember=null;
 class Chat extends React.Component {
     constructor(props) {
         super(props);
@@ -14,6 +14,8 @@ class Chat extends React.Component {
             conectedUser: this.props.user,
             chosenChatMember: ContactsData[0],
             isChosedChat: false,
+            lastMessage : null,
+            chatUsers:[],
             chosenChatMemberNumber: -1,
             chat: null,
             render: false,
@@ -21,10 +23,9 @@ class Chat extends React.Component {
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();
         this.logout = this.logout.bind(this);
-        this.renderAllContacts= this.renderAllContacts.bind(this);
+        this.renderChat= this.renderChat.bind(this);
         this.getChat= this.getChat.bind(this);
-        this.findLastMessage= this.findLastMessage.bind(this);
-        
+        this.setLastMessage=this.setLastMessage.bind(this);    
     }
 
         
@@ -32,25 +33,19 @@ class Chat extends React.Component {
 
 
     setChat = (chatMember) => {
+        chatMember.numOfMessages = "0"
         this.setState({
             isChosedChat: true,
             chosenChatMember: chatMember,   
         });
-        
+        console.log("chat member:",chatMember)
         this.getChat(chatMember);
-        this.state.chosenChatMember.numOfMessages = "0";
+        // this.state.chosenChatMember.numOfMessages = "0";
     }
-    findLastMessage = (messages) => {
-        var id = 0;
-        var max
-        for (let message of messages){
-            if(message.id> id){
-                id = message.id;
-                max = message; 
-            }
-        }
-        return max;
-    }
+  
+      
+      
+    
 
     async getChat(Contact){
         
@@ -63,13 +58,16 @@ class Chat extends React.Component {
                     console.log(data);
                     
                     this.setState({
-                    chat : data
+                    chat : data.messages,
+                    lastMessage : data.lastMessage,
+                    chatUsers: [data.contacts]
                     },()=>{
-                        console.log(this.state.chat)
-                        lastMessage = this.findLastMessage(data)
-                        console.log(lastMessage)
+                        
+                        //lastMessage = data.lastMessage;
+                         console.log("chat users!: " + this.state.chatUsers)
                         this.setState({
-                            render:true
+                            render:true,
+                            isChosedChat:true
                         })
                     });
 
@@ -80,7 +78,8 @@ class Chat extends React.Component {
                 // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
             }
 
-    renderAllContacts(){
+    renderChat(){
+        console.log("im in render of chat! !" )
         this.setState({
             render:true
         }); 
@@ -89,14 +88,19 @@ class Chat extends React.Component {
     logout() {
         this.props.setIsSubmitted(false);
     }
-
+    setLastMessage(message){
+        console.log("last message..", message)
+        this.setState({
+            lastMessage: message
+        })
+    }
     render() {
         // JSX code for chat window
         var renderChatWithContact = (
             <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp Id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} chat={this.state.chat==null? null:this.state.chat}/>
+                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderChat={this.renderChat} chat={this.state.chat==null? null:this.state.chat}/>
                 </div>
             </div>
         );
@@ -112,11 +116,11 @@ class Chat extends React.Component {
 
         return (
             <Router>
-                <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember} lastMessage = {lastMessage}/>
-                {this.state.isChosedChat && this.state.chat!=null ? <div className="col-9 vh-100 p-0">
+                <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember} lastMessage = {this.state.lastMessage}/>
+                { this.state.chat!=null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp Id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderAllContacts={this.renderAllContacts} chat={this.state.chat} lastMessage ={lastMessage}/>
+                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} />
                 </div>
             </div> : renderHello}
             </Router>
