@@ -72,14 +72,12 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
             },
             body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
             console.log(res);
-          if(res.status==404){
+          if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });
-          }else if(res.status==400){
-            setErrorMessage({ name: "uname", message: errors.exist });
-          }    
+          }
           else{
-            setErrorMessage({ name: "uname", message: errors.success });
+            // setErrorMessage({ name: "uname", message: errors.success });
               addContact(userDetails);
           }   
             
@@ -95,14 +93,11 @@ async function addNContact (thisUser, userDetails){
           },
           body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
           console.log(res);
-        if(res.status==404){
+        if(res.status!=201){
           //console.log("not 201..")
           setErrorMessage({ name: "uname", message: errors.uname });
-        }else if(res.status==400){
-          setErrorMessage({ name: "uname", message: errors.exist });
         }    
         else{
-          setErrorMessage({ name: "uname", message: errors.success });
             addContact(userDetails);
         }   
           
@@ -117,7 +112,7 @@ async function addContactToOtherServer (thisUser,otherUser){
             headers: {
                 'Content-Type' : 'application/json'
             },
-            body: JSON.stringify({from : thisUser.id,to: thisUser.id, server: thisUser.server})});  
+            body: JSON.stringify({from : thisUser.id,to: otherUser.id, server: thisUser.server})});  
             console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
@@ -130,20 +125,20 @@ async function addContactToOtherServer (thisUser,otherUser){
 
     var { uname, server, name } = document.
     forms[0];
-
     var contact = {id : uname.value, server: server.value, name: name.value, profilePicSrc: unknownImg}
-    console.log("form details:")
-    console.log(contact);
     
-
-    //addNContact(userData, contact );    
-      addNewContact(userData, contact );
+    setErrorMessage({ name: "uname", message: errors.success });
+    
+    if(id == uname.value || relContacts.find(c => c.id == uname.value) != null){
+        setErrorMessage({ name: "uname", message: errors.exist });
+    }else{
+      
       if(userData.server != server.value){
         addContactToOtherServer(userData, contact)
         console.log("add to other server...")
+      }else{
+        addNewContact(userData, contact );
       }
-    else{
-
     }
     
 

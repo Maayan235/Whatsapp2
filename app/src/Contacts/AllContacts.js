@@ -12,12 +12,12 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
     console.log("last..." + lastMessage)
     var contactsData = null;
     const [doUseEffect,setDoUseEffect] = useState({value: 0, id : -2});
-    console.log("useAffect..." + doUseEffect);
+    console.log(doUseEffect);
      if(doUseEffect!==null && doUseEffect != undefined&& lastMessage != null){
-         if(lastMessage.id != doUseEffect.id){
-         console.log("yay im in!")
-        // setDoUseEffect(s=>({value:1, id: lastMessage.id}));
-         }
+         //if(lastMessage.id != doUseEffect.id){
+        // console.log("yay im in!")
+        // setDoUseEffect({value:1, id: lastMessage.id});
+        // }
     }
     
     const [contactsList,setContactsList]= useState([]);
