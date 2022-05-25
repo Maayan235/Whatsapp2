@@ -7,7 +7,7 @@ import audio from './audioIcon.png'
 import React, { useState,  useCallback } from "react";
 import unknownImg from "../Components/unknown.png"
 
-function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem, lastMessage}) {
+function ContactItem({ item,contacts, removeItem, setChatMember, contactList, editItem, lastMessage, ableToDelete}) {
     let userData = item;
 
   console.log(lastMessage)
@@ -53,6 +53,7 @@ function ContactItem({ item,contacts, removeItem, setChatMember, contactList, ed
         
           edit(item.id , name.value, server.value  );
           editItem(contact)
+          setIsOpen(!isOpen);
     })
       
     async function deleteContact (id){
@@ -85,49 +86,78 @@ function ContactItem({ item,contacts, removeItem, setChatMember, contactList, ed
 
     const togglePopup = () => {
         setIsOpen(!isOpen);
-        editContact();
+        // editContact();
       }
 
-    function editContact(){
-        console.log("here in edit !")
-        setEditVar(  <div style={mystyle}>
-    
-{isOpen && <CloseButton 
-  content={
-    <div>
-    <form>
-    <h3>edit contact</h3>
-    <div className="form-group">
-        <label>Name</label>
-        <input  className="form-control" placeholder="name" name="name" required/>
-        
-    </div>
-    <p></p> 
-    <div className="form-group">
-        <label>Server</label>
-        <input className="form-control" placeholder="server" name="server" required/>
-    </div>
+//   function editContact() {
+//     console.log("here in edit !")
+//     setEditVar(<div style={mystyle}>
 
-    <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>
-       
-       Add
-    </button>
-    </form>
-    </div>
-  } handleClose={togglePopup}/>} </div>);
+//       {isOpen && <CloseButton
+//         content={
+//           <div>
+//             <form>
+//               <h3>edit contact</h3>
+//               <button type="button" className="m-1 end-0 top-0 position-absolute btn btn-outline-dark" onClick={togglePopup}>X</button>
+//               <div className="form-group">
+//                 <label>Name</label>
+//                 <input className="form-control" placeholder="name" name="name" required />
+
+//               </div>
+//               <p></p>
+//               <div className="form-group">
+//                 <label>Server</label>
+//                 <input className="form-control" placeholder="server" name="server" required />
+//               </div>
+
+//               <button type="submit" className="btn btn-primary btn-block m-2" onClick={handleSubmit}>
+//                 Submit
+//               </button>
+//             </form>
+//           </div>
+//         } handleClose={togglePopup} />} </div>);
 
  
-//   var { name, server} = document.
-//     forms[0];
-//   edit(item.id, name.value, server.value )
-    }
+// //   var { name, server} = document.
+// //     forms[0];
+// //   edit(item.id, name.value, server.value )
+//     }
     var lastMessageprev = <div></div>;
     var action = <div></div>;
-if(removeItem!= undefined){
-    action =<span> <button onClick={delContact} > del</button></span>    
+if(removeItem!= undefined && ableToDelete){
+    action =<span> <button className="btn btn-outline-dark m-2 position-absolute end-0" onClick={delContact} ><img src="https://www.pngall.com/wp-content/uploads/6/Delete-Button-PNG-HD-Image.png" height='20' width='20' alt={"delete"} className="p-0"></img></button></span>    
 }
 if(editItem != undefined){    
- action = <span><button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-3" id="addButton" onClick={togglePopup}>{isOpen ? 'x' : 'edit'}</button></span>
+  action = <span>
+    <button type="button" className="btn btn-outline-dark position-absolute top-0 end-0 m-3" id="addButton" onClick={togglePopup}><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Edit_icon_%28the_Noun_Project_30184%29.svg/1024px-Edit_icon_%28the_Noun_Project_30184%29.svg.png" height='20' width='20' alt={"edit"}></img></button>
+    <div style={mystyle}>
+      {isOpen && <CloseButton
+        content={
+          <div>
+            <form>
+              <h3>edit contact</h3>
+              <button type="button" className="m-1 end-0 top-0 position-absolute btn btn-outline-dark" onClick={togglePopup}>X</button>
+              <div className="form-group">
+                <label>Name</label>
+                <input className="form-control" placeholder="name" name="name" required />
+
+              </div>
+              <p></p>
+              <div className="form-group">
+                <label>Server</label>
+                <input className="form-control" placeholder="server" name="server" required />
+              </div>
+
+              <button type="submit" className="btn btn-primary btn-block m-2" onClick={handleSubmit}>
+                Submit
+              </button>
+            </form>
+          </div>
+        } handleClose={togglePopup} />}
+    </div>
+
+  </span>
+ 
 
 }
     // if (userData.messages.length !== 0) {
