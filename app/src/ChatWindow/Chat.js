@@ -49,7 +49,7 @@ class Chat extends React.Component {
 
     async getChat(Contact){
         
-        const res = await fetch("http://localhost:5286/api/contacts/" + Contact.id+ "/messages" ,{
+        const res = await fetch("http://localhost:5286/api/contacts/chat/" + Contact.id ,{
                 method : 'GET',
                 });
                 data=await res.json(); 

@@ -82,6 +82,9 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
           }   
             
 }
+console.log("stam")
+
+
 
 async function addNContact (thisUser, userDetails){
     
@@ -117,7 +120,9 @@ async function addContactToOtherServer (thisUser,otherUser){
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });
-          }    
+          }else{
+            addContact(otherUser);
+          }
 }
   const handleSubmit = useCallback(event => {
     // Prevent page reload
@@ -134,8 +139,10 @@ async function addContactToOtherServer (thisUser,otherUser){
     }else{
       
       if(userData.server != server.value){
-        addContactToOtherServer(userData, contact)
+        addNewContact(userData, contact );
+       // addContactToOtherServer(userData, contact)
         console.log("add to other server...")
+        console.log(contact)
       }else{
         addNewContact(userData, contact );
       }

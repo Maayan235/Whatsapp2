@@ -40,7 +40,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
     },[doUseEffect.value]);
     
 
-
+    
     
     
     //const userData = ContactsData.find((user1) => user1.name === user.name);
