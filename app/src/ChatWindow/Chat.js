@@ -17,6 +17,7 @@ class Chat extends React.Component {
             lastMessage : null,
             chatUsers:[],
             chosenChatMemberNumber: -1,
+            lastList: [],
             chat: null,
             render: false,
         };
@@ -56,10 +57,14 @@ class Chat extends React.Component {
                 if(data){
                     console.log(res)
                     console.log(data);
-                    
+                    var lastList1 = this.state.lastList;
+                    if(data.lastMessage !=null){
+                    lastList1[data.lastMessage.to] = {last: data.lastMessage.content, time: data.lastMessage.time}
+                    }
                     this.setState({
                     chat : data.messages,
                     lastMessage : data.lastMessage,
+                    lastList: lastList1,
                     chatUsers: data.contacts,
                     chosenChatMember: Contact,   
                     isChosedChat:true
@@ -122,7 +127,7 @@ class Chat extends React.Component {
 
         return (
             <Router>
-                <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} chosenChatMember={this.state.chosenChatMember} lastMessage = {this.state.lastMessage}/>
+                <AllContacts user={this.state.conectedUser} setChatMember={this.setChat} logout={this.logout} lastList={this.state.lastList} chosenChatMember={this.state.chosenChatMember} lastMessage = {this.state.lastMessage}/>
                 { this.state.chat!==null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">

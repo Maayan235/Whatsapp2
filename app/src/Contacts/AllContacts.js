@@ -8,7 +8,7 @@ import plusIconImg from "./plusIcon.png"
 import AddContact from '../AddContact/AddContact';
 import { useEffect} from 'react';
 
-function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessage}) {
+function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessage, lastList}) {
     console.log("last..." + lastMessage)
     var contactsData = null;
     const [doUseEffect,setDoUseEffect] = useState({value: 0, id : -2});
@@ -102,7 +102,7 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
             </div>
             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
-            <ContactsListResults relContacts={showContactsList} removeItem={removeContact} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
+            <ContactsListResults relContacts={showContactsList} removeItem={removeContact} lastList={lastList} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
             <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
         </div>
         
