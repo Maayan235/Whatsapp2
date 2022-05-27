@@ -55,6 +55,9 @@ class App extends Component {
                 <li className="nav-item">
                   <Link className="nav-link" to={"/Register"}>Register</Link>
                 </li>
+                <li className="nav-item">
+                <Link className="nav-link" to={{ pathname: "http://localhost:5253/Ratings/Search" }} target="_blank">App Ratings</Link>
+              </li>
               </ul>
             </div>
           </div>
