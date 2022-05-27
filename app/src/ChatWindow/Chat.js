@@ -4,7 +4,7 @@ import ChosenContact from "./ChosenContact";
 import ContactsData from "../Contacts/ContactsData";
 import ChatApp from "./ChatApp";
 import AllContacts from "../Contacts/AllContacts";
-
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 
 var data, chosenMember=null;
 class Chat extends React.Component {
@@ -15,11 +15,13 @@ class Chat extends React.Component {
             chosenChatMember: ContactsData[0],
             isChosedChat: false,
             lastMessage : null,
+            connectionSetAlready: false,
             chatUsers:[],
             chosenChatMemberNumber: -1,
             lastList: [],
             chat: null,
             render: false,
+            connection: null
         };
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();
@@ -29,8 +31,53 @@ class Chat extends React.Component {
         this.setLastMessage=this.setLastMessage.bind(this);    
     }
 
+
+
+    async signToPushMessages(myId, contactId) {
+        var connection;
+        if(this.state.connectionSetAlready){
+          this.closeConnection()
+        }
+      connection = new HubConnectionBuilder()
+        .withUrl("http://localhost:5286/chat")
+        .configureLogging(LogLevel.Information)
+        .build();
+  
+      connection.on("ReceiveMessage", (message) => {
+
+       //this.addMessage(false, message)
+     });
+  
+      await connection.start();
+      await connection.invoke("joinToListeners", {myId, contactId});
+this.setState({
+    connection: connection
+})
+    }
+
+    closeConnection = async () => {
         
-        
+        try {
+          await this.state.connection.stop();
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      
+      
+
+
+    async  pushMessage(content) {
+        // var connection = new HubConnectionBuilder()
+        //   .withUrl("https://localhost:5286/chat")
+        //   .configureLogging(LogLevel.Information)
+        //   .build();
+ 
+        await this.state.connection.start();
+        await this.state.connection.invoke("SendMessage", content);
+ 
+      }
+      
 
 
     setChat = (chatMember) => {
@@ -40,8 +87,23 @@ class Chat extends React.Component {
             chosenChatMember: chatMember,   
         });
         console.log("chat member:",chatMember)
+        
+        this.signToPushMessages(this.state.conectedUser.id, chatMember.id)
         this.getChat(chatMember);
+        
         // this.state.chosenChatMember.numOfMessages = "0";
+
+    }
+
+    handleNewMessage(id, text){
+        if(id == this.state.conectedUser.id){ 
+            this.pushMessage(text);
+            
+        }
+        this.setState({
+            render:true
+        }); 
+
     }
   
       
@@ -111,7 +173,7 @@ class Chat extends React.Component {
             <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderChat={this.renderChat} chat={this.state.chat==null? null:this.state.chat}/>
+                    <ChatApp handleNewMessage={this.state.handleNewMessage} id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderChat={this.renderChat} chat={this.state.chat==null? null:this.state.chat}/>
                 </div>
             </div>
         );

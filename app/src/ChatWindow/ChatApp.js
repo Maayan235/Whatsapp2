@@ -5,6 +5,10 @@ import Audio from "./Audioo";
 import camera from "./camera.png"
 import video from "./videp.png"
 import microphone from "./microphone.png"
+import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+
+var connection;
+var setMessages;
 
 require('../ChatApp.css');
 
@@ -14,7 +18,7 @@ class ChatApp extends React.Component {
 
     this.state = {
 
-      chatContact: this.props.chosenChatMember,
+      chatContact:this.props.chosenChatMember,
       messages: this.props.chat,
       lastMessage: this.props.lastMessage,
       id: this.props.id,
@@ -29,9 +33,10 @@ class ChatApp extends React.Component {
       render: false,
       isRecording: false
     };
-    this.setState= {
-      render : true
-        }
+    this.setState = {
+      render: true
+    }
+    
 
 
     console.log(this.props.chat)
@@ -57,6 +62,21 @@ class ChatApp extends React.Component {
 
   }
 
+
+
+
+  closeConnection = async () => {
+    try {
+      await connection.stop();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+
+  
+  
+
   getCurrentTime() {
     var today = new Date(),
       currentTime = today.getHours() + ':' + today.getMinutes();
@@ -68,19 +88,20 @@ class ChatApp extends React.Component {
       streamAccess: bool
     }
   }
-  sendTextHandler(message) {
-    console.log(message)
-     const messageObject = {
-       from: this.state.id,
-       content:message,
-       time: this.getCurrentTime(),
-     }
-    //this.sendMessage(message)
-    //this.props.renderhat();
-     messageObject.fromMe = true;
-     this.addMessage('Text', messageObject);
-    //this.props.setLastMessage(messageObject);
+  sendTextHandler(content) {
+    console.log(content)
+    const messageObject = {
+      from: this.state.id,
+      content: content,
+      time: this.getCurrentTime(),
+    }
+    this.addMessage(true, messageObject);
+
   }
+  
+
+  
+
   setLastMes(message) {
     this.props.setLastMessage(message)
   }
@@ -102,7 +123,7 @@ class ChatApp extends React.Component {
   sendVideoHandler(src) {
     const messageObject = {
       id: this.props.id,
-      message: src,
+      message: src, 
       time: this.getCurrentTime()
     }
     this.props.renderChat();
@@ -137,9 +158,9 @@ class ChatApp extends React.Component {
       },
       body: JSON.stringify({ content: text })
     }).then(response => {
-      if (response.status == 201 ) {
+      if (response.status == 201) {
         console.log("201 !!!!!!!!!")
-        this.props.setChat(this.props.chosenChatMember)
+       // this.props.setChat(this.props.chosenChatMember)
       }
       console.log(response)
     })
@@ -154,14 +175,14 @@ class ChatApp extends React.Component {
 
 
 
-  addMessage = (messageType, message) => {
+  addMessage = (sendToServerFlag, message) => {
     // Append the message to the component state
     const messages = this.state.messages;
-    //messages.push({ type: messageType, context: message });
     console.log(message);
     console.log(messages);
-    //fetch to save the message in serVER
-    this.sendMessage(message.content);
+    if (sendToServerFlag) {
+      this.sendMessage(message.content);
+    }
     messages.push(message);
     console.log(messages);
 
@@ -193,7 +214,7 @@ class ChatApp extends React.Component {
     this.imageRef.current.click();
   }
 
-  handleVideoClick = event => {
+  handleVideoClick = event => {  
     this.videoRef.current.click();
   }
 
@@ -216,11 +237,11 @@ class ChatApp extends React.Component {
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-11 align-middle border rounded'>
-            <ChatInput type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
+            <ChatInput handleNewMessage={this.props.handleNewMessage} id={this.state.id} type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
           </span>
           <div>
             {this.state.isRecording ?
-              <div><Audio id={this.props.id} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
+              <div><Audio  id={this.props.id} time={this.getCurrentTime} fromMe={true} audioUrl={this.state.audioUrl} send={this.sendAudioHandler} />
 
               </div>
               :
