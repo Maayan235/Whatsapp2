@@ -9,7 +9,7 @@ import unknownImg from "../Components/unknown.png"
 import { useEffect } from 'react';
 
 function ContactItem({ item, contacts, removeItem, setChatMember, contactList, editItem, lastMessage, ableToDelete }) {
-  console.log(lastMessage);
+  //console.log(lastMessage);
 
   if (item.chatLast != undefined && item.chatLast != null) {
     lastMessage = { content: item.chatLast.last, time: item.chatLast.time}
@@ -120,7 +120,6 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
 
     var contact = { id: item.id, server: server.value, name: name.value }
     //console.log("form details:")
-    console.log(contact);
 
     edit(item.id, name.value, server.value);
     editItem(contact)
@@ -133,7 +132,6 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
 
       method: 'DELETE',
     });
-    console.log(res);
     removeItem(item)
   }
 
@@ -153,7 +151,6 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
       body: JSON.stringify({ name: newName, server: newServer })
     });
 
-    console.log(res);
     //editContact(editItem)
   }
 

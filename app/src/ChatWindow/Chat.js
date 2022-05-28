@@ -19,7 +19,6 @@ class Chat extends React.Component {
             chatUsers:[],
             chosenChatMemberNumber: -1,
             lastList: [],
-            pushedMessage: null,
             chat: null,
             render: false,
             //connection: null
@@ -40,7 +39,6 @@ class Chat extends React.Component {
 
     async signToPushMessages(myId, contactId) {
         var connection;
-        console.log("contactId:" + contactId)
         if(this.state.connectionSetAlready){
           this.closeConnection()
         }
@@ -53,7 +51,7 @@ class Chat extends React.Component {
         //this.getChat(this.chosenChatMember);
        //this.addMessage(false, message)
      });
-     console.log("joinToListeners")
+  
       await connection.start();
       await connection.invoke("joinToListeners", {"myId":myId, "chatMember":contactId});
     this.setState({
@@ -81,7 +79,6 @@ class Chat extends React.Component {
         //   .build();
  
         //await this.state.connection.start();
-        console.log("this.state.chosenChatMember.id", this.state.chosenChatMember.id);
         await this.state.connection.invoke("SendMessage", this.state.chosenChatMember.id);
       }
       
@@ -93,13 +90,11 @@ class Chat extends React.Component {
             isChosedChat: true,
             chosenChatMember: chatMember,   
         });
-        console.log("chat member:",chatMember)
         
         //this.signToPushMessages(this.state.conectedUser.id, chatMember.id)
         this.getChat(chatMember);
 
-        console.log("this.child1.renderThis()")
-        this.child1.renderThis(); 
+       // this.child1.renderThis(); 
         // this.state.chosenChatMember.numOfMessages = "0";
         // if (this.state.chat != this.child1.state.messages) {
         //     console.log("this.child1.renderThis()")
@@ -107,12 +102,18 @@ class Chat extends React.Component {
         // }
     }
 
-    handleNewMessage(id, text,to){
-        console.log("in handle message of chat.js!!...")
+    handleNewMessage(id, text){
         if(id == this.state.conectedUser.id){ 
             this.pushMessage(text);
         }
+       
+        var lastList1 = this.state.lastList;
+        var today = new Date();
+          var currentTime = today.getHours() + ':' + today.getMinutes();
+        lastList1[this.state.chosenChatMember.id] = {last: text, time: currentTime};
+                   
         this.setState({
+            lastList: lastList1,
             render:true
         }); 
 
@@ -126,12 +127,12 @@ class Chat extends React.Component {
                 });
                 data=await res.json(); 
                 if(data){
-                    console.log(res)
-                    console.log(data);
-                    console.log("lastMessage: ", data.lastMessage);
+                   
+                    // console.log(data);
+                    // console.log("lastMessage: ", data.lastMessage);
                     var lastList1 = this.state.lastList;
                     if(data.lastMessage !=null){
-                    lastList1[data.lastMessage.to] = {last: data.lastMessage.content, time: data.lastMessage.time}
+                    lastList1[this.state.chosenChatMember.id] = {last: data.lastMessage.content, time: data.lastMessage.time}
                     }
                     this.setState({
                     chat : data.messages,
@@ -143,10 +144,9 @@ class Chat extends React.Component {
                     },()=>{
                         // this.child.renderComponent();
                         //lastMessage = data.lastMessage;
-                          console.log("this.state.chatUsers:",  this.state.chatUsers)
-                          console.log( this.state.chosenChatMember)
 
-                          
+                        console.log(data);
+                        console.log("lastMessage: ", data.lastMessage);
                           
                         //  this.setState({
                         //      render:true,
@@ -156,13 +156,11 @@ class Chat extends React.Component {
 
                     
                 }
-                console.log(res)
                 
                 // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
             }
 
     renderChat(){
-        console.log("im in render of chat! !" )
         this.setState({
             render:true
         }); 
@@ -173,7 +171,6 @@ class Chat extends React.Component {
         this.props.setIsSubmitted(false);
     }
     setLastMessage(message){
-        console.log("last message..", message)
         this.setState({
             lastMessage: message
         })

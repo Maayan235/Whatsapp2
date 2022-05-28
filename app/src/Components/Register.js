@@ -13,9 +13,7 @@ export default function Register() {
 
     async function SignUser(userDetails){
         const res = await fetch("http://localhost:5286/api/getUser/" + userDetails.id);
-        console.log(res);
         const data = await res.json();
-        console.log(data);
         if(data.id != userDetails.id){
             //if (!userData) {
                 setErrorMessage("sucsses!");  
@@ -32,7 +30,6 @@ export default function Register() {
                     'Content-Type' : 'application/json'
                 },
                 body: JSON.stringify({id : userDetails.id, Password: userDetails.password, name: userDetails.name, ProfilePicSrc: userDetails.profilePicSrc })});  
-                console.log(res);
                 
                 
                 ContactsData.push({ name: userDetails.id, password: userDetails.password, numOfMessages: "0",name: userDetails.name, pic: userDetails.profilePicSrc, messages:[], myContactList: []});

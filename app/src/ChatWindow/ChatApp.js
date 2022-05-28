@@ -19,7 +19,7 @@ class ChatApp extends React.Component {
     this.state = {
 
       chatContact:this.props.chosenChatMember,
-      messages: this.props.chat == null? [] : this.props.chat ,
+      messages: this.props.chat,
       lastMessage: this.props.lastMessage,
       id: this.props.id,
       time: this.getCurrentTime(),
@@ -37,7 +37,6 @@ class ChatApp extends React.Component {
     this.setState = {
       render: true
     }
-    console.log(this.props.chat)
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
     this.sendVideoHandler = this.sendVideoHandler.bind(this);
@@ -66,8 +65,7 @@ class ChatApp extends React.Component {
     // })
     //this.renderThis();
     //this.setState({});
-      console.log("this.props.chat", this.props.chat);
-      console.log("this.state.messages", this.state.messages);
+    
   }
 
   renderThis = () => {
@@ -166,10 +164,8 @@ class ChatApp extends React.Component {
       body: JSON.stringify({ content: text })
     }).then(response => {
       if (response.status == 201) {
-        console.log("201 !!!!!!!!!")
        // this.props.setChat(this.props.chosenChatMember)
       }
-      console.log(response)
     })
 
 
@@ -182,11 +178,9 @@ class ChatApp extends React.Component {
 
 
 
-  addMessage  (sendToServerFlag, message)  {
+  addMessage = (sendToServerFlag, message) => {
     // Append the message to the component state
     const messages = this.props.chat;
-    console.log(message);
-    console.log(this.state.messages);
     if (sendToServerFlag) {
       this.sendMessage(message.content);
     }
@@ -229,9 +223,6 @@ class ChatApp extends React.Component {
     this.setState({
       isRecording: true
     });
-  }
-  handleNewMessage = (content) => {
-      this.props.handleNewMessage(content, this.state.id, this.state.chatContact.id)
   }
 
   executeScroll = () => window.scrollTo(0, this.scroll.current.offsetTop);

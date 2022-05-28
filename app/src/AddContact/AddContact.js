@@ -71,7 +71,6 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
-            console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });
@@ -82,7 +81,6 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
           }   
             
 }
-console.log("stam")
 
 
 
@@ -95,7 +93,7 @@ async function addNContact (thisUser, userDetails){
               'Content-Type' : 'application/json'
           },
           body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
-          console.log(res);
+
         if(res.status!=201){
           //console.log("not 201..")
           setErrorMessage({ name: "uname", message: errors.uname });
@@ -116,7 +114,6 @@ async function addContactToOtherServer (thisUser,otherUser){
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({from : thisUser.id,to: otherUser.id, server: thisUser.server})});  
-            console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });

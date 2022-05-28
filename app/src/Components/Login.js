@@ -32,14 +32,12 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                     'Content-Type' : 'application/json'
                 },
                 body: JSON.stringify({id:id2 })}); 
-                console.log(res)
                 if(res.status == 201){
                     signIn(id2,userData);
                 } 
                 // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
             }
             async function signIn(uname, userData){
-                console.log("in sign in...")
                 const res = await fetch("http://localhost:5286/api/signIn/" +uname,{
             
                     method : 'POST',
@@ -47,7 +45,6 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                         'Content-Type' : 'application/json'
                     },
                     body: JSON.stringify({})});
-                    console.log(res)
                     if(res.status == 200){
                         setUser(userData);
                         onSubmit(true);
@@ -57,13 +54,9 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         
         const user = await fetch("http://localhost:5286/api/getUser/" + uname.value);
         //const user = await promise;
-        console.log(user);
         const userData = await user.json();
-        console.log(userData);
         //setTimeout(2500);
-        
-        console.log("uname:" +uname.value)
-        console.log("serverRet" + userData.id)
+    
         if (userData.id == uname.value) {
             if (userData.password !== pass.value) {
                 // Invalid password

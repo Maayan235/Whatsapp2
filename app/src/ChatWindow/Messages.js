@@ -29,7 +29,6 @@ class Messages extends React.Component {
       });
     }
     else{
-      console.log("nul...............")
     }
     return (
      

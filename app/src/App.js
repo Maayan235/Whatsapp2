@@ -44,13 +44,11 @@ class App extends Component {
     .build();
 
     myConnection.on("ReceiveMessage", (message) => {
-      console.log("GOT IT");
       this.child.setChat(this.child.state.chosenChatMember);
     //this.getChat(this.chosenChatMember);
    //this.addMessage(false, message)
  });
 
- console.log("myconnection:", myConnection);
  this.setState({
      connection: myConnection,
      //connectionSetAlready: true
@@ -64,7 +62,6 @@ closeConnection = async () => {
     try {
       await this.state.connection.stop();
     } catch (e) {
-      console.log(e);
     }
   }
   
