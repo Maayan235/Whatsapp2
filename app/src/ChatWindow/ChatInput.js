@@ -19,6 +19,7 @@ class ChatInput extends React.Component {
 
     // Call the onSend callback with the chatInput message
     this.props.onSend(this.state.chatInput);
+    this.props.handleNewMessage(this.props.id);
   }
 
   textChangeHandler(event)  {

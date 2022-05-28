@@ -15,15 +15,43 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
     lastMessage = { content: item.chatLast.last, time: item.chatLast.time}
   }else{
     if(item.last != null && item.last != undefined){
-
-    lastMessage = { content: item.last, time: item.lastDate }
+     // var date = item.lastdate
+    lastMessage = { content: item.last, time: item.lastDate
+    }
     }else{
       lastMessage = { content: "", time: "" }
     }
     
   }
  
+
   console.log(item);
+  
+  
+  
+  // async function signToPushMessages(myId) {
+  //   connection = new HubConnectionBuilder()
+  //     .withUrl("https://localhost:5286/chat")
+  //     .configureLogging(LogLevel.Information)
+  //     .build();
+
+  //   connection.on("ReceiveMessage", (user, message) => {
+  //     renderChat
+  //     // this.addMessage(false, message)
+  //   });
+
+  //   await connection.start();
+  //   await connection.invoke("joinToListeners", myId);
+  //   setConnection(connection);
+
+
+  // }
+  
+  
+  
+  
+  
+  
   // //var lastMessage = item.lastMessage, userData = item;
   // if (lastMessage != null) {
 
@@ -75,7 +103,9 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
   function handleClick() {
     if (setChatMember != undefined) {
       setChatMember(item);
+      // signToPushMessages();
     }
+
   }
 
   function delContact() {

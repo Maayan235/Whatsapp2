@@ -19,6 +19,7 @@ class Chat extends React.Component {
             chatUsers:[],
             chosenChatMemberNumber: -1,
             lastList: [],
+            pushedMessage: null,
             chat: null,
             render: false,
             //connection: null
@@ -39,6 +40,7 @@ class Chat extends React.Component {
 
     async signToPushMessages(myId, contactId) {
         var connection;
+        console.log("contactId:" + contactId)
         if(this.state.connectionSetAlready){
           this.closeConnection()
         }
@@ -51,7 +53,7 @@ class Chat extends React.Component {
         //this.getChat(this.chosenChatMember);
        //this.addMessage(false, message)
      });
-  
+     console.log("joinToListeners")
       await connection.start();
       await connection.invoke("joinToListeners", {"myId":myId, "chatMember":contactId});
     this.setState({
@@ -105,7 +107,8 @@ class Chat extends React.Component {
         // }
     }
 
-    handleNewMessage(id, text){
+    handleNewMessage(id, text,to){
+        console.log("in handle message of chat.js!!...")
         if(id == this.state.conectedUser.id){ 
             this.pushMessage(text);
         }
