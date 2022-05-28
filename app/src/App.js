@@ -45,6 +45,7 @@ class App extends Component {
 
     myConnection.on("ReceiveMessage", (message) => {
       console.log("GOT IT");
+      this.child.setChat(this.child.state.chosenChatMember);
     //this.getChat(this.chosenChatMember);
    //this.addMessage(false, message)
  });
@@ -74,7 +75,7 @@ closeConnection = async () => {
       <Router>
         <div className="container-fluid h-100">
           <div className="row">
-            <Chat user={this.state.user} setIsSubmitted={this.setIsSubmitted} connection = {this.state.connection} />
+            <Chat user={this.state.user} setIsSubmitted={this.setIsSubmitted} connection = {this.state.connection} ref={instance => { this.child = instance; }}/>
           </div>
         </div>
       </Router>

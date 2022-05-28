@@ -31,17 +31,13 @@ class ChatApp extends React.Component {
       audioUrl: { url: null },
       streamAccess: false,
       render: false,
-      isRecording: false
+      isRecording: false,
+      count: 0
     };
     this.setState = {
       render: true
     }
-    
-
-
     console.log(this.props.chat)
-
-
     this.sendTextHandler = this.sendTextHandler.bind(this);
     this.sendImageHandler = this.sendImageHandler.bind(this);
     this.sendVideoHandler = this.sendVideoHandler.bind(this);
@@ -60,11 +56,25 @@ class ChatApp extends React.Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.setLastMes = this.setLastMes.bind(this);
     this.addMessage = this.addMessage.bind(this);
+    this.renderThis = this.renderThis.bind(this); 
   }
 
+  componentDidUpdate = () => {
+    var chat =  this.props.chat;
+    // this.setState(currentState => {
+    //   return { count: currentState.count + 1 };
+    // })
+    //this.renderThis();
+    //this.setState({});
+      console.log("this.props.chat", this.props.chat);
+      console.log("this.state.messages", this.state.messages);
+  }
 
-
-
+  renderThis = () => {
+    this.setState({
+      count: 0
+    })
+  }
   closeConnection = async () => {
     try {
       await connection.stop();
@@ -73,9 +83,6 @@ class ChatApp extends React.Component {
     }
   }
 
-
-  
-  
 
   getCurrentTime() {
     var today = new Date(),
@@ -88,6 +95,7 @@ class ChatApp extends React.Component {
       streamAccess: bool
     }
   }
+
   sendTextHandler(content) {
     console.log(content)
     const messageObject = {
@@ -96,7 +104,6 @@ class ChatApp extends React.Component {
       time: this.getCurrentTime(),
     }
     this.addMessage(true, messageObject);
-
   }
   
 
@@ -177,7 +184,7 @@ class ChatApp extends React.Component {
 
   addMessage = (sendToServerFlag, message) => {
     // Append the message to the component state
-    const messages = this.state.messages;
+    const messages = this.props.chat;
     console.log(message);
     console.log(messages);
     if (sendToServerFlag) {
@@ -233,7 +240,7 @@ class ChatApp extends React.Component {
           {
             // <Messages messages={this.props.chosenChatMember.messages} />
           }
-          <Messages id={this.state.id} messages={this.state.messages} />
+          <Messages id={this.state.id} messages={this.props.chat} />
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-11 align-middle border rounded'>

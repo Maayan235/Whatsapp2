@@ -22,7 +22,8 @@ class Chat extends React.Component {
             chat: null,
             render: false,
             //connection: null
-            connection: this.props.connection
+            connection: this.props.connection,
+            counter: 0
         };
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();
@@ -34,13 +35,6 @@ class Chat extends React.Component {
         this.closeConnection = this.closeConnection.bind(this);
         this.pushMessage = this.pushMessage.bind(this);
         this.handleNewMessage = this.handleNewMessage.bind(this);  
-    }
-
-    componentDidUpdate = () => {
-        {console.log("connection:", this.state.connection)}
-        // if (this.isChosedChat) {
-        //     this.signToPushMessages(this.state.conectedUser.id, this.chosenChatMember.id);
-        // }
     }
 
     async signToPushMessages(myId, contactId) {
@@ -85,7 +79,8 @@ class Chat extends React.Component {
         //   .build();
  
         //await this.state.connection.start();
-        await this.state.connection.invoke("SendMessage", "Maayan");
+        console.log("this.state.chosenChatMember.id", this.state.chosenChatMember.id);
+        await this.state.connection.invoke("SendMessage", this.state.chosenChatMember.id);
       }
       
 
@@ -98,9 +93,16 @@ class Chat extends React.Component {
         });
         console.log("chat member:",chatMember)
         
-        this.signToPushMessages(this.state.conectedUser.id, chatMember.id)
+        //this.signToPushMessages(this.state.conectedUser.id, chatMember.id)
         this.getChat(chatMember);
+
+        console.log("this.child1.renderThis()")
+        this.child1.renderThis(); 
         // this.state.chosenChatMember.numOfMessages = "0";
+        // if (this.state.chat != this.child1.state.messages) {
+        //     console.log("this.child1.renderThis()")
+        //     this.child1.renderThis(); 
+        // }
     }
 
     handleNewMessage(id, text){
@@ -123,6 +125,7 @@ class Chat extends React.Component {
                 if(data){
                     console.log(res)
                     console.log(data);
+                    console.log("lastMessage: ", data.lastMessage);
                     var lastList1 = this.state.lastList;
                     if(data.lastMessage !=null){
                     lastList1[data.lastMessage.to] = {last: data.lastMessage.content, time: data.lastMessage.time}
@@ -135,9 +138,9 @@ class Chat extends React.Component {
                     chosenChatMember: Contact,   
                     isChosedChat:true
                     },()=>{
-                        
+                        // this.child.renderComponent();
                         //lastMessage = data.lastMessage;
-                          console.log( this.state.chatUsers)
+                          console.log("this.state.chatUsers:",  this.state.chatUsers)
                           console.log( this.state.chosenChatMember)
 
                           
@@ -178,7 +181,7 @@ class Chat extends React.Component {
             <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp handleNewMessage={this.state.handleNewMessage} id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderChat={this.renderChat} chat={this.state.chat==null? null:this.state.chat}/>
+                    <ChatApp handleNewMessage={this.state.handleNewMessage} id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} ref={this.chatChanged} renderChat={this.renderChat} chat={this.state.chat==null? null:this.state.chat} counter={this.state.counter}/>
                 </div>
             </div>
         );
@@ -198,7 +201,7 @@ class Chat extends React.Component {
                 { this.state.chat!==null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} handleNewMessage = {this.handleNewMessage}/>
+                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} handleNewMessage = {this.handleNewMessage} ref={instance => { this.child1 = instance; }}/>
                 </div>
             </div> : renderHello}
             </Router>
