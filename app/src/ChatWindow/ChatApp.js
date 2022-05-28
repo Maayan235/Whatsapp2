@@ -59,7 +59,7 @@ class ChatApp extends React.Component {
     this.handleAudioClick = this.handleAudioClick.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
     this.setLastMes = this.setLastMes.bind(this);
-
+    this.addMessage = this.addMessage.bind(this);
   }
 
 
@@ -185,8 +185,8 @@ class ChatApp extends React.Component {
     }
     messages.push(message);
     console.log(messages);
-
-    this.setState({ messages: messages });
+    //this.setState({ messages: messages });
+    this.props.handleNewMessage(this.state.id, message);
   }
 
   onImageChange = event => {
@@ -237,7 +237,7 @@ class ChatApp extends React.Component {
         </div>
         <div className="position-absolute bottom-0 end-0 col-9">
           <span className='list-inline-item col-11 align-middle border rounded'>
-            <ChatInput handleNewMessage={this.props.handleNewMessage} id={this.state.id} type="text" id="writeMessage" className="" onSend={this.sendTextHandler} />
+            <ChatInput handleNewMessage={this.props.handleNewMessage} id={this.state.id} type="text" idM="writeMessage" className="" onSend={this.sendTextHandler} />
           </span>
           <div>
             {this.state.isRecording ?

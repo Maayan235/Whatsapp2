@@ -21,17 +21,27 @@ class Chat extends React.Component {
             lastList: [],
             chat: null,
             render: false,
-            connection: null
+            //connection: null
+            connection: this.props.connection
         };
         this.setChat = this.setChat.bind(this);
         this.chatChanged = React.createRef();
         this.logout = this.logout.bind(this);
         this.renderChat= this.renderChat.bind(this);
         this.getChat= this.getChat.bind(this);
-        this.setLastMessage=this.setLastMessage.bind(this);    
+        this.setLastMessage=this.setLastMessage.bind(this);  
+        this.signToPushMessages = this.signToPushMessages.bind(this);
+        this.closeConnection = this.closeConnection.bind(this);
+        this.pushMessage = this.pushMessage.bind(this);
+        this.handleNewMessage = this.handleNewMessage.bind(this);  
     }
 
-
+    componentDidUpdate = () => {
+        {console.log("connection:", this.state.connection)}
+        // if (this.isChosedChat) {
+        //     this.signToPushMessages(this.state.conectedUser.id, this.chosenChatMember.id);
+        // }
+    }
 
     async signToPushMessages(myId, contactId) {
         var connection;
@@ -44,15 +54,16 @@ class Chat extends React.Component {
         .build();
   
       connection.on("ReceiveMessage", (message) => {
-
+        //this.getChat(this.chosenChatMember);
        //this.addMessage(false, message)
      });
   
       await connection.start();
-      await connection.invoke("joinToListeners", {myId, contactId});
-this.setState({
-    connection: connection
-})
+      await connection.invoke("joinToListeners", {"myId":myId, "chatMember":contactId});
+    this.setState({
+        connection: connection,
+        connectionSetAlready: true
+    })
     }
 
     closeConnection = async () => {
@@ -67,15 +78,14 @@ this.setState({
       
 
 
-    async  pushMessage(content) {
+    async pushMessage(content) {
         // var connection = new HubConnectionBuilder()
         //   .withUrl("https://localhost:5286/chat")
         //   .configureLogging(LogLevel.Information)
         //   .build();
  
-        await this.state.connection.start();
-        await this.state.connection.invoke("SendMessage", content);
- 
+        //await this.state.connection.start();
+        await this.state.connection.invoke("SendMessage", "Maayan");
       }
       
 
@@ -90,15 +100,12 @@ this.setState({
         
         this.signToPushMessages(this.state.conectedUser.id, chatMember.id)
         this.getChat(chatMember);
-        
         // this.state.chosenChatMember.numOfMessages = "0";
-
     }
 
     handleNewMessage(id, text){
         if(id == this.state.conectedUser.id){ 
             this.pushMessage(text);
-            
         }
         this.setState({
             render:true
@@ -106,9 +113,6 @@ this.setState({
 
     }
   
-      
-      
-    
 
     async getChat(Contact){
         
@@ -159,6 +163,7 @@ this.setState({
     }
 
     logout() {
+        this.closeConnection();
         this.props.setIsSubmitted(false);
     }
     setLastMessage(message){
@@ -193,7 +198,7 @@ this.setState({
                 { this.state.chat!==null && this.state.chatUsers.indexOf(this.state.chosenChatMember.id) !== -1 ? <div className="col-9 vh-100 p-0">
                 <ChosenContact id={this.state.chosenChatMember.id} name={this.state.chosenChatMember.name} pic={this.state.chosenChatMember.pic} messeges={this.state.chosenChatMember.messeges} />
                 <div className="align-items-end ">
-                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} />
+                    <ChatApp id={this.state.conectedUser.id} chosenChatMember={this.state.chosenChatMember} setChat={this.setChat} renderChat={this.renderChat} chat={this.state.chat} setLastMessage ={this.setLastMessage} handleNewMessage = {this.handleNewMessage}/>
                 </div>
             </div> : renderHello}
             </Router>
