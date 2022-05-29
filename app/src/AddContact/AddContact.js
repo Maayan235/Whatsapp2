@@ -64,13 +64,14 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
 
   async function addNewContact (thisUser, userDetails){
     
-    const res = await fetch("http://localhost:5286/api/contacts/" , {
+    const res = await fetch("http://"+ thisUser.server +"/api/contacts/" , {
     
             method : 'POST',
             headers: {
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
+            console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });
@@ -81,19 +82,20 @@ function  AddContact({id, addContact, className, userData, removeItem, relContac
           }   
             
 }
+console.log("stam")
 
 
 
 async function addNContact (thisUser, userDetails){
     
-  const res = await fetch("http://localhost:5286/api/invitations/" , {
+  const res = await fetch("http://"+userDetails.server+"/api/invitations/" , {
   
           method : 'POST',
           headers: {
               'Content-Type' : 'application/json'
           },
           body: JSON.stringify({id : userDetails.id, name : userDetails.name, server : userDetails.server})});  
-
+          console.log(res);
         if(res.status!=201){
           //console.log("not 201..")
           setErrorMessage({ name: "uname", message: errors.uname });
@@ -114,6 +116,7 @@ async function addContactToOtherServer (thisUser,otherUser){
                 'Content-Type' : 'application/json'
             },
             body: JSON.stringify({from : thisUser.id,to: otherUser.id, server: thisUser.server})});  
+            console.log(res);
           if(res.status!=201){
             //console.log("not 201..")
             setErrorMessage({ name: "uname", message: errors.uname });

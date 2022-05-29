@@ -26,37 +26,54 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     // }
     async function postUser(id2, userData){
         
-        const res = await fetch("http://localhost:5286/api/logIn",{
+        const res = await fetch("http://"+userData.server+"/api/logIn",{
                 method : 'POST',
                 headers: {
                     'Content-Type' : 'application/json'
                 },
                 body: JSON.stringify({id:id2 })}); 
+                console.log(res)
                 if(res.status == 201){
                     signIn(id2,userData);
                 } 
                 // Chats: user.Chats, ProfilePicSrc: user.ProfilePicSrc, server: user.server,Id: user.id, id : user.id, Password: user.password, name: user.name, Contacts:user.contacts
             }
             async function signIn(uname, userData){
-                const res = await fetch("http://localhost:5286/api/signIn/" +uname,{
+                console.log("in sign in...")
+                const res = await fetch("http://"+userData.server+"/api/signIn/" +uname,{
             
                     method : 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
                     },
                     body: JSON.stringify({})});
+                    console.log(res)
                     if(res.status == 200){
                         setUser(userData);
                         onSubmit(true);
                     } 
                 }
-    async function checkUser(uname,pass){
-        
-        const user = await fetch("http://localhost:5286/api/getUser/" + uname.value);
+    async function checkUser(uname, pass, server){
+        console.log(server.value)
+        var address = (server.value)
+        if(address.includes("http://")) {
+            address = address.replace("http://", "")
+        }
+        if(address.includes("/")) {
+            address = address.replace("/", "")
+        }
+        console.log(address)
+        const user = await fetch("http://" + address + "/api/getUser/" + uname.value);
         //const user = await promise;
-        const userData = await user.json();
+        console.log(user);
+        var userData = await user.json();
+        userData['server'] = address;
+
+        console.log(userData);
         //setTimeout(2500);
-    
+        
+        console.log("uname:" +uname.value)
+        console.log("serverRet" + userData.id)
         if (userData.id == uname.value) {
             if (userData.password !== pass.value) {
                 // Invalid password
@@ -79,13 +96,12 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
     const handleSubmit = useCallback(event => {
         // Prevent page reload
         event.preventDefault();
-
-        var { uname, pass } = document.
-        forms[0];
+        console.log(document.forms[0]);
+        var { uname, pass, server } = document.forms[0];
 
         // Find user login info
         
-       var userData =checkUser(uname, pass)
+       var userData =checkUser(uname, pass, server)
         //const userData = ContactsData.find((user) => user.name === uname.value);
         // Compare user info
 
@@ -110,6 +126,10 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         <label>Password</label>
         <input type="password" className="form-control" placeholder="Enter password" name="pass" required/>
         {renderErrorMessage("pass")}
+    </div>
+    <div className="form-group">
+    <label>Server address</label>
+    <input type="email" className="form-control" placeholder="Enter address" name="server" required/>
     </div>
     <div className="regButton">
     <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>

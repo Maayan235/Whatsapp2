@@ -9,9 +9,10 @@ import AddContact from '../AddContact/AddContact';
 import { useEffect} from 'react';
 
 function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessage, lastList}) {
-    //console.log("last..." + lastMessage)
+    console.log("last..." + lastMessage)
     var contactsData = null;
     const [doUseEffect,setDoUseEffect] = useState({value: 0, id : -2});
+    console.log(doUseEffect);
      if(doUseEffect!==null && doUseEffect != undefined&& lastMessage != null){
          //if(lastMessage.id != doUseEffect.id){
         // console.log("yay im in!")
@@ -21,13 +22,16 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
     
     const [contactsList,setContactsList]= useState([]);
     const [showContactsList, setShowContactsList] = useState([]); //userContactsList);
+   console.log("allcontacts...")
     //useAffect
     //async function getContacts(){
     useEffect(async ()=> {
-        const contacts = await fetch("http://localhost:5286/api/contacts" ,{
+        const contacts = await fetch("http://"+user.server+"/api/contacts" ,{
     
             method : 'GET' })
+        console.log(contacts);
         contactsData = await contacts.json();
+        console.log(contactsData)
         
         setContactsList(contactsData);
         //console.log(contactsList)

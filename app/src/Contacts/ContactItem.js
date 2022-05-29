@@ -9,13 +9,11 @@ import unknownImg from "../Components/unknown.png"
 import { useEffect } from 'react';
 
 function ContactItem({ item, contacts, removeItem, setChatMember, contactList, editItem, lastMessage, ableToDelete }) {
-  //console.log(lastMessage);
 
   if (item.chatLast != undefined && item.chatLast != null) {
     lastMessage = { content: item.chatLast.last, time: item.chatLast.time}
   }else{
     if(item.last != null && item.last != undefined){
-     // var date = item.lastdate
     lastMessage = { content: item.last, time: item.lastDate
     }
     }else{
@@ -24,68 +22,7 @@ function ContactItem({ item, contacts, removeItem, setChatMember, contactList, e
     
   }
  
-
-  console.log(item);
-  
-  
-  
-  // async function signToPushMessages(myId) {
-  //   connection = new HubConnectionBuilder()
-  //     .withUrl("https://localhost:5286/chat")
-  //     .configureLogging(LogLevel.Information)
-  //     .build();
-
-  //   connection.on("ReceiveMessage", (user, message) => {
-  //     renderChat
-  //     // this.addMessage(false, message)
-  //   });
-
-  //   await connection.start();
-  //   await connection.invoke("joinToListeners", myId);
-  //   setConnection(connection);
-
-
-  // }
-  
-  
-  
-  
-  
-  
-  // //var lastMessage = item.lastMessage, userData = item;
-  // if (lastMessage != null) {
-
-  //   if ((lastMessage.to == item.id) && item != null) {
-  //     console.log("last message to.. " + item.id)
-  //   } else {
-  //     if (item.chatLast != undefined && item.chatLast != null) {
-  //       console.log("innnnnnnnnnn!");
-  //       lastMessage = { content: item.chatLast.last, time: item.chatLast.time }
-  //     } else {
-  //       lastMessage = { content: "", time: "" }
-  //     }
-  //   }
-
-  // } else {
-  //   lastMessage = { content: item.last, time: item.lastDate }
-  // }
-
-  // console.log("contactItem fetch..")
-  // useEffect(async ()=> {
-  // const res = await fetch("http://localhost:5286/api/contacts/" + item.id + "/lastMessage",{
-  //   method : 'GET',
-  //   });
-  //   console.log(res)
-  //   lastMessage = await res.json();      
-  //   console.log(lastMessage)
-  // });
-
   const [editVar, setEditVar] = useState(<div></div>);
-  // if (!userData) {
-  //     userData = ContactsData.find((user) => user.id === item.name);
-  // }
-
-  //let lastMessage = null;
 
   const mystyle = {
     position: "fixed",
