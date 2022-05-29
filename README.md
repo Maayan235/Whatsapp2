@@ -1,5 +1,8 @@
-# Whatsapp2
-IMPORTANT! Our Project is in branch ex1.
+# Whatsapp2 - ex1 and ex2 branches
+
+**IMPORTANT! 
+Our ex1 Project is in branch ex1.
+Our ex2 Project is in branch ex2.**
 
 Project of:
 
