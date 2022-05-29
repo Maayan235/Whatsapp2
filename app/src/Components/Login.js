@@ -54,14 +54,15 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
                     } 
                 }
     async function checkUser(uname, pass, server){
-        console.log(server.value)
-        var address = (server.value)
-        if(address.includes("http://")) {
-            address = address.replace("http://", "")
-        }
-        if(address.includes("/")) {
-            address = address.replace("/", "")
-        }
+        var address = server;
+        // console.log(server.value)
+        //var address = (server.value)
+        // if(address.includes("http://")) {
+        //     address = address.replace("http://", "")
+        // }
+        // if(address.includes("/")) {
+        //     address = address.replace("/", "")
+        // }
         console.log(address)
         const user = await fetch("http://" + address + "/api/getUser/" + uname.value);
         //const user = await promise;
@@ -97,8 +98,8 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         // Prevent page reload
         event.preventDefault();
         console.log(document.forms[0]);
-        var { uname, pass, server } = document.forms[0];
-
+        var { uname, pass } = document.forms[0];
+        var server = "localhost:5286"
         // Find user login info
         
        var userData =checkUser(uname, pass, server)
@@ -126,10 +127,6 @@ export default function Login({ isSubmitted, onSubmit, setUser }) {
         <label>Password</label>
         <input type="password" className="form-control" placeholder="Enter password" name="pass" required/>
         {renderErrorMessage("pass")}
-    </div>
-    <div className="form-group">
-    <label>Server address</label>
-    <input type="email" className="form-control" placeholder="Enter address" name="server" required/>
     </div>
     <div className="regButton">
     <button type="submit" className="btn btn-primary btn-block" onClick={handleSubmit}>

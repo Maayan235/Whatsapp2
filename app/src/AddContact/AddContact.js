@@ -139,8 +139,8 @@ async function addContactToOtherServer (thisUser,otherUser){
     }else{
       
       if(userData.server != server.value){
-        addNewContact(userData, contact );
-       // addContactToOtherServer(userData, contact)
+        //addNewContact(userData, contact );
+        addContactToOtherServer(userData, contact)
         console.log("add to other server...")
         console.log(contact)
       }else{

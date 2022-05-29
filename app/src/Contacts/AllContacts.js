@@ -100,7 +100,6 @@ function AllContacts({ user, setChatMember, logout, chosenChatMember, lastMessag
             <div className='d-flex align-items-center p-3'>
                 <span>{profilePic}</span><span id='id'>{user.name}</span>
             </div>
-            <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
             <Search doSearch={doSearch} />
             <ContactsListResults relContacts={showContactsList} removeItem={removeContact} lastList={lastList} id={user.id} setChatMember={changeChat} chosenChatMember={chosenChatMember} lastMessage={lastMessage}/>
             <AddContact id={user.id} addContact={addContact} removeItem={removeContact} editContact={editContact} relContacts={contactsList}  className="popUp" userData={user}/>
@@ -114,3 +113,4 @@ export default AllContacts
 
 
 
+//             <button type="button" className="btn btn-outline-dark position-absolute bottom-0 start-0 m-2" onClick={logout}>logout</button>
